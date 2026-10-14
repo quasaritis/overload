@@ -1,6 +1,6 @@
-# Overload
+# Labour Chowk
 
-A training log built around progressive overload. Log your sets; Overload reads your last session and
+A training log built around progressive overload. Log your sets; Labour Chowk reads your last session and
 calls the **next attempt** — weight, reps, and the plates to load on each side of the bar.
 
 ## What it does

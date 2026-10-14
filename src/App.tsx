@@ -33,7 +33,7 @@ function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }
     <div className="shell">
       <nav className="nav" aria-label="Main">
         <NavLink to="/" className="brand" end>
-          <Mark /> Overload
+          <Mark /> Labour Chowk
         </NavLink>
         <NavLink to="/" end>
           <CalendarDays aria-hidden /> Today

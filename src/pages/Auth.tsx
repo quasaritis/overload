@@ -55,11 +55,11 @@ export default function AuthPage() {
             <rect x="44" y="12" width="8" height="40" rx="2" fill="var(--plate-25)" />
             <rect x="37" y="17" width="6" height="30" rx="2" fill="var(--plate-20)" />
           </svg>
-          Overload
+          Labour Chowk
         </div>
         <h1 className="t-display auth-h">Every session, a heavier attempt.</h1>
         <p className="auth-sub">
-          Log your sets. Overload reads your last session and calls the next attempt — the weight, the reps, and the plates to load.
+          Log your sets. Labour Chowk reads your last session and calls the next attempt — the weight, the reps, and the plates to load.
         </p>
 
         <div className="board auth-board" aria-label="Example of a next attempt">

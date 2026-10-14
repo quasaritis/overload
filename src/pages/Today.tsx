@@ -151,7 +151,7 @@ export default function Today() {
       {!open && !plan && (
         <div className="empty" style={{ paddingTop: 0 }}>
           <h3>No active plan</h3>
-          <p className="muted" style={{ maxWidth: '52ch' }}>Pick a starter plan or build your own. Overload needs a plan to call your next attempt — or just log a free workout.</p>
+          <p className="muted" style={{ maxWidth: '52ch' }}>Pick a starter plan or build your own. Labour Chowk needs a plan to call your next attempt — or just log a free workout.</p>
           <div className="row" style={{ flexWrap: 'wrap' }}>
             <Link to="/plans" className="btn primary lg">Choose a plan <ArrowRight /></Link>
             <button className="btn lg" onClick={() => start(false)} disabled={starting}><Plus /> Empty workout</button>

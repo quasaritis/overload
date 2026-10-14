@@ -245,7 +245,7 @@ export default function Workout() {
       {blocks.length === 0 && (
         <div className="empty">
           <h3>Empty bar</h3>
-          <p className="muted">Add your first exercise. Overload will pull your last session and call the next attempt.</p>
+          <p className="muted">Add your first exercise. Labour Chowk will pull your last session and call the next attempt.</p>
         </div>
       )}
 

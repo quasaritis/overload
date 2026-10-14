@@ -1,4 +1,4 @@
-# Overload — design system ("Meet Day")
+# Labour Chowk — design system ("Meet Day")
 
 The interface borrows from a powerlifting meet: a matte stage, chalk-white numerals on a scoreboard,
 calibrated plate colours, and the three judges' lights. It's built for a phone glanced at between sets,
