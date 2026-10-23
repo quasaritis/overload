@@ -3,7 +3,7 @@ import { CalendarDays, Dumbbell, LineChart, ListChecks, UserRound, Utensils } fr
 import { Suspense, lazy, useEffect } from 'react';
 import { useApp } from './lib/app';
 import { configured } from './lib/supabase';
-import { Loading } from './components/ui';
+import { Brandmark, Loading } from './components/ui';
 import AuthPage, { NewPassword } from './pages/Auth';
 import Welcome from './pages/Welcome';
 import Today from './pages/Today';
@@ -19,25 +19,11 @@ const Progress = lazy(() => import('./pages/Progress'));
 const SessionDetail = lazy(() => import('./pages/SessionDetail'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 
-function Mark() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden>
-      <rect x="2" y="30" width="60" height="4" rx="1" fill="var(--chalk-2)" />
-      <rect x="12" y="12" width="8" height="40" rx="2" fill="var(--plate-25)" />
-      <rect x="21" y="17" width="6" height="30" rx="2" fill="var(--plate-20)" />
-      <rect x="44" y="12" width="8" height="40" rx="2" fill="var(--plate-25)" />
-      <rect x="37" y="17" width="6" height="30" rx="2" fill="var(--plate-20)" />
-    </svg>
-  );
-}
-
 function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }) {
   return (
     <div className="shell">
       <nav className="nav" aria-label="Main">
-        <NavLink to="/" className="brand" end>
-          <Mark /> Labour Chowk
-        </NavLink>
+        <Brandmark className="brand" />
         <NavLink to="/" end>
           <CalendarDays aria-hidden /> Today
         </NavLink>

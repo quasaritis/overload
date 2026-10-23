@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/barlow": "5.1.0",
-    "@fontsource/barlow-condensed": "5.1.0",
+    "@fontsource-variable/archivo": "5.2.6",
+    "@fontsource/yatra-one": "5.2.5",
     "@supabase/supabase-js": "2.45.4",
     "lucide-react": "0.460.0",
     "react": "18.3.1",

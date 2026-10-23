@@ -501,10 +501,11 @@ async function findPRs(done: SetRow[], sessionId: string, exMap: Map<string, Exe
 function Summary({ s, unit, onDone }: { s: { prs: PR[]; sets: number; volume: number; minutes: number }; unit: 'kg' | 'lb'; onDone: () => void }) {
   return (
     <div className="stack-lg" style={{ paddingTop: 'var(--s-5)' }}>
-      <div className="lights" aria-hidden style={{ gap: 10 }}>
-        <i className="on" style={{ width: 22, height: 22 }} /><i className="on" style={{ width: 22, height: 22 }} /><i className="on" style={{ width: 22, height: 22 }} />
+      <div>
+        <p className="t-sign shabash" lang="hi" aria-hidden>शाबाश!</p>
+        <h1 className="t-display">Good lift.</h1>
       </div>
-      <h1 className="t-display">Good lift.</h1>
+      <Lights count={s.sets} on={s.sets} size="lg" />
       <div className="facts">
         <div className="fact"><span className="v num">{s.minutes}</span><span className="k">minutes</span></div>
         <div className="fact"><span className="v num">{s.sets}</span><span className="k">working sets</span></div>
@@ -516,7 +517,7 @@ function Summary({ s, unit, onDone }: { s: { prs: PR[]; sets: number; volume: nu
           <div className="list">
             {s.prs.map((p, i) => (
               <div key={i} className="list-item">
-                <Trophy aria-hidden style={{ color: 'var(--plate-15)', width: 22 }} />
+                <Trophy aria-hidden style={{ color: 'var(--haldi)', width: 22 }} />
                 <span className="grow">
                   <span className="title" style={{ display: 'block' }}>{p.name}</span>
                   <span className="meta" style={{ textTransform: 'none' }}>{p.kind}</span>

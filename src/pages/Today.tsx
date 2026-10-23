@@ -3,10 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Play, Plus, RotateCcw } from 'lucide-react';
 import { useApp } from '../lib/app';
 import { getActivePlan, nextDay, historyFor, openSession, recentSessions, getExercises } from '../lib/data';
-import { prescribe, type Prescription } from '../lib/progression';
+import { isBarbell, prescribe, type Prescription } from '../lib/progression';
 import { startWorkout } from '../lib/workout';
 import type { ExerciseLite, PlanDay, PlanExercise, Session } from '../lib/types';
-import { ErrorLine, Loading, relDate } from '../components/ui';
+import { Barbell, Brandmark, ErrorLine, Loading, relDate } from '../components/ui';
 import { humanError } from '../lib/supabase';
 import { fmtVolume } from '../lib/units';
 import { dailyTotals } from '../lib/foodData';
@@ -87,12 +87,13 @@ export default function Today() {
 
   return (
     <div>
-      <header className="page-head" style={{ marginBottom: 'var(--s-5)' }}>
-        <div>
-          <p className="t-label">{today}{hello ? ` · ${hello}` : ''}</p>
-          <h1 className="t-title" style={{ marginTop: 6 }}>{open ? 'Workout in progress' : day ? day.name : 'Today'}</h1>
-        </div>
+      <header className="topbar">
+        <Brandmark />
+        <p className="t-label">{today}</p>
       </header>
+      <h1 className="t-display" style={{ marginBottom: 'var(--s-5)' }}>
+        {open ? 'Back to the bar' : day ? day.name : hello ? `Ready, ${hello}` : 'Today'}
+      </h1>
 
       <ErrorLine>{err}</ErrorLine>
 
@@ -124,25 +125,35 @@ export default function Today() {
               <Link className="btn" to={`/plans/${plan.plan.id}`}>Add exercises to {plan.plan.name}</Link>
             </div>
           ) : (
-            <ol className="list" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-              {dayExercises.map((pe) => {
+            <>
+              {(() => {
+                const pe = dayExercises[0];
                 const ex = exMap.get(pe.exercise_id);
                 const p = rx.get(pe.id);
-                return (
-                  <li key={pe.id} className="list-item" style={{ alignItems: 'center', gap: 16, padding: '16px 4px' }}>
-                    <div className="grow">
-                      <Link to={`/exercises/${pe.exercise_id}`} className="title" style={{ display: 'block', textDecoration: 'none' }}>{ex?.name ?? pe.exercise_id}</Link>
-                      <span className="meta">
-                        {pe.target_sets} sets · {pe.rep_min === pe.rep_max ? pe.rep_min : `${pe.rep_min}–${pe.rep_max}`} {ex?.track === 'time' ? 'hold' : 'reps'}
-                      </span>
-                    </div>
-                    <div style={{ textAlign: 'right' }}>
-                      {p ? <Attempt p={p} track={ex?.track} w={w} unit={unit} /> : <span className="faint">…</span>}
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+                return <HeroLift pe={pe} ex={ex} p={p} w={w} unit={unit} barKg={profile?.bar_kg ?? 20} />;
+              })()}
+              {dayExercises.length > 1 && (
+                <ol className="list" style={{ listStyle: 'none', padding: 0, margin: 0 }} aria-label="Then">
+                  {dayExercises.slice(1).map((pe) => {
+                    const ex = exMap.get(pe.exercise_id);
+                    const p = rx.get(pe.id);
+                    return (
+                      <li key={pe.id} className="list-item" style={{ alignItems: 'center', gap: 16, padding: '14px 4px' }}>
+                        <div className="grow">
+                          <Link to={`/exercises/${pe.exercise_id}`} className="title" style={{ display: 'block', textDecoration: 'none' }}>{ex?.name ?? pe.exercise_id}</Link>
+                          <span className="meta" style={{ textTransform: 'none' }}>
+                            {pe.target_sets} sets of {pe.rep_min === pe.rep_max ? pe.rep_min : `${pe.rep_min}–${pe.rep_max}`} {ex?.track === 'time' ? 'sec' : 'reps'}
+                          </span>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                          {p ? <Attempt p={p} track={ex?.track} w={w} unit={unit} /> : <span className="faint">…</span>}
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              )}
+            </>
           )}
           <div className="row" style={{ marginTop: 'var(--s-5)', flexWrap: 'wrap' }}>
             <button className="btn primary lg" onClick={() => start(true)} disabled={starting || dayExercises.length === 0}>
@@ -223,12 +234,47 @@ export default function Today() {
   );
 }
 
+const VERDICT: Record<Prescription['verdict'], string> = { add: 'Add weight', hold: 'Hold weight', reps: 'Chase a rep', deload: 'Reset −10%', start: 'First session' };
+
+/** The day's first lift, chalked up on the slate. */
+function HeroLift({ pe, ex, p, w, unit, barKg }: { pe: PlanExercise; ex?: ExerciseLite; p?: Prescription; w: (kg: number) => string; unit: string; barKg: number }) {
+  const track = ex?.track ?? 'weight_reps';
+  const showBar = p && track === 'weight_reps' && isBarbell(ex?.equipment ?? null) && p.weightKg != null && p.weightKg >= barKg;
+  return (
+    <div className="board today-hero">
+      <div className="row between" style={{ alignItems: 'flex-start', gap: 8, flexWrap: 'wrap' }}>
+        <p className="lift">
+          <Link to={`/exercises/${pe.exercise_id}`}>{ex?.name ?? pe.exercise_id}</Link>
+        </p>
+        {p && <span className={`verdict ${p.verdict}`}>{p.verdict === 'add' ? `+${w(p.deltaKg)} ${unit}` : VERDICT[p.verdict]}</span>}
+      </div>
+      {p ? (
+        <div className="attempt num" aria-label={track === 'time' ? `${p.durationS} seconds` : p.weightKg != null ? `${w(p.weightKg)} ${unit} for ${p.reps} reps` : `${p.reps} reps`}>
+          {track === 'time' ? (
+            <>{p.durationS}<span className="u">sec</span></>
+          ) : p.weightKg != null ? (
+            <>{w(p.weightKg)}<span className="u">{unit}</span><span className="x">×</span>{p.reps}</>
+          ) : (
+            <>{track === 'bodyweight' ? 'BW' : '—'}<span className="x">×</span>{p.reps}</>
+          )}
+        </div>
+      ) : (
+        <div className="attempt num" aria-hidden style={{ opacity: 0.4 }}>…</div>
+      )}
+      <p className="muted t-small reason">
+        {pe.target_sets} sets of {pe.rep_min === pe.rep_max ? pe.rep_min : `${pe.rep_min}–${pe.rep_max}`}. {p?.reason ?? ''}
+      </p>
+      {showBar && <div style={{ marginTop: 'var(--s-4)' }}><Barbell totalKg={p!.weightKg!} barKg={barKg} unit={unit as 'kg' | 'lb'} /></div>}
+    </div>
+  );
+}
+
 function Attempt({ p, track, w, unit }: { p: Prescription; track?: string; w: (kg: number) => string; unit: string }) {
-  if (track === 'time') return <span className="num" style={{ fontSize: '1.5rem', fontWeight: 600 }}>{p.durationS}s</span>;
+  if (track === 'time') return <span className="attempt-sm">{p.durationS}<span className="u"> s</span></span>;
   return (
     <div style={{ display: 'grid', justifyItems: 'end', gap: 4 }}>
-      <span className="num" style={{ fontSize: '1.625rem', fontWeight: 600, lineHeight: 1 }}>
-        {p.weightKg != null ? <>{w(p.weightKg)}<span style={{ fontSize: '0.6em', color: 'var(--chalk-3)' }}> {unit}</span> × </> : track === 'bodyweight' ? 'BW × ' : 'Find weight × '}
+      <span className="attempt-sm">
+        {p.weightKg != null ? <>{w(p.weightKg)}<span className="u"> {unit}</span> × </> : track === 'bodyweight' ? 'BW × ' : 'Find weight × '}
         {p.reps}
       </span>
       {p.verdict === 'add' && <span className="verdict add">+{w(p.deltaKg)} {unit}</span>}

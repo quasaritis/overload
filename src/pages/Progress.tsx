@@ -174,7 +174,7 @@ export default function Progress() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 6, alignItems: 'end', height: 160, marginTop: 'var(--s-4)' }} role="img" aria-label="Weekly volume for the last 8 weeks">
             {weeks.map((wk, i) => (
               <div key={i} style={{ display: 'grid', gap: 6, alignItems: 'end', height: '100%', gridTemplateRows: '1fr auto' }} title={`${fmtVolume(wk.volume, unit)} ${unit} · ${wk.sets} sets`}>
-                <div style={{ alignSelf: 'end', height: `${Math.max(2, (wk.volume / maxVol) * 100)}%`, background: i === 7 ? 'var(--plate-15)' : 'var(--data)', borderRadius: '3px 3px 0 0', transformOrigin: 'bottom', animation: 'grow-y 700ms var(--ease-out)' }} />
+                <div style={{ alignSelf: 'end', height: `${Math.max(2, (wk.volume / maxVol) * 100)}%`, background: i === 7 ? 'var(--haldi)' : 'var(--data)', borderRadius: '3px 3px 0 0', transformOrigin: 'bottom', animation: 'grow-y 700ms var(--ease-out)' }} />
                 <span className="faint" style={{ fontSize: 11, textAlign: 'center' }}>{wk.start.toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric' })}</span>
               </div>
             ))}

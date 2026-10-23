@@ -52,7 +52,7 @@ export default function Welcome() {
     <div className="main" style={{ maxWidth: 560, paddingBottom: 64 }}>
       <div className="row" style={{ gap: 6, marginBottom: 28 }} aria-label={`Step ${step + 1} of 3`}>
         {[0, 1, 2].map((i) => (
-          <span key={i} style={{ height: 4, flex: 1, borderRadius: 2, background: i <= step ? 'var(--plate-15)' : 'var(--stage-3)', transition: 'background 300ms' }} />
+          <span key={i} style={{ height: 4, flex: 1, borderRadius: 2, background: i <= step ? 'var(--haldi)' : 'var(--stage-3)', transition: 'background 300ms' }} />
         ))}
       </div>
 

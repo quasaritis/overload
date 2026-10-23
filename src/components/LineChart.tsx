@@ -87,7 +87,7 @@ export function LineChart({
           <circle key={i} cx={geo.x(p.t)} cy={geo.y(p.y)} r={hover === i ? 6 : points.length > 40 ? 0 : 3.5} fill={color} />
         ))}
         {highlightMax && (
-          <circle cx={geo.x(points[geo.maxI].t)} cy={geo.y(points[geo.maxI].y)} r={7} fill="none" stroke="var(--plate-15)" strokeWidth={2} />
+          <circle cx={geo.x(points[geo.maxI].t)} cy={geo.y(points[geo.maxI].y)} r={7} fill="none" stroke="var(--haldi)" strokeWidth={2} />
         )}
         {hp && <line x1={geo.x(hp.t)} x2={geo.x(hp.t)} y1={pad.t} y2={H - pad.b} stroke="var(--rule-strong)" strokeDasharray="3 3" />}
       </svg>

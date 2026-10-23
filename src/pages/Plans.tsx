@@ -44,7 +44,7 @@ export default function Plans() {
               <Link to={`/plans/${p.id}`} className="grow" style={{ textDecoration: 'none' }}>
                 <span className="row" style={{ gap: 10 }}>
                   <span className="title">{p.name}</span>
-                  {p.is_active && <span className="pr-mark">ACTIVE</span>}
+                  {p.is_active && <span className="pr-mark">Active</span>}
                 </span>
                 <span className="meta" style={{ textTransform: 'none' }}>Created {new Date(p.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
               </Link>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MailCheck } from 'lucide-react';
 import { supabase, humanError } from '../lib/supabase';
-import { Barbell, ErrorLine, Lights } from '../components/ui';
+import { Barbell, Brandmark, ErrorLine, Lights } from '../components/ui';
 import { useApp } from '../lib/app';
 
 type Mode = 'signin' | 'signup' | 'forgot';
@@ -47,16 +47,7 @@ export default function AuthPage() {
     <div className="auth">
       <style>{authCss}</style>
       <section className="auth-stage">
-        <div className="auth-brand">
-          <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden>
-            <rect x="2" y="30" width="60" height="4" rx="1" fill="var(--chalk-2)" />
-            <rect x="12" y="12" width="8" height="40" rx="2" fill="var(--plate-25)" />
-            <rect x="21" y="17" width="6" height="30" rx="2" fill="var(--plate-20)" />
-            <rect x="44" y="12" width="8" height="40" rx="2" fill="var(--plate-25)" />
-            <rect x="37" y="17" width="6" height="30" rx="2" fill="var(--plate-20)" />
-          </svg>
-          Labour Chowk
-        </div>
+        <Brandmark className="auth-brand" />
         <h1 className="t-display auth-h">Every session, a heavier attempt.</h1>
         <p className="auth-sub">
           Log your sets. Labour Chowk reads your last session and calls the next attempt — the weight, the reps, and the plates to load.
@@ -64,7 +55,7 @@ export default function AuthPage() {
 
         <div className="board auth-board" aria-label="Example of a next attempt">
           <div className="row between">
-            <span className="lbl">Next attempt · Bench Press</span>
+            <span className="lbl">Next lift: bench press</span>
             <span className="tag">Example</span>
           </div>
           <div className="attempt num">
@@ -80,7 +71,7 @@ export default function AuthPage() {
           </div>
           <div className="row" style={{ marginTop: 14, gap: 10 }}>
             <Lights count={3} on={3} />
-            <span className="faint t-small">Three white lights: every set done</span>
+            <span className="faint t-small">Every set chalked off</span>
           </div>
         </div>
       </section>
@@ -88,7 +79,7 @@ export default function AuthPage() {
       <section className="auth-form-wrap">
         {sent ? (
           <div className="stack-lg auth-form">
-            <MailCheck aria-hidden style={{ width: 36, height: 36, color: 'var(--plate-15)' }} />
+            <MailCheck aria-hidden style={{ width: 36, height: 36, color: 'var(--haldi)' }} />
             <h2 className="t-title">Check your inbox</h2>
             <p className="muted">{sent}</p>
             <button className="btn" onClick={() => { setSent(null); setMode('signin'); }}>Back to sign in</button>
@@ -187,18 +178,20 @@ export function NewPassword() {
 }
 
 const authCss = `
-.auth { min-height: 100dvh; display: grid; grid-template-columns: 1fr; }
+.auth { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); }
 .auth-stage { padding: 28px 16px 8px; display: grid; align-content: start; gap: 18px; }
-.auth-brand { display: flex; align-items: center; gap: 10px; font: 700 1.375rem/1 var(--font-num); text-transform: uppercase; letter-spacing: 0.03em; }
-.auth-h { max-width: 11ch; margin-top: 12px; }
-.auth-sub { color: var(--chalk-2); max-width: 44ch; font-size: 1.0625rem; }
+.auth-brand .dev { font-size: 2.5rem; }
+.auth-brand .lat { font-size: 0.75rem; }
+.auth-h { max-width: 9ch; margin-top: 18px; }
+.auth-sub { color: var(--chalk-2); max-width: 42ch; font-size: 1.0625rem; }
 .auth-board { margin-top: 6px; max-width: 520px; }
 .auth-form-wrap { padding: 24px 16px 48px; display: grid; align-content: start; }
 .auth-form { width: 100%; max-width: 420px; }
 @media (min-width: 960px) {
-  .auth { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
-  .auth-stage { padding: 56px 64px; align-content: center; gap: 22px; background: var(--stage-0); border-right: 1px solid var(--rule); min-height: 100dvh; }
-  .auth-h { font-size: clamp(3.5rem, 5.4vw, 5.5rem); }
-  .auth-form-wrap { align-content: center; justify-items: center; padding: 48px; }
+  .auth { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .auth-stage { padding: 56px 72px; align-content: center; gap: 24px; border-right: 1px solid var(--rule); min-height: 100dvh; background: radial-gradient(90% 70% at 0% 100%, rgb(200 71 45 / 0.12), transparent 65%); }
+  .auth-brand .dev { font-size: 3.25rem; }
+  .auth-h { font-size: clamp(4rem, 6vw, 6.25rem); }
+  .auth-form-wrap { align-content: center; justify-items: center; padding: 48px; background: color-mix(in srgb, var(--stage-0) 55%, transparent); }
 }
 `;

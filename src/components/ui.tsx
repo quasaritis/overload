@@ -1,8 +1,19 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { AlertCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { IMAGE_BASE } from '../lib/supabase';
 import type { ExerciseLite } from '../lib/types';
 import { platesPerSide } from '../lib/progression';
+
+/** लेबर चौक — the wordmark, hand-painted Devanagari over a small Latin line. */
+export function Brandmark({ className = '' }: { className?: string }) {
+  return (
+    <Link to="/" className={`brandmark ${className}`.trim()} aria-label="Labour Chowk, home">
+      <span className="dev" lang="hi" aria-hidden>लेबर चौक</span>
+      <span className="lat" aria-hidden>LABOUR CHOWK</span>
+    </Link>
+  );
+}
 
 export function Loading({ label = 'Loading' }: { label?: string }) {
   return (
@@ -21,11 +32,30 @@ export function ErrorLine({ children }: { children: ReactNode }) {
   );
 }
 
-export function Lights({ count, on, red = 0 }: { count: number; on: number; red?: number }) {
+/**
+ * Chalk tally of sets: one stroke per set, every fifth crosses the gate.
+ * `on` strokes are chalked, `red` strokes are misses, the rest are faint guide marks.
+ */
+export function Lights({ count, on, red = 0, size }: { count: number; on: number; red?: number; size?: 'lg' }) {
+  const groups: number[][] = [];
+  for (let i = 0; i < count; i++) {
+    if (i % 5 === 0) groups.push([]);
+    groups[groups.length - 1].push(i);
+  }
+  const cls = (i: number) => (i < on ? 'on' : i < on + red ? 'red' : '');
+  const X = [5, 11, 17, 23];
   return (
-    <span className="lights" aria-label={`${on} of ${count} sets done`}>
-      {Array.from({ length: count }, (_, i) => (
-        <i key={i} className={i < on ? 'on' : i < on + red ? 'red' : ''} />
+    <span className={`tally${size ? ` ${size}` : ''}`} role="img" aria-label={`${on} of ${count} sets done`}>
+      {groups.map((g, gi) => (
+        <svg key={gi} viewBox="0 0 28 22" aria-hidden>
+          {g.map((i, k) =>
+            k < 4 ? (
+              <line key={i} className={cls(i)} x1={X[k]} y1={3 + (k % 2)} x2={X[k] + (k % 2 ? 0.6 : -0.4)} y2={19} />
+            ) : (
+              <line key={i} className={cls(i)} x1={1.5} y1={16} x2={26.5} y2={6} />
+            ),
+          )}
+        </svg>
       ))}
     </span>
   );

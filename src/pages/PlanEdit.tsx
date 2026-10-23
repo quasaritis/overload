@@ -147,7 +147,7 @@ export default function PlanEdit() {
           />
         </label>
         {plan.is_active ? (
-          <span className="pr-mark" style={{ height: 30, padding: '0 12px' }}>ACTIVE PLAN</span>
+          <span className="pr-mark" style={{ height: 30, padding: '0 12px' }}>Active plan</span>
         ) : (
           <button className="btn" onClick={async () => { await setActivePlan(plan.id); setPlan({ ...plan, is_active: true }); toast(`${plan.name} is now active`); }}>Make active</button>
         )}
