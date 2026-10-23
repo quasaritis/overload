@@ -7,7 +7,7 @@ import {
   type Dish, type FoodLib, type Meal, type Nutr, ZERO,
 } from '../../lib/food';
 import {
-  addEntries, createSavedMeal, deleteSavedMeal, listSavedMeals, recentFoods, scanMeal, ScanError, shrinkImage, uploadMealPhoto,
+  addEntries, createSavedMeal, deleteSavedMeal, listSavedMeals, recentFoods, scanMeal, ScanError, shrinkImage, shrinkMealPhoto, uploadMealPhoto,
   type NewEntry, type ScanItem,
 } from '../../lib/foodData';
 import type { FoodEntry, FoodItem, SavedMeal } from '../../lib/types';
@@ -426,19 +426,22 @@ function PhotoTab({ lib, mealLabel, onSave }: { lib: FoodLib; mealLabel: string;
   const patch = (key: number, p: Partial<EditItem>) => setItems((xs) => xs.map((x) => (x.key === key ? { ...x, ...p } : x)));
 
   async function submit() {
-    if (!items.length || !user) return;
+    if (!items.length || !user || !blob) return;
     setBusy(true);
     setErr('');
     try {
-      let path: string | null = null;
-      if (blob) {
-        const small = await shrinkImage(blob, 720, 0.78).catch(() => blob);
-        path = await uploadMealPhoto(user.id, small).catch(() => null);
+      const small = await shrinkMealPhoto(blob);
+      let path: string;
+      try {
+        path = await uploadMealPhoto(user.id, small);
+      } catch (uploadError) {
+        console.error('meal photo upload failed', uploadError);
+        throw new Error('The photo could not be attached, so the meal was not saved. Check your connection and try again.');
       }
       const lines: FoodItem[] = items.map((it) => {
         const n = round(itemNutr(lib, it));
         const d = it.dish_id && it.useStd ? lib.dish.get(it.dish_id) : undefined;
-        return { name: d?.n ?? it.name, id: d?.id ?? null, grams: Math.round(it.grams), portion: it.portion, kcal: n.kcal, p: n.p, c: n.c, f: n.f, fb: n.fb };
+        return { name: d?.n ?? it.name, id: d?.id ?? null, grams: Math.round(it.grams), portion: it.portion, kcal: n.kcal, p: n.p, c: n.c, f: n.f, fb: n.fb, calorie_source: it.calorie_source };
       });
       const name = lines.map((l) => l.name).join(', ');
       await onSave({
@@ -479,7 +482,7 @@ function PhotoTab({ lib, mealLabel, onSave }: { lib: FoodLib; mealLabel: string;
 
       <label className="field">
         <span>Anything the photo can’t show? <span className="faint">(optional)</span></span>
-        <input className="input" value={hint} onChange={(e) => setHint(e.target.value)} placeholder="e.g. 3 rotis, cooked in ghee, half-eaten" maxLength={300} />
+        <input className="input" value={hint} onChange={(e) => setHint(e.target.value)} placeholder="e.g. 3 rotis, ate half; or 1 serving from the label" maxLength={300} />
       </label>
 
       <ErrorLine>{err}</ErrorLine>
@@ -498,7 +501,9 @@ function PhotoTab({ lib, mealLabel, onSave }: { lib: FoodLib; mealLabel: string;
                         <p className="title">{d && it.useStd ? d.n : it.name}</p>
                         <p className="meta">
                           {it.portion || 'portion'} · <Macros n={n} short />
-                          {it.confidence === 'low' && <span className="tag" style={{ marginLeft: 8 }}>rough guess</span>}
+                          <span className="tag" style={{ marginLeft: 8 }}>
+                            {it.calorie_source === 'label' ? 'nutrition label' : `photo estimate · ${it.confidence}`}
+                          </span>
                         </p>
                       </div>
                       <span className="kcal num">{kcalFmt(n.kcal)}</span>
@@ -750,3 +755,4 @@ function QuickTab({ mealLabel, onSave }: { mealLabel: string; onSave: (d: Draft)
     </form>
   );
 }
+
