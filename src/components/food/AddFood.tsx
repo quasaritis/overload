@@ -299,7 +299,7 @@ function DishDetail({ dish, lib, qty0 = 1, unit0, mealLabel, onBack, onSave, onC
             <label className="set-cell" style={{ width: 130 }}>
               <span className="sr-only">Grams</span>
               <input inputMode="numeric" value={grams} onChange={(e) => setGrams(e.target.value.replace(/[^0-9.]/g, ''))} />
-              <span className="unit">g</span>
+              <span className="unit" aria-hidden>g</span>
             </label>
           ) : (
             <Stepper value={qty} onChange={setQty} label="servings" format={fmtQty} />
@@ -630,7 +630,7 @@ function RecipeTab({ lib, seed, mealLabel, onSave }: { lib: FoodLib; seed: Recip
                   <label className="set-cell" style={{ width: 96 }}>
                     <span className="sr-only">Grams of {x.n}</span>
                     <input inputMode="decimal" value={r.g} onChange={(e) => setRows((rs) => rs.map((y, j) => (j === i ? { ...y, g: e.target.value.replace(/[^0-9.]/g, '') } : y)))} />
-                    <span className="unit">g</span>
+                    <span className="unit" aria-hidden>g</span>
                   </label>
                   <button className="btn icon ghost sm" aria-label={`Remove ${x.n}`} onClick={() => setRows((rs) => rs.filter((_, j) => j !== i))}><X /></button>
                 </li>
@@ -700,7 +700,7 @@ function QuickTab({ mealLabel, onSave }: { mealLabel: string; onSave: (d: Draft)
       <span>{label}</span>
       <span className="set-cell">
         <input inputMode="decimal" value={v[k]} onChange={(e) => setV({ ...v, [k]: e.target.value.replace(/[^0-9.]/g, '') })} />
-        <span className="unit">{unit}</span>
+        <span className="unit" aria-hidden>{unit}</span>
       </span>
     </label>
   );

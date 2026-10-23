@@ -119,14 +119,14 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
             <span>Calories / day</span>
             <span className="set-cell">
               <input inputMode="numeric" placeholder={s ? String(s.kcal) : '2200'} value={kcal} onChange={(e) => setKcal(e.target.value.replace(/\D/g, ''))} />
-              <span className="unit">kcal</span>
+              <span className="unit" aria-hidden>kcal</span>
             </span>
           </label>
           <label className="field">
             <span>Protein / day</span>
             <span className="set-cell">
               <input inputMode="numeric" placeholder={s ? String(s.protein) : '130'} value={protein} onChange={(e) => setProtein(e.target.value.replace(/\D/g, ''))} />
-              <span className="unit">g</span>
+              <span className="unit" aria-hidden>g</span>
             </span>
           </label>
         </div>
