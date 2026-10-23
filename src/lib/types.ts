@@ -11,6 +11,12 @@ export interface Profile {
   goal: 'strength' | 'hypertrophy' | 'general' | null;
   bar_kg: number;
   onboarded: boolean;
+  sex: 'male' | 'female' | null;
+  birth_year: number | null;
+  activity: 'sedentary' | 'light' | 'moderate' | 'very' | 'athlete' | null;
+  diet_goal: 'cut' | 'maintain' | 'bulk' | null;
+  kcal_target: number | null;
+  protein_target_g: number | null;
 }
 
 export interface ExerciseLite {
@@ -89,4 +95,55 @@ export interface BodyMetric {
   id: string;
   measured_on: string;
   weight_kg: number;
+}
+
+export type FoodSource = 'dish' | 'ingredient' | 'recipe' | 'photo' | 'quick' | 'saved';
+export type MealSlot = 'breakfast' | 'lunch' | 'snack' | 'dinner';
+
+/** A line inside a photo scan or a home recipe. */
+export interface FoodItem {
+  name: string;
+  /** ingredient id (recipes) or dish id (photo items matched to the library) */
+  id?: string | null;
+  grams?: number;
+  portion?: string;
+  kcal: number;
+  p: number;
+  c: number;
+  f: number;
+  fb?: number;
+}
+
+export interface FoodEntry {
+  id: string;
+  eaten_on: string;
+  meal: MealSlot;
+  name: string;
+  source: FoodSource;
+  ref_id: string | null;
+  qty: number;
+  unit: string | null;
+  grams: number | null;
+  kcal: number;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  fibre_g: number;
+  items: FoodItem[] | null;
+  photo_path: string | null;
+  created_at: string;
+}
+
+export interface SavedMeal {
+  id: string;
+  name: string;
+  unit: string;
+  grams: number | null;
+  kcal: number;
+  protein_g: number;
+  carbs_g: number;
+  fat_g: number;
+  fibre_g: number;
+  items: FoodItem[];
+  created_at: string;
 }

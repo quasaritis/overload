@@ -9,6 +9,7 @@ import type { ExerciseLite, PlanDay, PlanExercise, Session } from '../lib/types'
 import { ErrorLine, Loading, relDate } from '../components/ui';
 import { humanError } from '../lib/supabase';
 import { fmtVolume } from '../lib/units';
+import { dailyTotals } from '../lib/foodData';
 
 type Active = Awaited<ReturnType<typeof getActivePlan>>;
 
@@ -24,6 +25,12 @@ export default function Today() {
   const [loading, setLoading] = useState(true);
   const [starting, setStarting] = useState(false);
   const [err, setErr] = useState('');
+  const [food, setFood] = useState<{ kcal: number; protein: number } | null>(null);
+
+  useEffect(() => {
+    const d = new Date().toLocaleDateString('en-CA');
+    dailyTotals(d, d).then((m) => setFood(m.get(d) ?? { kcal: 0, protein: 0 })).catch(() => {});
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -157,6 +164,25 @@ export default function Today() {
             <button className="btn lg" onClick={() => start(false)} disabled={starting}><Plus /> Empty workout</button>
           </div>
         </div>
+      )}
+
+      {food && (
+        <section className="section">
+          <div className="row between" style={{ marginBottom: 'var(--s-4)' }}>
+            <h2 className="t-head">Food today</h2>
+            <Link to="/food" className="btn ghost sm">{food.kcal ? 'Open log' : 'Log food'} <ArrowRight /></Link>
+          </div>
+          <div className="facts">
+            <div className="fact">
+              <span className="v num">{Math.round(food.kcal).toLocaleString('en-IN')}{profile?.kcal_target ? <span className="faint" style={{ fontSize: '0.6em' }}> / {profile.kcal_target.toLocaleString('en-IN')}</span> : null}</span>
+              <span className="k">kcal eaten</span>
+            </div>
+            <div className="fact">
+              <span className="v num">{Math.round(food.protein)}{profile?.protein_target_g ? <span className="faint" style={{ fontSize: '0.6em' }}> / {profile.protein_target_g}</span> : null}</span>
+              <span className="k">g protein</span>
+            </div>
+          </div>
+        </section>
       )}
 
       <section className="section">
