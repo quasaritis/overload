@@ -1,20 +1,25 @@
 import { useEffect, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 /** Bottom sheet on phones, centred panel on desktop. Escape and backdrop close it. */
-export function Sheet({ title, onClose, children, head, footer, label }: { title: ReactNode; onClose: () => void; children: ReactNode; head?: ReactNode; footer?: ReactNode; label?: string }) {
+export function Sheet({ title, onClose, children, head, label }: { title: ReactNode; onClose: () => void; children: ReactNode; head?: ReactNode; label?: string }) {
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // The page behind the sheet can't be tabbed to or read out while it's open.
+    const root = document.getElementById('root');
+    root?.setAttribute('inert', '');
     return () => {
       window.removeEventListener('keydown', onKey);
       document.body.style.overflow = prev;
+      root?.removeAttribute('inert');
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <>
       <div className="panel-backdrop" onClick={onClose} />
       <div className="panel" role="dialog" aria-modal="true" aria-label={label ?? (typeof title === 'string' ? title : undefined)}>
@@ -28,9 +33,9 @@ export function Sheet({ title, onClose, children, head, footer, label }: { title
           {head}
         </div>
         <div className="panel-body">{children}</div>
-        {footer && <div className="panel-foot">{footer}</div>}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
 
