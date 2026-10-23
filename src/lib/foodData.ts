@@ -137,6 +137,9 @@ export async function scanMeal(jpeg: Blob, hint: string): Promise<{ items: ScanI
   const { data, error } = await supabase.functions.invoke('analyze-meal', { body: { image, mime: 'image/jpeg', hint } });
   if (error) {
     if (error instanceof FunctionsHttpError) {
+      if (error.context.status === 404) {
+        throw new ScanError('Photo scanning isn’t set up yet. Log from Meals or Ingredients for now.', 'not_configured');
+      }
       const body = await error.context.json().catch(() => null);
       throw new ScanError(body?.error ?? 'Photo scan failed. Try again.', body?.code);
     }
