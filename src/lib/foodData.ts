@@ -89,6 +89,15 @@ export async function shrinkImage(file: Blob, max = 1024, quality = 0.82): Promi
   return new Promise((res, rej) => canvas.toBlob((b) => (b ? res(b) : rej(new Error('Couldn’t read that image.'))), 'image/jpeg', quality));
 }
 
+/** Keep saved photos below the meal-photos bucket's 1 MB file-size limit. */
+export async function shrinkMealPhoto(file: Blob): Promise<Blob> {
+  for (const [max, quality] of [[720, 0.78], [640, 0.68], [512, 0.56]] as const) {
+    const jpeg = await shrinkImage(file, max, quality);
+    if (jpeg.size <= 950_000) return jpeg;
+  }
+  throw new Error('This photo is too large to attach. Choose a smaller photo and try again.');
+}
+
 export function blobToBase64(b: Blob): Promise<string> {
   return new Promise((res, rej) => {
     const r = new FileReader();
@@ -124,6 +133,7 @@ export interface ScanItem {
   fat_g: number;
   fibre_g: number;
   confidence: 'high' | 'medium' | 'low';
+  calorie_source: 'label' | 'estimate';
 }
 
 export class ScanError extends Error {
@@ -150,3 +160,4 @@ export async function scanMeal(jpeg: Blob, hint: string): Promise<{ items: ScanI
 
 export const itemsTotal = (items: FoodItem[]) =>
   items.reduce((a, i) => ({ kcal: a.kcal + i.kcal, p: a.p + i.p, c: a.c + i.c, f: a.f + i.f, fb: a.fb + (i.fb ?? 0) }), { kcal: 0, p: 0, c: 0, f: 0, fb: 0 });
+

@@ -66,7 +66,10 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
           <ul className="recipe-peek-list">
             {entry.items.map((it, i) => (
               <li key={i}>
-                <span>{it.name}{it.grams ? <span className="faint"> · {it.grams} g</span> : null}</span>
+                <span>
+                  {it.name}{it.grams ? <span className="faint"> · {it.grams} g</span> : null}
+                  {it.calorie_source && <span className="faint"> · {it.calorie_source === 'label' ? 'label values' : 'photo estimate'}</span>}
+                </span>
                 <span className="num">{kcalFmt(it.kcal)}</span>
               </li>
             ))}
@@ -101,3 +104,4 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
     </Sheet>
   );
 }
+
