@@ -1,20 +1,23 @@
 import { NavLink, Navigate, Route, Routes, useLocation } from 'react-router-dom';
-import { CalendarDays, Dumbbell, LineChart, ListChecks, UserRound } from 'lucide-react';
-import { useEffect } from 'react';
+import { CalendarDays, Dumbbell, LineChart, ListChecks, UserRound, Utensils } from 'lucide-react';
+import { Suspense, lazy, useEffect } from 'react';
 import { useApp } from './lib/app';
 import { configured } from './lib/supabase';
 import { Loading } from './components/ui';
 import AuthPage, { NewPassword } from './pages/Auth';
 import Welcome from './pages/Welcome';
 import Today from './pages/Today';
-import Workout from './pages/Workout';
-import Plans from './pages/Plans';
-import PlanEdit from './pages/PlanEdit';
-import Library from './pages/Library';
-import ExerciseDetail from './pages/ExerciseDetail';
-import Progress from './pages/Progress';
-import SessionDetail from './pages/SessionDetail';
-import ProfilePage from './pages/Profile';
+
+// Everything past the landing page loads on first visit, so the app opens faster.
+const Workout = lazy(() => import('./pages/Workout'));
+const Food = lazy(() => import('./pages/Food'));
+const Plans = lazy(() => import('./pages/Plans'));
+const PlanEdit = lazy(() => import('./pages/PlanEdit'));
+const Library = lazy(() => import('./pages/Library'));
+const ExerciseDetail = lazy(() => import('./pages/ExerciseDetail'));
+const Progress = lazy(() => import('./pages/Progress'));
+const SessionDetail = lazy(() => import('./pages/SessionDetail'));
+const ProfilePage = lazy(() => import('./pages/Profile'));
 
 function Mark() {
   return (
@@ -37,6 +40,9 @@ function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }
         </NavLink>
         <NavLink to="/" end>
           <CalendarDays aria-hidden /> Today
+        </NavLink>
+        <NavLink to="/food">
+          <Utensils aria-hidden /> Food
         </NavLink>
         <NavLink to="/plans">
           <ListChecks aria-hidden /> Plans
@@ -80,8 +86,10 @@ export default function App() {
 
   return (
     <Shell wide={loc.pathname.startsWith('/progress')}>
+      <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Today />} />
+        <Route path="/food" element={<Food />} />
         <Route path="/workout/:id" element={<Workout />} />
         <Route path="/plans" element={<Plans />} />
         <Route path="/plans/:id" element={<PlanEdit />} />
@@ -92,6 +100,7 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      </Suspense>
     </Shell>
   );
 }

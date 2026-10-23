@@ -27,6 +27,13 @@ often in a dim gym, so it's dark with large numerals and 44px+ tap targets.
 - **Rest bar** (`.rest`): chalk slab pinned above the nav; turns yellow at zero and vibrates.
 - Lists with hairline rules instead of cards; chips for filters; segmented controls for binary choices.
 
+- **Food board**: the same scoreboard, counting calories left (red numerals when over). Below it, the day as one track
+  split by meal — meals are a single data series, so they're blue stepped in lightness — then protein / carbs / fat bars.
+- **Diet mark** (`<DietMark>`): the Indian food-packet convention — green square + dot veg, red-brown square + triangle
+  non-veg, yellow for egg.
+- **Readout** (`.readout`): what's about to be logged, on an inset slab. **Stepper** (`<Stepper>`): − value +, quarter
+  steps below one serving.
+
 ## Motion
 Exponential ease-out (`--ease-out`), 120–380ms. Rest bar and sheets rise in; bars grow from zero once.
 All motion collapses under `prefers-reduced-motion`.

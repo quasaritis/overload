@@ -1,0 +1,2039 @@
+[
+ {
+  "id": "bajra",
+  "name": "Bajra (pearl millet)",
+  "aka": "bajra atta",
+  "grp": "grains",
+  "src": "IFCT 2017 A003",
+  "p": 10.96,
+  "c": 61.78,
+  "f": 5.43,
+  "fib": 11.49,
+  "units": []
+ },
+ {
+  "id": "barley",
+  "name": "Barley (jau)",
+  "aka": "jau",
+  "grp": "grains",
+  "src": "IFCT 2017 A004",
+  "p": 10.94,
+  "c": 61.29,
+  "f": 1.3,
+  "fib": 15.64,
+  "units": []
+ },
+ {
+  "id": "jowar",
+  "name": "Jowar (sorghum)",
+  "aka": "jowar atta",
+  "grp": "grains",
+  "src": "IFCT 2017 A005",
+  "p": 9.97,
+  "c": 67.68,
+  "f": 1.73,
+  "fib": 10.22,
+  "units": []
+ },
+ {
+  "id": "makki_atta",
+  "name": "Maize flour (makki atta)",
+  "aka": "makki corn flour",
+  "grp": "grains",
+  "src": "IFCT 2017 A006",
+  "p": 8.8,
+  "c": 64.77,
+  "f": 3.77,
+  "fib": 12.24,
+  "units": []
+ },
+ {
+  "id": "bhutta",
+  "name": "Corn on the cob (bhutta)",
+  "aka": "bhutta corn maize",
+  "grp": "grains",
+  "src": "IFCT 2017 A007",
+  "p": 3.57,
+  "c": 22.69,
+  "f": 1.4,
+  "fib": 3.67,
+  "units": [
+   [
+    "1 cob (kernels)",
+    90
+   ]
+  ]
+ },
+ {
+  "id": "sweet_corn",
+  "name": "Sweet corn kernels",
+  "aka": "corn",
+  "grp": "grains",
+  "src": "IFCT 2017 A008",
+  "p": 4.16,
+  "c": 16.42,
+  "f": 1.35,
+  "fib": 3.3,
+  "units": [
+   [
+    "1 katori",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "quinoa",
+  "name": "Quinoa, raw",
+  "aka": "",
+  "grp": "grains",
+  "src": "IFCT 2017 A009",
+  "p": 13.11,
+  "c": 53.65,
+  "f": 5.5,
+  "fib": 14.66,
+  "units": []
+ },
+ {
+  "id": "ragi",
+  "name": "Ragi (finger millet)",
+  "aka": "nachni mandua ragi atta",
+  "grp": "grains",
+  "src": "IFCT 2017 A010",
+  "p": 7.16,
+  "c": 66.82,
+  "f": 1.92,
+  "fib": 11.18,
+  "units": []
+ },
+ {
+  "id": "poha",
+  "name": "Poha (flattened rice), raw",
+  "aka": "aval chivda chiwda",
+  "grp": "grains",
+  "src": "IFCT 2017 A011",
+  "p": 7.44,
+  "c": 76.75,
+  "f": 1.14,
+  "fib": 3.46,
+  "units": [
+   [
+    "1 katori",
+    40
+   ]
+  ]
+ },
+ {
+  "id": "murmura",
+  "name": "Murmura (puffed rice)",
+  "aka": "puffed rice kurmura mamra",
+  "grp": "grains",
+  "src": "IFCT 2017 A012",
+  "p": 7.47,
+  "c": 77.68,
+  "f": 1.62,
+  "fib": 2.56,
+  "units": [
+   [
+    "1 katori",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "brown_rice",
+  "name": "Brown rice, raw",
+  "aka": "",
+  "grp": "grains",
+  "src": "IFCT 2017 A013",
+  "p": 9.16,
+  "c": 74.8,
+  "f": 1.24,
+  "fib": 4.43,
+  "units": [
+   [
+    "1 katori raw",
+    160
+   ]
+  ]
+ },
+ {
+  "id": "parboiled_rice",
+  "name": "Parboiled rice, raw",
+  "aka": "ukda chawal",
+  "grp": "grains",
+  "src": "IFCT 2017 A014",
+  "p": 7.81,
+  "c": 77.16,
+  "f": 0.55,
+  "fib": 3.74,
+  "units": []
+ },
+ {
+  "id": "rice",
+  "name": "White rice, raw",
+  "aka": "chawal basmati sona masoori",
+  "grp": "grains",
+  "src": "IFCT 2017 A015",
+  "p": 7.94,
+  "c": 78.24,
+  "f": 0.52,
+  "fib": 2.81,
+  "units": [
+   [
+    "1 katori raw",
+    160
+   ]
+  ]
+ },
+ {
+  "id": "maida",
+  "name": "Maida (refined flour)",
+  "aka": "all purpose flour",
+  "grp": "grains",
+  "src": "IFCT 2017 A018",
+  "p": 10.36,
+  "c": 74.27,
+  "f": 0.76,
+  "fib": 2.76,
+  "units": [
+   [
+    "1 tbsp",
+    8
+   ]
+  ]
+ },
+ {
+  "id": "atta",
+  "name": "Atta (whole wheat flour)",
+  "aka": "gehu wheat flour",
+  "grp": "grains",
+  "src": "IFCT 2017 A019",
+  "p": 10.57,
+  "c": 64.17,
+  "f": 1.53,
+  "fib": 11.36,
+  "units": [
+   [
+    "1 tbsp",
+    8
+   ],
+   [
+    "1 katori",
+    120
+   ]
+  ]
+ },
+ {
+  "id": "dalia",
+  "name": "Dalia (broken wheat)",
+  "aka": "bulgur cracked wheat",
+  "grp": "grains",
+  "src": "IFCT 2017 A021",
+  "p": 10.84,
+  "c": 69.06,
+  "f": 1.45,
+  "fib": 8.81,
+  "units": []
+ },
+ {
+  "id": "sooji",
+  "name": "Sooji / rava (semolina)",
+  "aka": "suji rawa semolina",
+  "grp": "grains",
+  "src": "IFCT 2017 A022",
+  "p": 11.38,
+  "c": 68.43,
+  "f": 0.74,
+  "fib": 9.72,
+  "units": [
+   [
+    "1 tbsp",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "vermicelli",
+  "name": "Vermicelli (seviyan)",
+  "aka": "semiya seviyan",
+  "grp": "grains",
+  "src": "IFCT 2017 A023",
+  "p": 9.7,
+  "c": 70.39,
+  "f": 0.45,
+  "fib": 9.28,
+  "units": []
+ },
+ {
+  "id": "chana_dal",
+  "name": "Chana dal",
+  "aka": "bengal gram split",
+  "grp": "pulses",
+  "src": "IFCT 2017 B001",
+  "p": 21.55,
+  "c": 46.72,
+  "f": 5.31,
+  "fib": 15.15,
+  "units": []
+ },
+ {
+  "id": "kala_chana",
+  "name": "Kala chana (black chickpeas), dry",
+  "aka": "black chana bengal gram whole",
+  "grp": "pulses",
+  "src": "IFCT 2017 B002",
+  "p": 18.77,
+  "c": 39.56,
+  "f": 5.11,
+  "fib": 25.22,
+  "units": []
+ },
+ {
+  "id": "urad_dal",
+  "name": "Urad dal (split, washed)",
+  "aka": "black gram dal dhuli",
+  "grp": "pulses",
+  "src": "IFCT 2017 B003",
+  "p": 23.06,
+  "c": 51.0,
+  "f": 1.69,
+  "fib": 11.93,
+  "units": []
+ },
+ {
+  "id": "urad_whole",
+  "name": "Urad, whole (sabut)",
+  "aka": "black gram whole",
+  "grp": "pulses",
+  "src": "IFCT 2017 B004",
+  "p": 21.97,
+  "c": 43.99,
+  "f": 1.58,
+  "fib": 20.41,
+  "units": []
+ },
+ {
+  "id": "lobia",
+  "name": "Lobia (black-eyed beans), dry",
+  "aka": "cowpea chawli",
+  "grp": "pulses",
+  "src": "IFCT 2017 B005",
+  "p": 20.36,
+  "c": 54.62,
+  "f": 1.15,
+  "fib": 11.54,
+  "units": []
+ },
+ {
+  "id": "moong_dal",
+  "name": "Moong dal (split, yellow)",
+  "aka": "green gram dal",
+  "grp": "pulses",
+  "src": "IFCT 2017 B010",
+  "p": 23.88,
+  "c": 52.59,
+  "f": 1.35,
+  "fib": 9.37,
+  "units": []
+ },
+ {
+  "id": "moong_whole",
+  "name": "Moong, whole (sabut)",
+  "aka": "green gram whole",
+  "grp": "pulses",
+  "src": "IFCT 2017 B011",
+  "p": 22.53,
+  "c": 46.13,
+  "f": 1.14,
+  "fib": 17.04,
+  "units": []
+ },
+ {
+  "id": "kulthi",
+  "name": "Kulthi (horse gram)",
+  "aka": "horse gram hurali",
+  "grp": "pulses",
+  "src": "IFCT 2017 B012",
+  "p": 21.73,
+  "c": 57.24,
+  "f": 0.62,
+  "fib": 7.88,
+  "units": []
+ },
+ {
+  "id": "masoor_dal",
+  "name": "Masoor dal (red lentil)",
+  "aka": "lentil",
+  "grp": "pulses",
+  "src": "IFCT 2017 B013",
+  "p": 24.35,
+  "c": 52.53,
+  "f": 0.75,
+  "fib": 10.43,
+  "units": []
+ },
+ {
+  "id": "masoor_whole",
+  "name": "Masoor, whole",
+  "aka": "brown lentil",
+  "grp": "pulses",
+  "src": "IFCT 2017 B014",
+  "p": 22.49,
+  "c": 48.47,
+  "f": 0.64,
+  "fib": 16.82,
+  "units": []
+ },
+ {
+  "id": "moth",
+  "name": "Moth beans",
+  "aka": "matki",
+  "grp": "pulses",
+  "src": "IFCT 2017 B016",
+  "p": 19.75,
+  "c": 52.09,
+  "f": 1.76,
+  "fib": 15.12,
+  "units": []
+ },
+ {
+  "id": "dry_peas",
+  "name": "Dried peas (matar), dry",
+  "aka": "safed vatana",
+  "grp": "pulses",
+  "src": "IFCT 2017 B017",
+  "p": 20.43,
+  "c": 48.93,
+  "f": 1.89,
+  "fib": 17.01,
+  "units": []
+ },
+ {
+  "id": "rajma",
+  "name": "Rajma (kidney beans), dry",
+  "aka": "kidney beans",
+  "grp": "pulses",
+  "src": "IFCT 2017 B020",
+  "p": 19.91,
+  "c": 48.61,
+  "f": 1.77,
+  "fib": 16.57,
+  "units": []
+ },
+ {
+  "id": "toor_dal",
+  "name": "Toor / arhar dal",
+  "aka": "arhar tuvar pigeon pea",
+  "grp": "pulses",
+  "src": "IFCT 2017 B021",
+  "p": 21.7,
+  "c": 55.23,
+  "f": 1.56,
+  "fib": 9.06,
+  "units": []
+ },
+ {
+  "id": "soybean",
+  "name": "Soya bean, dry",
+  "aka": "soybean",
+  "grp": "pulses",
+  "src": "IFCT 2017 B025",
+  "p": 37.8,
+  "c": 10.16,
+  "f": 19.42,
+  "fib": 22.63,
+  "units": []
+ },
+ {
+  "id": "spinach",
+  "name": "Spinach (palak)",
+  "aka": "palak",
+  "grp": "veg",
+  "src": "IFCT 2017 C033",
+  "p": 2.14,
+  "c": 2.05,
+  "f": 0.64,
+  "fib": 2.38,
+  "units": []
+ },
+ {
+  "id": "methi_leaves",
+  "name": "Methi leaves (fenugreek)",
+  "aka": "fenugreek leaves",
+  "grp": "veg",
+  "src": "IFCT 2017 C020",
+  "p": 3.68,
+  "c": 2.17,
+  "f": 0.83,
+  "fib": 4.9,
+  "units": []
+ },
+ {
+  "id": "sarson",
+  "name": "Mustard greens (sarson)",
+  "aka": "sarson saag",
+  "grp": "veg",
+  "src": "IFCT 2017 C026",
+  "p": 3.52,
+  "c": 2.41,
+  "f": 0.51,
+  "fib": 3.92,
+  "units": []
+ },
+ {
+  "id": "bathua",
+  "name": "Bathua leaves",
+  "aka": "",
+  "grp": "veg",
+  "src": "IFCT 2017 C008",
+  "p": 2.5,
+  "c": 2.56,
+  "f": 0.44,
+  "fib": 4.01,
+  "units": []
+ },
+ {
+  "id": "cabbage",
+  "name": "Cabbage (patta gobhi)",
+  "aka": "patta gobi",
+  "grp": "veg",
+  "src": "IFCT 2017 C015",
+  "p": 1.36,
+  "c": 3.25,
+  "f": 0.12,
+  "fib": 2.76,
+  "units": []
+ },
+ {
+  "id": "lettuce",
+  "name": "Lettuce",
+  "aka": "",
+  "grp": "veg",
+  "src": "IFCT 2017 C025",
+  "p": 1.54,
+  "c": 3.01,
+  "f": 0.27,
+  "fib": 1.79,
+  "units": []
+ },
+ {
+  "id": "karela",
+  "name": "Bitter gourd (karela)",
+  "aka": "karela",
+  "grp": "veg",
+  "src": "IFCT 2017 D004",
+  "p": 1.44,
+  "c": 2.82,
+  "f": 0.24,
+  "fib": 3.78,
+  "units": []
+ },
+ {
+  "id": "lauki",
+  "name": "Bottle gourd (lauki / ghiya)",
+  "aka": "lauki ghiya dudhi",
+  "grp": "veg",
+  "src": "IFCT 2017 D007",
+  "p": 0.53,
+  "c": 1.68,
+  "f": 0.13,
+  "fib": 2.12,
+  "units": []
+ },
+ {
+  "id": "brinjal",
+  "name": "Brinjal (baingan)",
+  "aka": "baingan eggplant",
+  "grp": "veg",
+  "src": "IFCT 2017 D031",
+  "p": 1.48,
+  "c": 3.52,
+  "f": 0.32,
+  "fib": 3.98,
+  "units": []
+ },
+ {
+  "id": "capsicum",
+  "name": "Capsicum (shimla mirch)",
+  "aka": "bell pepper",
+  "grp": "veg",
+  "src": "IFCT 2017 D033",
+  "p": 1.11,
+  "c": 1.84,
+  "f": 0.34,
+  "fib": 2.06,
+  "units": [
+   [
+    "1 medium",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "cauliflower",
+  "name": "Cauliflower (phool gobhi)",
+  "aka": "gobi",
+  "grp": "veg",
+  "src": "IFCT 2017 D036",
+  "p": 2.15,
+  "c": 2.03,
+  "f": 0.44,
+  "fib": 3.71,
+  "units": []
+ },
+ {
+  "id": "gawar",
+  "name": "Cluster beans (gawar)",
+  "aka": "gavar",
+  "grp": "veg",
+  "src": "IFCT 2017 D039",
+  "p": 3.55,
+  "c": 4.91,
+  "f": 0.37,
+  "fib": 4.83,
+  "units": []
+ },
+ {
+  "id": "baby_corn",
+  "name": "Baby corn",
+  "aka": "",
+  "grp": "veg",
+  "src": "IFCT 2017 D042",
+  "p": 2.69,
+  "c": 11.66,
+  "f": 1.33,
+  "fib": 6.09,
+  "units": []
+ },
+ {
+  "id": "cucumber",
+  "name": "Cucumber (kheera)",
+  "aka": "kheera kakdi",
+  "grp": "veg",
+  "src": "IFCT 2017 D043",
+  "p": 0.71,
+  "c": 3.48,
+  "f": 0.16,
+  "fib": 2.14,
+  "units": [
+   [
+    "1 medium",
+    200
+   ]
+  ]
+ },
+ {
+  "id": "drumstick",
+  "name": "Drumstick (moringa pods)",
+  "aka": "sahjan murungakkai",
+  "grp": "veg",
+  "src": "IFCT 2017 D046",
+  "p": 2.62,
+  "c": 3.76,
+  "f": 0.12,
+  "fib": 6.83,
+  "units": []
+ },
+ {
+  "id": "french_beans",
+  "name": "French beans",
+  "aka": "beans",
+  "grp": "veg",
+  "src": "IFCT 2017 D049",
+  "p": 2.49,
+  "c": 2.68,
+  "f": 0.26,
+  "fib": 4.38,
+  "units": []
+ },
+ {
+  "id": "raw_jackfruit",
+  "name": "Raw jackfruit (kathal)",
+  "aka": "kathal",
+  "grp": "veg",
+  "src": "IFCT 2017 D051",
+  "p": 1.98,
+  "c": 3.48,
+  "f": 0.35,
+  "fib": 7.69,
+  "units": []
+ },
+ {
+  "id": "bhindi",
+  "name": "Okra (bhindi)",
+  "aka": "ladies finger",
+  "grp": "veg",
+  "src": "IFCT 2017 D056",
+  "p": 2.08,
+  "c": 3.62,
+  "f": 0.22,
+  "fib": 4.08,
+  "units": []
+ },
+ {
+  "id": "raw_mango",
+  "name": "Raw mango (kairi)",
+  "aka": "kairi",
+  "grp": "veg",
+  "src": "IFCT 2017 D057",
+  "p": 0.69,
+  "c": 10.59,
+  "f": 0.08,
+  "fib": 3.01,
+  "units": []
+ },
+ {
+  "id": "parwal",
+  "name": "Pointed gourd (parwal)",
+  "aka": "parval",
+  "grp": "veg",
+  "src": "IFCT 2017 D060",
+  "p": 1.4,
+  "c": 3.54,
+  "f": 0.3,
+  "fib": 2.61,
+  "units": []
+ },
+ {
+  "id": "peas",
+  "name": "Green peas (matar), fresh",
+  "aka": "matar",
+  "grp": "veg",
+  "src": "IFCT 2017 D061",
+  "p": 7.25,
+  "c": 11.88,
+  "f": 0.13,
+  "fib": 6.32,
+  "units": [
+   [
+    "1 katori",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "raw_banana",
+  "name": "Raw banana (kachcha kela)",
+  "aka": "plantain",
+  "grp": "veg",
+  "src": "IFCT 2017 D063",
+  "p": 1.18,
+  "c": 17.58,
+  "f": 0.23,
+  "fib": 3.6,
+  "units": []
+ },
+ {
+  "id": "pumpkin",
+  "name": "Pumpkin (kaddu)",
+  "aka": "kaddu",
+  "grp": "veg",
+  "src": "IFCT 2017 D066",
+  "p": 0.84,
+  "c": 4.0,
+  "f": 0.16,
+  "fib": 2.56,
+  "units": []
+ },
+ {
+  "id": "tori",
+  "name": "Ridge gourd (tori / turai)",
+  "aka": "turai",
+  "grp": "veg",
+  "src": "IFCT 2017 D068",
+  "p": 0.91,
+  "c": 1.72,
+  "f": 0.14,
+  "fib": 1.81,
+  "units": []
+ },
+ {
+  "id": "tinda",
+  "name": "Tinda",
+  "aka": "round gourd",
+  "grp": "veg",
+  "src": "IFCT 2017 D073",
+  "p": 1.02,
+  "c": 1.9,
+  "f": 0.17,
+  "fib": 2.0,
+  "units": []
+ },
+ {
+  "id": "tomato",
+  "name": "Tomato",
+  "aka": "tamatar",
+  "grp": "veg",
+  "src": "IFCT 2017 D075",
+  "p": 0.76,
+  "c": 3.2,
+  "f": 0.25,
+  "fib": 1.58,
+  "units": [
+   [
+    "1 medium",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "beetroot",
+  "name": "Beetroot",
+  "aka": "chukandar",
+  "grp": "veg",
+  "src": "IFCT 2017 F001",
+  "p": 1.95,
+  "c": 6.18,
+  "f": 0.14,
+  "fib": 3.31,
+  "units": []
+ },
+ {
+  "id": "carrot",
+  "name": "Carrot (gajar)",
+  "aka": "gajar",
+  "grp": "veg",
+  "src": "IFCT 2017 F002",
+  "p": 0.95,
+  "c": 5.55,
+  "f": 0.47,
+  "fib": 4.18,
+  "units": [
+   [
+    "1 medium",
+    70
+   ]
+  ]
+ },
+ {
+  "id": "arbi",
+  "name": "Colocasia (arbi)",
+  "aka": "arbi taro",
+  "grp": "veg",
+  "src": "IFCT 2017 F004",
+  "p": 3.31,
+  "c": 17.85,
+  "f": 0.17,
+  "fib": 3.22,
+  "units": []
+ },
+ {
+  "id": "potato",
+  "name": "Potato (aloo)",
+  "aka": "aloo",
+  "grp": "veg",
+  "src": "IFCT 2017 F006",
+  "p": 1.54,
+  "c": 14.89,
+  "f": 0.23,
+  "fib": 1.71,
+  "units": [
+   [
+    "1 medium",
+    150
+   ]
+  ]
+ },
+ {
+  "id": "mooli",
+  "name": "Radish (mooli)",
+  "aka": "mooli",
+  "grp": "veg",
+  "src": "IFCT 2017 F010",
+  "p": 0.77,
+  "c": 6.56,
+  "f": 0.15,
+  "fib": 2.65,
+  "units": []
+ },
+ {
+  "id": "sweet_potato",
+  "name": "Sweet potato (shakarkandi)",
+  "aka": "shakarkand",
+  "grp": "veg",
+  "src": "IFCT 2017 F013",
+  "p": 1.33,
+  "c": 24.25,
+  "f": 0.26,
+  "fib": 3.99,
+  "units": [
+   [
+    "1 medium",
+    130
+   ]
+  ]
+ },
+ {
+  "id": "tapioca",
+  "name": "Tapioca (kappa)",
+  "aka": "cassava kappa",
+  "grp": "veg",
+  "src": "IFCT 2017 F015",
+  "p": 1.03,
+  "c": 17.81,
+  "f": 0.2,
+  "fib": 4.61,
+  "units": []
+ },
+ {
+  "id": "suran",
+  "name": "Elephant yam (suran / jimikand)",
+  "aka": "suran yam",
+  "grp": "veg",
+  "src": "IFCT 2017 F017",
+  "p": 2.56,
+  "c": 17.46,
+  "f": 0.14,
+  "fib": 4.17,
+  "units": []
+ },
+ {
+  "id": "green_chilli",
+  "name": "Green chilli",
+  "aka": "hari mirch",
+  "grp": "veg",
+  "src": "IFCT 2017 G008",
+  "p": 2.36,
+  "c": 5.86,
+  "f": 0.72,
+  "fib": 4.77,
+  "units": [
+   [
+    "1 chilli",
+    4
+   ]
+  ]
+ },
+ {
+  "id": "coriander",
+  "name": "Coriander leaves (dhania)",
+  "aka": "dhaniya",
+  "grp": "veg",
+  "src": "IFCT 2017 G009",
+  "p": 3.52,
+  "c": 1.93,
+  "f": 0.7,
+  "fib": 4.66,
+  "units": []
+ },
+ {
+  "id": "garlic",
+  "name": "Garlic (lahsun)",
+  "aka": "lehsun",
+  "grp": "veg",
+  "src": "IFCT 2017 G011",
+  "p": 6.92,
+  "c": 21.93,
+  "f": 0.16,
+  "fib": 5.22,
+  "units": [
+   [
+    "1 clove",
+    3
+   ]
+  ]
+ },
+ {
+  "id": "ginger",
+  "name": "Ginger (adrak)",
+  "aka": "adrak",
+  "grp": "veg",
+  "src": "IFCT 2017 G014",
+  "p": 2.22,
+  "c": 8.97,
+  "f": 0.85,
+  "fib": 5.36,
+  "units": []
+ },
+ {
+  "id": "mint",
+  "name": "Mint leaves (pudina)",
+  "aka": "pudina",
+  "grp": "veg",
+  "src": "IFCT 2017 G016",
+  "p": 4.66,
+  "c": 2.39,
+  "f": 0.65,
+  "fib": 5.89,
+  "units": []
+ },
+ {
+  "id": "onion",
+  "name": "Onion (pyaz)",
+  "aka": "pyaaz kanda",
+  "grp": "veg",
+  "src": "IFCT 2017 G017",
+  "p": 1.5,
+  "c": 9.56,
+  "f": 0.24,
+  "fib": 2.45,
+  "units": [
+   [
+    "1 medium",
+    110
+   ]
+  ]
+ },
+ {
+  "id": "mushroom",
+  "name": "Mushroom (button)",
+  "aka": "",
+  "grp": "veg",
+  "src": "IFCT 2017 J001",
+  "p": 3.68,
+  "c": 1.98,
+  "f": 0.42,
+  "fib": 3.11,
+  "units": []
+ },
+ {
+  "id": "apple",
+  "name": "Apple",
+  "aka": "seb",
+  "grp": "fruit",
+  "src": "IFCT 2017 E001",
+  "p": 0.29,
+  "c": 13.11,
+  "f": 0.64,
+  "fib": 2.59,
+  "units": [
+   [
+    "1 medium",
+    180
+   ]
+  ]
+ },
+ {
+  "id": "banana",
+  "name": "Banana",
+  "aka": "kela",
+  "grp": "fruit",
+  "src": "IFCT 2017 E012",
+  "p": 1.23,
+  "c": 23.63,
+  "f": 0.33,
+  "fib": 1.94,
+  "units": [
+   [
+    "1 medium (peeled)",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "custard_apple",
+  "name": "Custard apple (sitaphal)",
+  "aka": "sitafal sharifa",
+  "grp": "fruit",
+  "src": "IFCT 2017 E016",
+  "p": 1.62,
+  "c": 20.38,
+  "f": 0.67,
+  "fib": 5.1,
+  "units": []
+ },
+ {
+  "id": "dates",
+  "name": "Dates (khajoor), dry",
+  "aka": "khajur",
+  "grp": "fruit",
+  "src": "IFCT 2017 E017",
+  "p": 2.45,
+  "c": 74.91,
+  "f": 0.35,
+  "fib": 8.95,
+  "units": [
+   [
+    "1 date",
+    8
+   ]
+  ]
+ },
+ {
+  "id": "grapes",
+  "name": "Grapes, green",
+  "aka": "angoor",
+  "grp": "fruit",
+  "src": "IFCT 2017 E026",
+  "p": 0.62,
+  "c": 11.81,
+  "f": 0.26,
+  "fib": 1.28,
+  "units": [
+   [
+    "1 katori",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "guava",
+  "name": "Guava (amrood)",
+  "aka": "amrud peru",
+  "grp": "fruit",
+  "src": "IFCT 2017 E028",
+  "p": 1.44,
+  "c": 5.13,
+  "f": 0.32,
+  "fib": 8.59,
+  "units": [
+   [
+    "1 medium",
+    150
+   ]
+  ]
+ },
+ {
+  "id": "jackfruit",
+  "name": "Jackfruit, ripe",
+  "aka": "kathal",
+  "grp": "fruit",
+  "src": "IFCT 2017 E030",
+  "p": 2.74,
+  "c": 14.01,
+  "f": 0.15,
+  "fib": 3.62,
+  "units": []
+ },
+ {
+  "id": "lemon_juice",
+  "name": "Lemon juice",
+  "aka": "nimbu",
+  "grp": "fruit",
+  "src": "IFCT 2017 E033",
+  "p": 0.41,
+  "c": 0.0,
+  "f": 0.75,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 lemon",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "mosambi",
+  "name": "Sweet lime (mosambi)",
+  "aka": "mosumbi",
+  "grp": "fruit",
+  "src": "IFCT 2017 E034",
+  "p": 0.76,
+  "c": 5.18,
+  "f": 0.2,
+  "fib": 2.07,
+  "units": [
+   [
+    "1 medium (pulp)",
+    130
+   ]
+  ]
+ },
+ {
+  "id": "litchi",
+  "name": "Litchi",
+  "aka": "lychee",
+  "grp": "fruit",
+  "src": "IFCT 2017 E035",
+  "p": 0.99,
+  "c": 11.41,
+  "f": 0.26,
+  "fib": 1.34,
+  "units": []
+ },
+ {
+  "id": "mango",
+  "name": "Mango, ripe",
+  "aka": "aam alphonso kesar",
+  "grp": "fruit",
+  "src": "IFCT 2017 E039",
+  "p": 0.54,
+  "c": 11.36,
+  "f": 0.57,
+  "fib": 2.02,
+  "units": [
+   [
+    "1 medium (pulp)",
+    200
+   ]
+  ]
+ },
+ {
+  "id": "muskmelon",
+  "name": "Muskmelon (kharbooja)",
+  "aka": "kharbuja",
+  "grp": "fruit",
+  "src": "IFCT 2017 E045",
+  "p": 0.42,
+  "c": 4.24,
+  "f": 0.35,
+  "fib": 1.51,
+  "units": []
+ },
+ {
+  "id": "orange",
+  "name": "Orange (santra)",
+  "aka": "santra",
+  "grp": "fruit",
+  "src": "IFCT 2017 E047",
+  "p": 0.7,
+  "c": 7.92,
+  "f": 0.13,
+  "fib": 1.29,
+  "units": [
+   [
+    "1 medium (pulp)",
+    130
+   ]
+  ]
+ },
+ {
+  "id": "papaya",
+  "name": "Papaya, ripe",
+  "aka": "papita",
+  "grp": "fruit",
+  "src": "IFCT 2017 E049",
+  "p": 0.42,
+  "c": 4.61,
+  "f": 0.16,
+  "fib": 2.83,
+  "units": [
+   [
+    "1 katori",
+    140
+   ]
+  ]
+ },
+ {
+  "id": "pear",
+  "name": "Pear",
+  "aka": "nashpati",
+  "grp": "fruit",
+  "src": "IFCT 2017 E051",
+  "p": 0.36,
+  "c": 8.09,
+  "f": 0.27,
+  "fib": 4.48,
+  "units": []
+ },
+ {
+  "id": "pineapple",
+  "name": "Pineapple",
+  "aka": "ananas",
+  "grp": "fruit",
+  "src": "IFCT 2017 E053",
+  "p": 0.52,
+  "c": 9.42,
+  "f": 0.16,
+  "fib": 3.46,
+  "units": []
+ },
+ {
+  "id": "pomegranate",
+  "name": "Pomegranate (anar) seeds",
+  "aka": "anaar",
+  "grp": "fruit",
+  "src": "IFCT 2017 E055",
+  "p": 1.33,
+  "c": 11.58,
+  "f": 0.15,
+  "fib": 2.83,
+  "units": [
+   [
+    "1 katori",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "raisins",
+  "name": "Raisins (kishmish)",
+  "aka": "kishmish",
+  "grp": "fruit",
+  "src": "IFCT 2017 E058",
+  "p": 2.76,
+  "c": 68.79,
+  "f": 0.35,
+  "fib": 4.56,
+  "units": [
+   [
+    "1 tbsp",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "chikoo",
+  "name": "Chikoo (sapota)",
+  "aka": "sapota chiku",
+  "grp": "fruit",
+  "src": "IFCT 2017 E060",
+  "p": 0.92,
+  "c": 13.9,
+  "f": 1.26,
+  "fib": 9.6,
+  "units": []
+ },
+ {
+  "id": "strawberry",
+  "name": "Strawberry",
+  "aka": "",
+  "grp": "fruit",
+  "src": "IFCT 2017 E063",
+  "p": 0.97,
+  "c": 3.4,
+  "f": 0.56,
+  "fib": 2.5,
+  "units": []
+ },
+ {
+  "id": "watermelon",
+  "name": "Watermelon (tarbooz)",
+  "aka": "tarbuj",
+  "grp": "fruit",
+  "src": "IFCT 2017 E065",
+  "p": 0.6,
+  "c": 3.86,
+  "f": 0.16,
+  "fib": 0.7,
+  "units": [
+   [
+    "1 katori",
+    150
+   ]
+  ]
+ },
+ {
+  "id": "almond",
+  "name": "Almonds (badam)",
+  "aka": "badam",
+  "grp": "nuts",
+  "src": "IFCT 2017 H001",
+  "p": 18.41,
+  "c": 3.04,
+  "f": 58.49,
+  "fib": 13.06,
+  "units": [
+   [
+    "1 almond",
+    1.2
+   ],
+   [
+    "10 almonds",
+    12
+   ]
+  ]
+ },
+ {
+  "id": "cashew",
+  "name": "Cashews (kaju)",
+  "aka": "kaju",
+  "grp": "nuts",
+  "src": "IFCT 2017 H005",
+  "p": 18.78,
+  "c": 25.46,
+  "f": 45.2,
+  "fib": 3.86,
+  "units": [
+   [
+    "10 cashews",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "coconut_dry",
+  "name": "Coconut, dry (copra)",
+  "aka": "khopra",
+  "grp": "nuts",
+  "src": "IFCT 2017 H006",
+  "p": 7.27,
+  "c": 8.01,
+  "f": 63.26,
+  "fib": 15.88,
+  "units": []
+ },
+ {
+  "id": "coconut",
+  "name": "Coconut, fresh",
+  "aka": "nariyal",
+  "grp": "nuts",
+  "src": "IFCT 2017 H007",
+  "p": 3.84,
+  "c": 6.3,
+  "f": 41.38,
+  "fib": 10.42,
+  "units": [
+   [
+    "1 tbsp grated",
+    8
+   ]
+  ]
+ },
+ {
+  "id": "til",
+  "name": "Sesame seeds (til)",
+  "aka": "til gingelly",
+  "grp": "nuts",
+  "src": "IFCT 2017 H011",
+  "p": 21.7,
+  "c": 10.83,
+  "f": 43.05,
+  "fib": 16.99,
+  "units": [
+   [
+    "1 tbsp",
+    9
+   ]
+  ]
+ },
+ {
+  "id": "peanuts",
+  "name": "Peanuts (moongphali)",
+  "aka": "groundnut moongfali shengdana",
+  "grp": "nuts",
+  "src": "IFCT 2017 H012",
+  "p": 23.65,
+  "c": 17.27,
+  "f": 39.63,
+  "fib": 10.38,
+  "units": [
+   [
+    "1 tbsp",
+    10
+   ],
+   [
+    "1 handful",
+    30
+   ]
+  ]
+ },
+ {
+  "id": "flaxseed",
+  "name": "Flaxseeds (alsi)",
+  "aka": "alsi linseed",
+  "grp": "nuts",
+  "src": "IFCT 2017 H014",
+  "p": 18.55,
+  "c": 10.99,
+  "f": 35.67,
+  "fib": 26.17,
+  "units": [
+   [
+    "1 tbsp",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "pistachio",
+  "name": "Pistachios (pista)",
+  "aka": "pista",
+  "grp": "nuts",
+  "src": "IFCT 2017 H018",
+  "p": 23.35,
+  "c": 15.82,
+  "f": 42.49,
+  "fib": 10.64,
+  "units": []
+ },
+ {
+  "id": "sunflower_seeds",
+  "name": "Sunflower seeds",
+  "aka": "",
+  "grp": "nuts",
+  "src": "IFCT 2017 H020",
+  "p": 23.53,
+  "c": 6.85,
+  "f": 51.85,
+  "fib": 10.8,
+  "units": [
+   [
+    "1 tbsp",
+    9
+   ]
+  ]
+ },
+ {
+  "id": "walnut",
+  "name": "Walnuts (akhrot)",
+  "aka": "akhrot",
+  "grp": "nuts",
+  "src": "IFCT 2017 H021",
+  "p": 14.92,
+  "c": 10.14,
+  "f": 64.27,
+  "fib": 5.39,
+  "units": [
+   [
+    "1 walnut (2 halves)",
+    5
+   ]
+  ]
+ },
+ {
+  "id": "jaggery",
+  "name": "Jaggery (gur)",
+  "aka": "gud gur",
+  "grp": "sweet",
+  "src": "IFCT 2017 I001",
+  "p": 1.85,
+  "c": 84.87,
+  "f": 0.16,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 piece",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "sugarcane_juice",
+  "name": "Sugarcane juice",
+  "aka": "ganne ka ras",
+  "grp": "drinks",
+  "src": "IFCT 2017 I002",
+  "p": 0.16,
+  "c": 13.11,
+  "f": 0.4,
+  "fib": 0.56,
+  "units": [
+   [
+    "1 glass",
+    250
+   ]
+  ]
+ },
+ {
+  "id": "coconut_water",
+  "name": "Coconut water",
+  "aka": "nariyal pani",
+  "grp": "drinks",
+  "src": "IFCT 2017 K002",
+  "p": 0.26,
+  "c": 3.16,
+  "f": 0.16,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 coconut",
+    250
+   ]
+  ]
+ },
+ {
+  "id": "buffalo_milk",
+  "name": "Buffalo milk, whole",
+  "aka": "bhains doodh",
+  "grp": "dairy",
+  "src": "IFCT 2017 L001",
+  "p": 3.68,
+  "c": 8.39,
+  "f": 6.58,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 glass",
+    250
+   ]
+  ]
+ },
+ {
+  "id": "cow_milk",
+  "name": "Cow milk, whole",
+  "aka": "doodh",
+  "grp": "dairy",
+  "src": "IFCT 2017 L002",
+  "p": 3.26,
+  "c": 4.94,
+  "f": 4.48,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 glass",
+    250
+   ]
+  ]
+ },
+ {
+  "id": "paneer",
+  "name": "Paneer",
+  "aka": "cottage cheese",
+  "grp": "dairy",
+  "src": "IFCT 2017 L003",
+  "p": 18.86,
+  "c": 12.41,
+  "f": 14.78,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 cube",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "khoa",
+  "name": "Khoa / mawa",
+  "aka": "mawa khoya",
+  "grp": "dairy",
+  "src": "IFCT 2017 L004",
+  "p": 16.34,
+  "c": 16.53,
+  "f": 20.62,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "egg",
+  "name": "Egg, whole",
+  "aka": "anda",
+  "grp": "protein",
+  "src": "IFCT 2017 M001",
+  "p": 13.28,
+  "c": 0.0,
+  "f": 9.15,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 egg",
+    50
+   ]
+  ]
+ },
+ {
+  "id": "egg_white",
+  "name": "Egg white",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 M002",
+  "p": 10.84,
+  "c": 0.0,
+  "f": 0.06,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 egg white",
+    33
+   ]
+  ]
+ },
+ {
+  "id": "egg_yolk",
+  "name": "Egg yolk",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 M003",
+  "p": 15.74,
+  "c": 0.0,
+  "f": 26.34,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 yolk",
+    17
+   ]
+  ]
+ },
+ {
+  "id": "chicken_leg",
+  "name": "Chicken leg / curry cut, skinless",
+  "aka": "drumstick murgh curry cut",
+  "grp": "protein",
+  "src": "IFCT 2017 N001",
+  "p": 19.44,
+  "c": 0.0,
+  "f": 12.64,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "chicken_thigh",
+  "name": "Chicken thigh, skinless",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 N002",
+  "p": 18.18,
+  "c": 0.0,
+  "f": 14.23,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "chicken_liver",
+  "name": "Chicken liver",
+  "aka": "kaleji",
+  "grp": "protein",
+  "src": "IFCT 2017 N005",
+  "p": 21.57,
+  "c": 0.0,
+  "f": 4.08,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "mutton",
+  "name": "Mutton (goat), curry cut",
+  "aka": "bakra gosht lamb",
+  "grp": "protein",
+  "src": "IFCT 2017 O001",
+  "p": 20.33,
+  "c": 0.0,
+  "f": 11.94,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "mutton_lean",
+  "name": "Mutton (goat) leg, lean",
+  "aka": "gosht",
+  "grp": "protein",
+  "src": "IFCT 2017 O003",
+  "p": 22.07,
+  "c": 0.0,
+  "f": 7.94,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "goat_liver",
+  "name": "Goat liver (kaleji)",
+  "aka": "kaleji",
+  "grp": "protein",
+  "src": "IFCT 2017 O008",
+  "p": 20.32,
+  "c": 0.0,
+  "f": 4.88,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "beef",
+  "name": "Beef, round (leg)",
+  "aka": "buff",
+  "grp": "protein",
+  "src": "IFCT 2017 O027",
+  "p": 22.64,
+  "c": 0.0,
+  "f": 7.38,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "pork",
+  "name": "Pork chops",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 O049",
+  "p": 19.41,
+  "c": 0.0,
+  "f": 11.3,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "rohu",
+  "name": "Rohu",
+  "aka": "rui",
+  "grp": "protein",
+  "src": "IFCT 2017 S006",
+  "p": 19.71,
+  "c": 0.0,
+  "f": 2.39,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "katla",
+  "name": "Katla",
+  "aka": "catla",
+  "grp": "protein",
+  "src": "IFCT 2017 S002",
+  "p": 17.94,
+  "c": 0.0,
+  "f": 2.15,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "pomfret",
+  "name": "Pomfret, white",
+  "aka": "paplet",
+  "grp": "protein",
+  "src": "IFCT 2017 P057",
+  "p": 19.02,
+  "c": 0.0,
+  "f": 5.12,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "mackerel",
+  "name": "Mackerel (bangda)",
+  "aka": "bangda ayala",
+  "grp": "protein",
+  "src": "IFCT 2017 P034",
+  "p": 21.51,
+  "c": 0.0,
+  "f": 1.53,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "hilsa",
+  "name": "Hilsa (ilish)",
+  "aka": "ilish",
+  "grp": "protein",
+  "src": "IFCT 2017 P017",
+  "p": 21.8,
+  "c": 0.0,
+  "f": 18.49,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "sardine",
+  "name": "Sardine (mathi)",
+  "aka": "mathi chaala",
+  "grp": "protein",
+  "src": "IFCT 2017 P071",
+  "p": 17.91,
+  "c": 0.0,
+  "f": 8.99,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "tuna",
+  "name": "Tuna",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 P084",
+  "p": 24.5,
+  "c": 0.0,
+  "f": 1.44,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "bombay_duck",
+  "name": "Bombay duck (bombil)",
+  "aka": "bombil",
+  "grp": "protein",
+  "src": "IFCT 2017 P007",
+  "p": 13.53,
+  "c": 0.0,
+  "f": 1.03,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "tilapia",
+  "name": "Tilapia",
+  "aka": "",
+  "grp": "protein",
+  "src": "IFCT 2017 P083",
+  "p": 18.48,
+  "c": 0.0,
+  "f": 1.08,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "basa",
+  "name": "Basa / pangas",
+  "aka": "pangasius",
+  "grp": "protein",
+  "src": "IFCT 2017 S005",
+  "p": 17.12,
+  "c": 0.0,
+  "f": 16.77,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "prawns",
+  "name": "Prawns (jhinga)",
+  "aka": "shrimp jhinga",
+  "grp": "protein",
+  "src": "IFCT 2017 S008",
+  "p": 19.24,
+  "c": 0.0,
+  "f": 0.52,
+  "fib": 0.0,
+  "units": []
+ },
+ {
+  "id": "groundnut_oil",
+  "name": "Groundnut oil",
+  "aka": "peanut oil",
+  "grp": "fats",
+  "src": "IFCT 2017 T005",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "mustard_oil",
+  "name": "Mustard oil",
+  "aka": "sarson tel",
+  "grp": "fats",
+  "src": "IFCT 2017 T006",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "coconut_oil",
+  "name": "Coconut oil",
+  "aka": "",
+  "grp": "fats",
+  "src": "IFCT 2017 T001",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "oil",
+  "name": "Sunflower / refined oil",
+  "aka": "cooking oil refined",
+  "grp": "fats",
+  "src": "IFCT 2017 T012",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "rice_bran_oil",
+  "name": "Rice bran oil",
+  "aka": "",
+  "grp": "fats",
+  "src": "IFCT 2017 T008",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "til_oil",
+  "name": "Sesame (gingelly) oil",
+  "aka": "til oil",
+  "grp": "fats",
+  "src": "IFCT 2017 T004",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "ghee",
+  "name": "Ghee",
+  "aka": "desi ghee clarified butter",
+  "grp": "fats",
+  "src": "IFCT 2017 T013",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ },
+ {
+  "id": "vanaspati",
+  "name": "Vanaspati (dalda)",
+  "aka": "dalda",
+  "grp": "fats",
+  "src": "IFCT 2017 T014",
+  "p": 0.0,
+  "c": 0.0,
+  "f": 100.0,
+  "fib": 0.0,
+  "units": [
+   [
+    "1 tsp",
+    5
+   ],
+   [
+    "1 tbsp",
+    14
+   ]
+  ]
+ }
+]

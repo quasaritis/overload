@@ -214,7 +214,7 @@ export async function setsSince(iso: string) {
       .gte('sessions.started_at', iso)
       .not('sessions.ended_at', 'is', null)
       .limit(5000),
-  ) as { weight_kg: number | null; reps: number | null; exercise_id: string; is_warmup: boolean; created_at: string; sessions: { started_at: string } }[];
+  ) as unknown as { weight_kg: number | null; reps: number | null; exercise_id: string; is_warmup: boolean; created_at: string; sessions: { started_at: string } }[];
 }
 
 export async function loggedExerciseIds(): Promise<{ id: string; count: number }[]> {
