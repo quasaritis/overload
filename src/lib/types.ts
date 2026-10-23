@@ -112,6 +112,8 @@ export interface FoodItem {
   c: number;
   f: number;
   fb?: number;
+  /** Whether photo calories came from a readable package label or a visual estimate. */
+  calorie_source?: 'label' | 'estimate';
 }
 
 export interface FoodEntry {
@@ -147,3 +149,4 @@ export interface SavedMeal {
   items: FoodItem[];
   created_at: string;
 }
+
