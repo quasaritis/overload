@@ -102,7 +102,8 @@ p { margin: 0; }
 .t-small { font-size: 0.875rem; line-height: 1.45; }
 
 /* ── shell ── */
-.shell { min-height: 100dvh; display: grid; grid-template-columns: 1fr; }
+/* minmax(0, …): long unbreakable content (food names, exercise names) ellipsizes instead of widening the page */
+.shell { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); }
 .main { padding: var(--s-5) var(--s-4) calc(var(--nav-h) + var(--safe-b) + var(--s-6)); max-width: 880px; width: 100%; margin: 0 auto; }
 .main.wide { max-width: 1080px; }
 
@@ -124,7 +125,7 @@ p { margin: 0; }
 @media (max-width: 380px) { .nav a { font-size: 0.6875rem; } .nav a svg { width: 20px; height: 20px; } }
 
 @media (min-width: 900px) {
-  .shell { grid-template-columns: 232px 1fr; }
+  .shell { grid-template-columns: 232px minmax(0, 1fr); }
   .nav {
     position: sticky; top: 0; inset: auto; height: 100dvh; padding: var(--s-5) var(--s-3);
     grid-template-columns: 1fr; grid-auto-rows: min-content; gap: 2px; border-top: 0; border-right: 1px solid var(--rule);
