@@ -4,7 +4,7 @@
 // →    { items: Item[], note: string, provider: string, remaining: number }
 //
 // Secrets (supabase secrets set …): set ONE of
-//   GEMINI_API_KEY     (+ optional GEMINI_MODEL, default gemini-3.8-flash)   — has a free tier
+//   GEMINI_API_KEY     (+ optional GEMINI_MODEL: comma-separated, tried in order)   — has a free tier
 //   ANTHROPIC_API_KEY  (+ optional ANTHROPIC_MODEL, default claude-haiku-5-5)
 // Optional: AI_PROVIDER=gemini|anthropic to pick when both are set; SCAN_DAILY_LIMIT (default 40).
 import { createClient } from 'npm:@supabase/supabase-js@2.45.4';
@@ -112,25 +112,44 @@ function parseJson(text: string): unknown {
   return JSON.parse(start >= 0 && end > start ? t.slice(start, end + 1) : t);
 }
 
+// Newest first. A busy (429/5xx), retired (404) or stalled model falls through to the next one.
+const GEMINI_MODELS = (Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.8-flash,gemini-3.5-flash,gemini-flash-latest')
+  .split(',').map((m) => m.trim()).filter(Boolean);
+const GEMINI_TIMEOUT_MS = 18_000;
+
 async function askGemini(key: string, b64: string, mime: string, hint: string) {
-  const model = Deno.env.get('GEMINI_MODEL') ?? 'gemini-3.8-flash';
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
-    body: JSON.stringify({
-      contents: [{
-        parts: [
-          { text: PROMPT + (hint ? `\n\nUser's note: ${hint}` : '') },
-          { inline_data: { mime_type: mime, data: b64 } },
-        ],
-      }],
-      generationConfig: { response_mime_type: 'application/json', temperature: 0.2 },
-    }),
+  const payload = JSON.stringify({
+    contents: [{
+      parts: [
+        { text: PROMPT + (hint ? `\n\nUser's note: ${hint}` : '') },
+        { inline_data: { mime_type: mime, data: b64 } },
+      ],
+    }],
+    generationConfig: { response_mime_type: 'application/json', temperature: 0.2 },
   });
-  if (!res.ok) throw new ProviderHttpError('gemini', res.status, (await res.text()).slice(0, 300));
-  const body = await res.json();
-  const text = body?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? '').join('') ?? '';
-  return parseJson(text);
+  let last: ProviderHttpError | null = null;
+  for (const model of GEMINI_MODELS) {
+    let res: Response;
+    try {
+      res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+        body: payload,
+        signal: AbortSignal.timeout(GEMINI_TIMEOUT_MS),
+      });
+    } catch (e) {
+      last = new ProviderHttpError('gemini', 504, `${model}: ${(e as Error).name}`);
+      continue;
+    }
+    if (res.ok) {
+      const body = await res.json();
+      const text = body?.candidates?.[0]?.content?.parts?.map((p: { text?: string }) => p.text ?? '').join('') ?? '';
+      return parseJson(text);
+    }
+    last = new ProviderHttpError('gemini', res.status, `${model}: ${(await res.text()).slice(0, 300)}`);
+    if (res.status !== 404 && !RETRYABLE_STATUS.has(res.status)) break;
+  }
+  throw last ?? new ProviderHttpError('gemini', 503, 'no model answered');
 }
 
 async function askAnthropic(key: string, b64: string, mime: string, hint: string) {
@@ -164,7 +183,7 @@ async function askProvider(provider: Provider, key: string, b64: string, mime: s
         ? await askGemini(key, b64, mime, hint)
         : await askAnthropic(key, b64, mime, hint);
     } catch (e) {
-      if (attempt === 0 && isRetryable(e)) {
+      if (attempt === 0 && isRetryable(e) && !(provider === 'gemini' && GEMINI_MODELS.length > 1)) {
         await delay(350);
         continue;
       }

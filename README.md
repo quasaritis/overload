@@ -60,7 +60,7 @@ Energy is always computed as 4 kcal/g protein and available carbs, 9 kcal/g fat,
 The `analyze-meal` edge function sends the photo to a vision model. Set one key:
 
 ```bash
-supabase secrets set GEMINI_API_KEY=...        # free tier available; model: GEMINI_MODEL (default gemini-3.8-flash)
+supabase secrets set GEMINI_API_KEY=...        # free tier; tries gemini-3.8-flash, then 3.5-flash, then flash-latest
 # or
 supabase secrets set ANTHROPIC_API_KEY=...     # model: ANTHROPIC_MODEL (default claude-haiku-5-5)
 supabase functions deploy analyze-meal
