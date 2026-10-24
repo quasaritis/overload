@@ -23,6 +23,7 @@ const b = (id, name, aka, label, units, src) => {
 
 /* ── Whey & gainers ── (1 scoop as the label defines it) */
 b('on_gold_whey', 'Optimum Nutrition Gold Standard 100% Whey', 'ON whey protein scoop gold standard', { per: 30.4, kcal: 120, p: 24, c: 3, f: 1 }, [['1 scoop', 30.4], ['2 scoops', 60.8]], 'ON label: 1 scoop 30.4 g');
+b('on_oats_whey', 'Optimum Nutrition 100% Oats & Whey', 'ON oats whey protein scoop', { per: 52, kcal: 200, p: 24, c: 22, f: 1.5 }, [['1 scoop', 52], ['2 scoops', 104]], 'ON label: 1 heaping scoop 52 g = 200 kcal');
 b('on_hydrowhey', 'Optimum Nutrition Platinum Hydrowhey', 'ON whey isolate hydrolysed scoop', { per: 39, kcal: 140, p: 30, c: 2, f: 1 }, [['1 scoop', 39]], 'ON label: 1 scoop 39 g');
 b('on_serious_mass', 'Optimum Nutrition Serious Mass (gainer)', 'ON mass gainer weight gainer', { per: 336, kcal: 1250, p: 50, c: 252, f: 4.5 }, [['1 scoop', 56], ['1 label serving', 336]], 'ON label: 1 serving 336 g');
 b('mb_biozyme', 'MuscleBlaze Biozyme Performance Whey', 'MB whey protein scoop muscle blaze', { per: 36, kcal: 140, p: 25, c: 5.65, f: 1.8 }, [['1 scoop', 36]], 'MuscleBlaze label: 1 scoop 36 g');
