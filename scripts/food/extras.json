@@ -116,7 +116,7 @@
  {
   "id": "toned_milk",
   "name": "Toned milk (3% fat)",
-  "aka": "doodh packet milk",
+  "aka": "doodh packet milk amul taaza mother dairy toned",
   "grp": "dairy",
   "src": "FSSAI standard",
   "p": 3.1,
@@ -137,7 +137,7 @@
  {
   "id": "dt_milk",
   "name": "Double toned milk (1.5% fat)",
-  "aka": "doodh",
+  "aka": "doodh amul slim mother dairy double toned",
   "grp": "dairy",
   "src": "FSSAI standard",
   "p": 3.1,
@@ -158,7 +158,7 @@
  {
   "id": "fullcream_milk",
   "name": "Full cream milk (6% fat)",
-  "aka": "doodh",
+  "aka": "doodh amul gold mother dairy full cream",
   "grp": "dairy",
   "src": "FSSAI standard",
   "p": 3.2,
@@ -434,10 +434,10 @@
  },
  {
   "id": "whey",
-  "name": "Whey protein powder",
-  "aka": "protein shake scoop",
+  "name": "Whey protein powder (generic)",
+  "aka": "protein shake scoop generic",
   "grp": "protein",
-  "src": "Typical label — check your tub",
+  "src": "Typical whey concentrate label (~120 kcal, 24 g protein per 30 g scoop). Pick your brand under Brands for its exact label.",
   "p": 78,
   "c": 8,
   "f": 6,
@@ -813,6 +813,518 @@
    [
     "1 pitcher pour",
     500
+   ]
+  ]
+ },
+ {
+  "id": "mozzarella",
+  "name": "Mozzarella cheese",
+  "aka": "pizza cheese",
+  "grp": "dairy",
+  "src": "USDA FDC",
+  "p": 22.2,
+  "c": 2.2,
+  "f": 22.4,
+  "fib": 0,
+  "units": [
+   [
+    "1 tbsp grated",
+    7
+   ],
+   [
+    "1 slice",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "parmesan",
+  "name": "Parmesan cheese",
+  "aka": "",
+  "grp": "dairy",
+  "src": "USDA FDC",
+  "p": 35.8,
+  "c": 3.2,
+  "f": 25.8,
+  "fib": 0,
+  "units": [
+   [
+    "1 tbsp grated",
+    5
+   ]
+  ]
+ },
+ {
+  "id": "cream_cheese",
+  "name": "Cream cheese",
+  "aka": "philadelphia",
+  "grp": "dairy",
+  "src": "USDA FDC",
+  "p": 6.2,
+  "c": 5.5,
+  "f": 34.2,
+  "fib": 0,
+  "units": [
+   [
+    "1 tbsp",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "feta",
+  "name": "Feta cheese",
+  "aka": "",
+  "grp": "dairy",
+  "src": "USDA FDC",
+  "p": 14.2,
+  "c": 3.9,
+  "f": 21.3,
+  "fib": 0,
+  "units": []
+ },
+ {
+  "id": "sour_cream",
+  "name": "Sour cream",
+  "aka": "",
+  "grp": "dairy",
+  "src": "USDA FDC",
+  "p": 2.4,
+  "c": 4.6,
+  "f": 19.4,
+  "fib": 0,
+  "units": [
+   [
+    "1 tbsp",
+    12
+   ]
+  ]
+ },
+ {
+  "id": "bacon",
+  "name": "Bacon, cooked",
+  "aka": "",
+  "grp": "protein",
+  "src": "USDA FDC",
+  "p": 37,
+  "c": 1.4,
+  "f": 42,
+  "fib": 0,
+  "units": [
+   [
+    "1 strip",
+    8
+   ]
+  ]
+ },
+ {
+  "id": "ham",
+  "name": "Ham, sliced",
+  "aka": "",
+  "grp": "protein",
+  "src": "USDA FDC",
+  "p": 16.6,
+  "c": 1.5,
+  "f": 8.6,
+  "fib": 0,
+  "units": [
+   [
+    "1 slice",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "sausage",
+  "name": "Sausage (chicken / pork)",
+  "aka": "hot dog frankfurter pepperoni salami",
+  "grp": "protein",
+  "src": "Typical label",
+  "p": 14,
+  "c": 4,
+  "f": 13,
+  "fib": 0,
+  "units": [
+   [
+    "1 sausage",
+    40
+   ]
+  ]
+ },
+ {
+  "id": "beef_mince",
+  "name": "Ground beef / mince (85% lean)",
+  "aka": "beef keema patty",
+  "grp": "protein",
+  "src": "USDA FDC",
+  "p": 18.6,
+  "c": 0,
+  "f": 15,
+  "fib": 0,
+  "units": []
+ },
+ {
+  "id": "salmon",
+  "name": "Salmon (farmed)",
+  "aka": "",
+  "grp": "protein",
+  "src": "USDA FDC",
+  "p": 20.4,
+  "c": 0,
+  "f": 13.4,
+  "fib": 0,
+  "units": []
+ },
+ {
+  "id": "tuna_canned",
+  "name": "Tuna, canned in water (drained)",
+  "aka": "tinned tuna",
+  "grp": "protein",
+  "src": "USDA FDC",
+  "p": 23.6,
+  "c": 0,
+  "f": 1,
+  "fib": 0,
+  "units": [
+   [
+    "1 can (drained)",
+    120
+   ]
+  ]
+ },
+ {
+  "id": "baked_beans",
+  "name": "Baked beans (canned)",
+  "aka": "heinz beans",
+  "grp": "pulses",
+  "src": "USDA FDC",
+  "p": 4.8,
+  "c": 17,
+  "f": 0.4,
+  "fib": 4.1,
+  "units": [
+   [
+    "1 katori",
+    130
+   ]
+  ]
+ },
+ {
+  "id": "tortilla",
+  "name": "Flour tortilla / wrap",
+  "aka": "wrap roti",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 8.2,
+  "c": 45.8,
+  "f": 7.5,
+  "fib": 3.5,
+  "units": [
+   [
+    "1 large wrap",
+    65
+   ],
+   [
+    "1 small",
+    30
+   ]
+  ]
+ },
+ {
+  "id": "burger_bun",
+  "name": "Burger bun",
+  "aka": "bun",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 9.5,
+  "c": 48,
+  "f": 4.3,
+  "fib": 2.1,
+  "units": [
+   [
+    "1 bun",
+    55
+   ]
+  ]
+ },
+ {
+  "id": "rice_noodles",
+  "name": "Rice noodles, dry",
+  "aka": "flat noodles pad thai",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 6,
+  "c": 78.6,
+  "f": 0.6,
+  "fib": 1.6,
+  "units": []
+ },
+ {
+  "id": "couscous",
+  "name": "Couscous, dry",
+  "aka": "",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 12.8,
+  "c": 72.4,
+  "f": 0.6,
+  "fib": 5,
+  "units": []
+ },
+ {
+  "id": "granola",
+  "name": "Granola",
+  "aka": "",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 13.7,
+  "c": 54.2,
+  "f": 20.3,
+  "fib": 10.4,
+  "units": [
+   [
+    "1 katori",
+    45
+   ]
+  ]
+ },
+ {
+  "id": "muesli",
+  "name": "Muesli",
+  "aka": "",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 9.7,
+  "c": 58.7,
+  "f": 5.9,
+  "fib": 7.3,
+  "units": [
+   [
+    "1 katori",
+    45
+   ]
+  ]
+ },
+ {
+  "id": "nachos",
+  "name": "Tortilla chips / nachos",
+  "aka": "corn chips doritos",
+  "grp": "grains",
+  "src": "USDA FDC",
+  "p": 7,
+  "c": 58.6,
+  "f": 24,
+  "fib": 4.4,
+  "units": [
+   [
+    "1 handful",
+    25
+   ]
+  ]
+ },
+ {
+  "id": "soy_sauce",
+  "name": "Soy sauce",
+  "aka": "",
+  "grp": "veg",
+  "src": "USDA FDC",
+  "p": 8.1,
+  "c": 4.1,
+  "f": 0.6,
+  "fib": 0.8,
+  "units": [
+   [
+    "1 tbsp",
+    16
+   ]
+  ]
+ },
+ {
+  "id": "tahini",
+  "name": "Tahini (sesame paste)",
+  "aka": "",
+  "grp": "nuts",
+  "src": "USDA FDC",
+  "p": 17,
+  "c": 11.9,
+  "f": 53.8,
+  "fib": 9.3,
+  "units": [
+   [
+    "1 tbsp",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "olive_oil",
+  "name": "Olive oil",
+  "aka": "",
+  "grp": "fats",
+  "src": "USDA FDC",
+  "p": 0,
+  "c": 0,
+  "f": 100,
+  "fib": 0,
+  "units": [
+   [
+    "1 tsp",
+    4.5
+   ],
+   [
+    "1 tbsp",
+    13.5
+   ]
+  ]
+ },
+ {
+  "id": "broccoli",
+  "name": "Broccoli",
+  "aka": "",
+  "grp": "veg",
+  "src": "USDA FDC",
+  "p": 2.8,
+  "c": 4,
+  "f": 0.4,
+  "fib": 2.6,
+  "units": []
+ },
+ {
+  "id": "zucchini",
+  "name": "Zucchini",
+  "aka": "courgette",
+  "grp": "veg",
+  "src": "USDA FDC",
+  "p": 1.2,
+  "c": 2.1,
+  "f": 0.3,
+  "fib": 1,
+  "units": []
+ },
+ {
+  "id": "olives",
+  "name": "Olives",
+  "aka": "",
+  "grp": "veg",
+  "src": "USDA FDC",
+  "p": 0.8,
+  "c": 3.1,
+  "f": 10.7,
+  "fib": 3.2,
+  "units": [
+   [
+    "5 olives",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "maple_syrup",
+  "name": "Maple / pancake syrup",
+  "aka": "syrup",
+  "grp": "sweet",
+  "src": "USDA FDC",
+  "p": 0,
+  "c": 67,
+  "f": 0.1,
+  "fib": 0,
+  "units": [
+   [
+    "1 tbsp",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "jam",
+  "name": "Jam / fruit preserve",
+  "aka": "kissan jam",
+  "grp": "sweet",
+  "src": "USDA FDC",
+  "p": 0.4,
+  "c": 67.8,
+  "f": 0.1,
+  "fib": 1.1,
+  "units": [
+   [
+    "1 tbsp",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "cocoa_powder",
+  "name": "Cocoa powder, unsweetened",
+  "aka": "",
+  "grp": "sweet",
+  "src": "USDA FDC",
+  "p": 19.6,
+  "c": 20.9,
+  "f": 13.7,
+  "fib": 37,
+  "units": [
+   [
+    "1 tbsp",
+    5
+   ]
+  ]
+ },
+ {
+  "id": "fruit_juice_pack",
+  "name": "Packaged fruit juice",
+  "aka": "real tropicana juice tetra",
+  "grp": "drinks",
+  "src": "Typical label",
+  "p": 0.3,
+  "c": 12.5,
+  "f": 0,
+  "fib": 0,
+  "units": [
+   [
+    "1 glass",
+    200
+   ],
+   [
+    "1 tetra pack",
+    200
+   ]
+  ]
+ },
+ {
+  "id": "wine",
+  "name": "Wine (red / white)",
+  "aka": "",
+  "grp": "drinks",
+  "src": "USDA FDC (alcohol counted as carbs-equivalent)",
+  "p": 0.1,
+  "c": 21,
+  "f": 0,
+  "fib": 0,
+  "units": [
+   [
+    "1 glass",
+    150
+   ]
+  ]
+ },
+ {
+  "id": "spirits",
+  "name": "Whisky / rum / vodka (40%)",
+  "aka": "daru peg",
+  "grp": "drinks",
+  "src": "USDA FDC (alcohol counted as carbs-equivalent)",
+  "p": 0,
+  "c": 58,
+  "f": 0,
+  "fib": 0,
+  "units": [
+   [
+    "1 small peg (30 ml)",
+    30
+   ],
+   [
+    "1 large peg (60 ml)",
+    60
    ]
   ]
  }

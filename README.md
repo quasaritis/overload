@@ -15,12 +15,16 @@ calls the **next attempt** — weight, reps, and the plates to load on each side
 - **904 exercises** with muscles, equipment and step-by-step cues (free-exercise-db, public domain, plus common
   gym machines it lacks). Add your own.
 - **Food** — a calorie and protein log built for Indian food:
-  - **Indian meals:** 190+ standard dishes (dal tadka, rajma, idli, biryani, chole bhature, thalis…) in the portions people
-    actually eat — 1 katori (150 g), 1 roti, 1 plate. Each dish is a per-serving recipe computed from IFCT 2017 ingredient
-    values, so you can open it, see what's in it and change the ingredients to match how you cook.
+  - **Meals:** 450+ standard dishes — Indian (dal tadka, rajma, idli, biryani, chole bhature, thalis…) and world food
+    (pizza, burgers, pasta, sushi, burritos, salads…) — in the portions people actually eat: 1 katori (150 g), 1 roti,
+    1 plate, 1 slice. Each dish is a per-serving recipe computed from IFCT 2017 / USDA ingredient values, so you can open
+    it, see what's in it and change the ingredients to match how you cook.
+  - **Brands:** 30+ packaged products at their label values — whey (ON, MuscleBlaze, Avvatar, Atom, Myprotein, Dymatize,
+    Amul), paneer (Milky Mist, Amul, Mother Dairy, Epigamia), dahi, protein milk/lassi, chocolate and syrups. The same
+    food can differ a lot: 200 g of Milky Mist High Protein paneer has 50 g protein, Mother Dairy malai paneer 31 g.
   - **Photo:** snap the plate; an AI vision model lists each item with an estimated weight, matched to the standard
     dishes where it can. Adjust grams before saving.
-  - **Ingredients:** build a meal from 180+ raw ingredients (IFCT 2017 + USDA), set servings, save it to My meals.
+  - **Ingredients:** build a meal from 260+ ingredients (IFCT 2017 + USDA + brand labels), set servings, save it to My meals.
   - **Quick add** from a packet label, recent foods in one tap, daily calorie/protein targets suggested from your body
     and goal (Mifflin–St Jeor; 1.8–2.0 g protein per kg), a 7-day strip.
 - **Progress** — estimated 1RM per lift (Epley), rep maxes, weekly volume, sets per muscle, body-weight log,
@@ -51,9 +55,11 @@ node scripts/build-food.mjs            # add --table to print every dish
 - `scripts/food/ifct.json` — 140 ingredients from the Indian Food Composition Tables 2017 (ICMR-NIN), extracted with
   `scripts/food/extract-ifct.py` from [nodef/ifct2017](https://github.com/nodef/ifct2017).
 - `scripts/food/extras.json` — foods IFCT lacks (curd, bread, oats, whey, soya chunks…), mostly USDA FoodData Central.
-- `scripts/food/dishes.mjs` — the standard Indian meals, one serving each, as raw ingredient grams.
+- `scripts/food/brands.mjs` — branded products from their labels; each becomes an ingredient and a ready-to-log item.
+- `scripts/food/dishes.mjs` — the standard meals, one serving each, as raw ingredient grams.
 
-Energy is always computed as 4 kcal/g protein and available carbs, 9 kcal/g fat, 2 kcal/g fibre.
+Energy is computed as 4 kcal/g protein and available carbs, 9 kcal/g fat, 2 kcal/g fibre — except branded products,
+which keep the calories printed on their label.
 
 ### Photo scanning
 

@@ -149,7 +149,7 @@ function DishTab({ lib, mealLabel, onSave, onCustomize }: { lib: FoodLib; mealLa
       <label className="field search-field">
         <span className="sr-only">Search Indian meals</span>
         <Search aria-hidden />
-        <input className="input" placeholder="Search 240+ foods: dal, paneer, fruit, badam…" value={q} onChange={(e) => setQ(e.target.value)} autoFocus />
+        <input className="input" placeholder="Search 480+ foods: dal, pizza, Amul paneer, ON whey…" value={q} onChange={(e) => setQ(e.target.value)} autoFocus />
         {q && <button type="button" className="clear" onClick={() => setQ('')} aria-label="Clear search"><X /></button>}
       </label>
       {!searching && (

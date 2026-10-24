@@ -1,4 +1,4 @@
-// Standard Indian meals, written as the raw ingredients in ONE serving.
+// Standard meals (Indian first, then international), written as the raw ingredients in ONE serving.
 // build-food.mjs turns each into calories and macros from IFCT 2017 / USDA values in ifct.json + extras.json.
 //
 // d(id, name, aliases, category, diet, unit, cookedGrams, recipe, altUnits?)
@@ -284,5 +284,242 @@ d('dal_chawal', 'Dal chawal', 'dal rice', 'thali', 'v', 'plate', 375, { '@dal_ta
 d('kadhi_chawal', 'Kadhi chawal', 'kadhi rice', 'thali', 'v', 'plate', 405, { '@kadhi_pakora': 1, '@rice': 1.5 });
 d('chicken_thali', 'Chicken thali', 'non veg thali', 'thali', 'n', 'thali', 650, { '@chicken_curry': 1, '@roti': 2, '@rice': 1, '@salad': 1, '@raita': 1 });
 d('fish_thali', 'Fish thali', 'fish meals', 'thali', 'n', 'thali', 700, { '@fish_curry': 1, '@fish_fry': 1, '@rice': 2, '@salad': 1 });
+
+/* ════════ More dishes ════════ */
+
+/* ── Breakfast: more Indian ── */
+d('ven_pongal', 'Ven pongal', 'khara pongal', 'breakfast', 'v', 'plate', 200, { rice: 40, moong_dal: 15, ghee: 10, cashew: 3 });
+d('rava_idli', 'Rava idli', 'sooji idli', 'breakfast', 'v', 'piece', 50, { sooji: 18, curd: 10, oil: 1.5 });
+d('ragi_dosa', 'Ragi dosa', 'nachni dosa finger millet', 'breakfast', 'v', 'dosa', 80, { ragi: 25, rice_flour: 5, oil: 4 });
+d('neer_dosa', 'Neer dosa', '', 'breakfast', 'v', 'dosa', 60, { rice: 20, oil: 2 });
+d('set_dosa', 'Set dosa (3)', 'sponge dosa', 'breakfast', 'v', 'plate', 180, { rice: 50, urad_dal: 12, oil: 6 });
+d('puttu', 'Puttu', 'puttu kadala', 'breakfast', 'v', 'plate', 150, { rice_flour: 60, coconut: 15 });
+d('idiyappam', 'Idiyappam', 'string hoppers nool puttu', 'breakfast', 'v', 'piece', 35, { rice_flour: 12 });
+d('akki_roti', 'Akki roti', 'rice roti', 'breakfast', 'v', 'roti', 70, { rice_flour: 35, onion: 10, oil: 4 });
+d('thalipeeth', 'Thalipeeth', 'bhajani', 'breakfast', 'v', 'piece', 80, { jowar: 15, bajra: 10, besan: 8, onion: 10, oil: 5 });
+d('sabudana_vada', 'Sabudana vada', 'sago vada', 'breakfast', 'v', 'piece', 45, { sabudana: 15, potato: 15, peanuts: 4, oil: 6 });
+d('methi_paratha', 'Methi paratha', 'fenugreek paratha', 'breakfast', 'v', 'paratha', 70, { atta: 40, methi_leaves: 10, ghee: 6 });
+d('egg_paratha', 'Egg paratha', 'anda paratha', 'breakfast', 'e', 'paratha', 130, { atta: 45, egg: 50, ghee: 7 });
+d('masala_oats', 'Masala oats', 'savoury oats', 'breakfast', 'v', 'bowl', 200, { oats: 40, onion: 15, tomato: 15, peas: 10, oil: 3 });
+d('daliya_namkeen', 'Daliya (namkeen)', 'broken wheat khichdi dalia', 'breakfast', 'v', 'bowl', 200, { dalia: 45, moong_dal: 10, carrot: 10, peas: 10, ghee: 4 });
+d('daliya_sweet', 'Daliya with milk (sweet)', 'meetha dalia porridge', 'breakfast', 'v', 'bowl', 250, { dalia: 40, toned_milk: 200, sugar: 10 });
+d('ragi_malt', 'Ragi malt / porridge', 'ragi java ambli', 'breakfast', 'v', 'glass', 250, { ragi: 25, toned_milk: 200, jaggery: 10 });
+d('bread_jam', 'Bread jam (2 slices)', 'toast jam', 'breakfast', 'v', 'plate', 70, { bread: 50, jam: 20 });
+d('pb_toast', 'Peanut butter toast (2 slices)', 'pb bread', 'breakfast', 'v', 'plate', 82, { brown_bread: 56, peanut_butter: 26 });
+d('poori_bhaji', 'Poori bhaji (4 puri + aloo)', 'puri sabzi aloo puri', 'breakfast', 'v', 'plate', 250, { '@puri': 4, '@jeera_aloo': 1 });
+
+/* ── Breakfast: international ── */
+d('pancakes', 'Pancakes with syrup (2)', 'hotcakes', 'breakfast', 'e', 'plate', 160, { maida: 50, toned_milk: 60, egg: 25, butter: 5, sugar: 5, maple_syrup: 20 });
+d('waffle', 'Waffle (plain)', 'belgian waffle', 'breakfast', 'e', 'piece', 75, { maida: 30, toned_milk: 25, egg: 12, butter: 6, sugar: 4 });
+d('french_toast', 'French toast (2 slices)', 'eggy bread', 'breakfast', 'e', 'plate', 130, { bread: 50, egg: 50, toned_milk: 30, butter: 6, sugar: 5 });
+d('scrambled_eggs_toast', 'Scrambled eggs on toast (2 eggs)', 'eggs toast', 'breakfast', 'e', 'plate', 170, { egg: 100, butter: 7, toned_milk: 20, bread: 50 });
+d('cheese_omelette', 'Cheese omelette (2 eggs)', 'omelet', 'breakfast', 'e', 'omelette', 140, { egg: 100, cheese: 20, butter: 5 });
+d('egg_white_omelette', 'Egg white omelette (4 whites)', 'egg whites', 'breakfast', 'e', 'omelette', 150, { egg_white: 132, oil: 3, onion: 15, tomato: 10 });
+d('avocado_toast', 'Avocado toast (2 slices)', 'avo toast', 'breakfast', 'v', 'plate', 120, { brown_bread: 56, avocado: 60, lemon_juice: 3, olive_oil: 3 });
+d('english_breakfast', 'Full English breakfast', 'fry up', 'breakfast', 'n', 'plate', 420, { egg: 100, bacon: 30, sausage: 50, bread: 50, butter: 5, baked_beans: 100, mushroom: 40, tomato: 50, oil: 8 });
+d('granola_yogurt', 'Greek yogurt with granola', 'yogurt bowl parfait', 'breakfast', 'v', 'bowl', 200, { greek_yogurt: 150, granola: 40, honey: 7 });
+d('muesli_milk', 'Muesli with milk', 'cereal', 'breakfast', 'v', 'bowl', 245, { muesli: 45, toned_milk: 200 });
+d('smoothie_bowl', 'Smoothie bowl', 'acai bowl', 'breakfast', 'v', 'bowl', 300, { banana: 100, blueberries: 50, greek_yogurt: 100, granola: 20, honey: 5 });
+d('overnight_oats', 'Overnight oats', 'oats jar', 'breakfast', 'v', 'jar', 260, { oats: 50, toned_milk: 150, chia: 10, banana: 50, honey: 7 });
+
+/* ── Breads: more ── */
+d('cheese_naan', 'Cheese naan', '', 'breads', 'v', 'naan', 130, { maida: 55, curd: 8, oil: 3, mozzarella: 25, butter: 5 });
+d('kerala_parotta', 'Kerala / Malabar parotta', 'porotta lachha', 'breads', 'v', 'parotta', 100, { maida: 55, oil: 12 });
+d('ragi_roti', 'Ragi roti', 'nachni bhakri', 'breads', 'v', 'roti', 60, { ragi: 40 });
+d('multigrain_roti', 'Multigrain roti', '', 'breads', 'v', 'roti', 45, { atta: 18, bajra: 4, jowar: 4, besan: 4 });
+d('garlic_bread', 'Garlic bread (2 slices)', '', 'breads', 'v', 'plate', 70, { bread: 55, butter: 12, garlic: 3 });
+d('cheese_garlic_bread', 'Cheese garlic bread (2 slices)', '', 'breads', 'v', 'plate', 90, { bread: 55, butter: 10, garlic: 3, mozzarella: 20 });
+d('pita', 'Pita bread', 'pitta', 'breads', 'v', 'piece', 60, { maida: 38, oil: 1 });
+
+/* ── Rice & noodles: more ── */
+d('paneer_biryani', 'Paneer biryani', 'biriyani', 'rice', 'v', 'plate', 320, { rice: 80, paneer: 50, curd: 20, onion: 30, ghee: 12 });
+d('prawn_biryani', 'Prawn biryani', 'jhinga biriyani', 'rice', 'n', 'plate', 330, { rice: 80, prawns: 90, curd: 20, onion: 30, oil: 12 });
+d('chicken_pulao', 'Chicken pulao / yakhni pulao', 'murgh pulav', 'rice', 'n', 'plate', 300, { rice: 75, chicken_leg: 80, onion: 25, ghee: 10 });
+d('puliyogare', 'Tamarind rice', 'puliyogare puliodarai imli chawal', 'rice', 'v', 'plate', 200, { rice: 60, peanuts: 8, oil: 10, jaggery: 3, chana_dal: 3 });
+d('coconut_rice', 'Coconut rice', 'thengai sadam', 'rice', 'v', 'plate', 200, { rice: 60, coconut: 20, oil: 6, chana_dal: 3 });
+d('tomato_rice', 'Tomato rice', 'thakkali sadam', 'rice', 'v', 'plate', 220, { rice: 60, tomato: 50, onion: 20, oil: 8 });
+d('egg_fried_rice', 'Egg fried rice', 'chinese', 'rice', 'e', 'plate', 280, { rice: 70, egg: 50, oil: 12, cabbage: 15, carrot: 15, capsicum: 10 });
+d('schezwan_rice', 'Schezwan fried rice', 'szechuan', 'rice', 'v', 'plate', 260, { rice: 70, oil: 15, cabbage: 20, carrot: 15, capsicum: 10, soy_sauce: 5 });
+d('chicken_noodles', 'Chicken hakka noodles', 'chowmein', 'rice', 'n', 'plate', 280, { noodles: 70, chicken_breast: 60, oil: 14, cabbage: 20, carrot: 15, capsicum: 15, soy_sauce: 8 });
+d('teriyaki_bowl', 'Teriyaki chicken rice bowl', 'japanese rice bowl', 'rice', 'n', 'bowl', 400, { rice: 75, chicken_thigh: 120, soy_sauce: 15, sugar: 8, oil: 8, broccoli: 40 });
+
+/* ── Dal: more ── */
+d('panchmel_dal', 'Panchmel dal', 'pachmel dal rajasthani', 'dal', 'v', 'katori', 150, { toor_dal: 10, chana_dal: 8, moong_dal: 7, urad_dal: 7, masoor_dal: 7, ghee: 6 });
+d('dal_dhokli', 'Dal dhokli', 'varan phal', 'dal', 'v', 'plate', 250, { toor_dal: 30, atta: 30, oil: 6, jaggery: 5, peanuts: 5 });
+d('usal', 'Usal (sprouts curry)', 'matki usal misal', 'dal', 'v', 'katori', 150, { moth: 35, onion: 20, tomato: 15, oil: 6 });
+d('sprouts_moong_curry', 'Moong sprouts curry', 'sprouted moong', 'dal', 'v', 'katori', 150, { moong_whole: 35, onion: 20, tomato: 15, oil: 6 });
+
+/* ── Sabzi & paneer: more ── */
+d('paneer_tikka', 'Paneer tikka (6 pieces)', 'tandoori paneer', 'sabzi', 'v', 'plate', 180, { paneer: 120, curd: 30, capsicum: 20, onion: 20, oil: 6 });
+d('paneer_tikka_masala', 'Paneer tikka masala', '', 'sabzi', 'v', 'katori', 180, { paneer: 80, onion: 30, tomato: 50, cream: 10, oil: 10, curd: 10 });
+d('chilli_paneer', 'Chilli paneer (dry)', 'indo chinese paneer', 'sabzi', 'v', 'plate', 180, { paneer: 100, cornflour: 10, maida: 5, capsicum: 30, onion: 30, oil: 12, soy_sauce: 8 });
+d('methi_malai_matar', 'Methi malai matar', '', 'sabzi', 'v', 'katori', 150, { peas: 50, methi_leaves: 20, cream: 15, onion: 20, oil: 7 });
+d('bharwa_baingan', 'Bharwa baingan / baingan masala', 'stuffed brinjal ennai kathirikai', 'sabzi', 'v', 'katori', 150, { brinjal: 120, peanuts: 8, oil: 10, onion: 15 });
+d('aloo_baingan', 'Aloo baingan', 'potato brinjal', 'sabzi', 'v', 'katori', 150, { brinjal: 70, potato: 60, oil: 8, onion: 15, tomato: 20 });
+d('lauki_kofta', 'Lauki kofta curry', 'ghiya kofta', 'sabzi', 'v', 'katori', 180, { lauki: 80, besan: 20, oil: 14, onion: 20, tomato: 40, cream: 5 });
+d('arbi_fry', 'Arbi fry', 'colocasia', 'sabzi', 'v', 'katori', 120, { arbi: 120, oil: 10 });
+d('kathal_sabzi', 'Kathal sabzi', 'raw jackfruit curry', 'sabzi', 'v', 'katori', 150, { raw_jackfruit: 130, oil: 10, onion: 20, tomato: 20 });
+d('tofu_bhurji', 'Tofu bhurji', 'scrambled tofu', 'sabzi', 'v', 'katori', 140, { tofu: 100, oil: 6, onion: 20, tomato: 15, capsicum: 10 });
+d('gobi_manchurian', 'Gobi manchurian (dry)', 'cauliflower manchurian', 'sabzi', 'v', 'plate', 200, { cauliflower: 120, maida: 20, cornflour: 10, oil: 15, soy_sauce: 8, onion: 15, capsicum: 10 });
+d('veg_manchurian', 'Veg manchurian (gravy)', '', 'sabzi', 'v', 'katori', 180, { cabbage: 50, carrot: 30, maida: 20, cornflour: 10, oil: 14, soy_sauce: 8 });
+d('chilli_potato', 'Honey chilli potato', 'chilli potato', 'sabzi', 'v', 'plate', 180, { potato: 140, cornflour: 10, oil: 15, capsicum: 20, onion: 20, soy_sauce: 6, honey: 5 });
+d('undhiyu', 'Undhiyu', 'gujarati mixed veg', 'sabzi', 'v', 'katori', 180, { potato: 30, sweet_potato: 30, suran: 25, brinjal: 30, french_beans: 25, besan: 15, methi_leaves: 10, oil: 15, coconut: 5 });
+d('kootu', 'Kootu', 'lauki kootu', 'sabzi', 'v', 'katori', 150, { moong_dal: 15, lauki: 80, coconut: 10, oil: 3 });
+d('palak_corn', 'Palak corn', 'spinach corn', 'sabzi', 'v', 'katori', 150, { spinach: 100, sweet_corn: 40, cream: 10, oil: 6, onion: 15 });
+d('stir_fry_veg', 'Stir-fried vegetables', 'sauteed veggies', 'sabzi', 'v', 'plate', 200, { broccoli: 50, capsicum: 40, carrot: 30, zucchini: 40, mushroom: 30, oil: 8, soy_sauce: 8 });
+d('tofu_stir_fry', 'Tofu stir-fry', '', 'sabzi', 'v', 'plate', 250, { tofu: 120, broccoli: 50, capsicum: 30, oil: 10, soy_sauce: 10 });
+
+/* ── Non-veg: more ── */
+d('chicken_korma', 'Chicken korma', 'murgh korma', 'nonveg', 'n', 'katori', 200, { chicken_leg: 110, curd: 30, onion: 40, cashew: 8, ghee: 12 });
+d('chicken_chettinad', 'Chicken chettinad', '', 'nonveg', 'n', 'katori', 200, { chicken_leg: 110, onion: 40, tomato: 30, coconut: 15, oil: 12 });
+d('chicken_tikka_masala', 'Chicken tikka masala', '', 'nonveg', 'n', 'katori', 200, { chicken_breast: 100, onion: 30, tomato: 50, cream: 15, butter: 5, oil: 8, curd: 15 });
+d('malai_tikka', 'Chicken malai tikka (6 pieces)', 'reshmi kebab', 'nonveg', 'n', 'plate', 130, { chicken_breast: 150, cream: 15, cheese: 10, curd: 15, oil: 5 });
+d('chicken_lollipop', 'Chicken lollipop (4)', '', 'nonveg', 'n', 'plate', 160, { chicken_leg: 140, maida: 15, cornflour: 10, oil: 18 });
+d('chicken_keema', 'Chicken keema', 'chicken mince', 'nonveg', 'n', 'katori', 150, { chicken_breast: 110, peas: 30, onion: 30, tomato: 30, oil: 10 });
+d('chicken_soup', 'Chicken soup (clear)', 'chicken broth', 'nonveg', 'n', 'bowl', 250, { chicken_breast: 50, carrot: 15, onion: 10, cornflour: 5, butter: 3 });
+d('mutton_seekh', 'Mutton seekh kebab (2)', 'lamb kebab', 'nonveg', 'n', 'plate', 100, { mutton: 120, onion: 10, oil: 4 });
+d('nihari', 'Nihari', 'mutton nihari', 'nonveg', 'n', 'katori', 220, { mutton: 120, atta: 8, ghee: 15, onion: 25 });
+d('haleem', 'Haleem', 'mutton haleem', 'nonveg', 'n', 'katori', 250, { mutton: 70, dalia: 30, chana_dal: 10, urad_dal: 5, ghee: 15, onion: 20 });
+d('beef_fry', 'Kerala beef fry', 'beef ularthiyathu', 'nonveg', 'n', 'plate', 150, { beef: 150, coconut: 15, coconut_oil: 12, onion: 30 });
+d('pork_vindaloo', 'Pork vindaloo', '', 'nonveg', 'n', 'katori', 200, { pork: 120, onion: 30, oil: 12, tomato: 20 });
+d('fish_tikka', 'Fish tikka / tandoori fish', '', 'nonveg', 'n', 'plate', 150, { basa: 180, curd: 20, oil: 6 });
+d('prawn_fry', 'Prawn fry', 'jhinga fry', 'nonveg', 'n', 'plate', 120, { prawns: 140, oil: 10, rice_flour: 5 });
+d('goan_fish_curry', 'Goan fish curry', 'coconut fish curry', 'nonveg', 'n', 'katori', 200, { mackerel: 100, coconut_milk: 50, onion: 20, oil: 6 });
+d('egg_roll', 'Egg roll (Kolkata style)', 'anda roll', 'nonveg', 'e', 'roll', 200, { maida: 55, egg: 50, oil: 10, onion: 20 });
+d('boiled_eggs_2', 'Boiled eggs (2) + 2 whites', 'egg whites', 'nonveg', 'e', 'plate', 166, { egg: 100, egg_white: 66 });
+
+/* ── Snacks & street food: more ── */
+d('chole_kulche', 'Chole kulche (2 kulche)', 'kulcha chole', 'snacks', 'v', 'plate', 350, { '@chole': 1, '@kulcha': 2 });
+d('paneer_roll', 'Paneer kathi roll', 'paneer frankie wrap', 'snacks', 'v', 'roll', 200, { maida: 55, paneer: 60, oil: 10, onion: 20, capsicum: 15 });
+d('khandvi', 'Khandvi', 'suralichi vadi', 'snacks', 'v', 'plate', 100, { besan: 25, curd: 30, oil: 5, coconut: 3 });
+d('handvo', 'Handvo', '', 'snacks', 'v', 'piece', 100, { rice: 15, toor_dal: 10, chana_dal: 5, lauki: 20, curd: 10, oil: 6, til: 2 });
+d('murukku', 'Murukku / chakli (4)', 'chakli', 'snacks', 'v', 'plate', 30, { rice_flour: 18, urad_dal: 3, oil: 8 });
+d('mathri', 'Mathri (2)', 'mathi', 'snacks', 'v', 'plate', 30, { maida: 18, ghee: 3, oil: 6 });
+d('khakhra', 'Khakhra', '', 'snacks', 'v', 'piece', 20, { atta: 18, oil: 1 });
+d('popcorn', 'Popcorn (salted)', 'pop corn', 'snacks', 'v', 'bowl', 30, { makki_atta: 28, oil: 2 });
+d('paneer_pakora', 'Paneer pakora (4)', 'paneer bhajji', 'snacks', 'v', 'plate', 100, { paneer: 60, besan: 20, oil: 12 });
+d('batata_vada', 'Batata vada / aloo bonda', 'aloo bonda', 'snacks', 'v', 'piece', 60, { potato: 40, besan: 12, oil: 7 });
+d('egg_puff', 'Egg puff', '', 'snacks', 'e', 'piece', 100, { maida: 35, butter: 15, egg: 25, onion: 10 });
+d('chicken_puff', 'Chicken puff', '', 'snacks', 'n', 'piece', 100, { maida: 35, butter: 15, chicken_breast: 30, onion: 10 });
+d('veg_cutlet', 'Veg cutlet', '', 'snacks', 'v', 'piece', 60, { potato: 35, carrot: 8, peas: 8, bread: 8, oil: 6 });
+d('chicken_nuggets', 'Chicken nuggets (6)', '', 'snacks', 'n', 'plate', 100, { chicken_breast: 60, maida: 12, cornflour: 5, oil: 12 });
+d('masala_corn', 'Masala corn / corn chaat', 'butter corn cup', 'snacks', 'v', 'cup', 100, { sweet_corn: 100, butter: 5, lemon_juice: 3 });
+d('ragda_pattice', 'Ragda pattice', 'ragda patties', 'snacks', 'v', 'plate', 250, { dry_peas: 40, potato: 80, oil: 8, onion: 15, '@imli_chutney': 1 });
+d('aloo_chaat', 'Aloo chaat', '', 'snacks', 'v', 'plate', 150, { potato: 130, oil: 8, lemon_juice: 5 });
+d('dahi_vada', 'Dahi vada / dahi bhalla (2)', 'dahi bhalle', 'snacks', 'v', 'plate', 180, { urad_dal: 30, oil: 8, curd: 100, sugar: 5 });
+d('fried_momos', 'Fried chicken momos (6)', 'momo', 'snacks', 'n', 'plate', 170, { maida: 60, chicken_breast: 60, onion: 15, oil: 15 });
+d('spring_roll', 'Veg spring roll (2)', '', 'snacks', 'v', 'plate', 120, { maida: 30, cabbage: 40, carrot: 20, oil: 12 });
+d('onion_rings', 'Onion rings', '', 'snacks', 'v', 'plate', 100, { onion: 70, maida: 20, oil: 18 });
+d('nachos_cheese', 'Nachos with cheese', 'nachos', 'snacks', 'v', 'plate', 150, { nachos: 60, cheese: 40, tomato: 20, sour_cream: 15 });
+
+/* ── Sweets & desserts: more ── */
+d('peda', 'Peda', 'pedha', 'sweets', 'v', 'piece', 25, { khoa: 15, sugar: 8 });
+d('sandesh', 'Sandesh', '', 'sweets', 'v', 'piece', 30, { paneer: 20, sugar: 8 });
+d('soan_papdi', 'Soan papdi', 'son papdi', 'sweets', 'v', 'piece', 25, { besan: 7, maida: 5, ghee: 6, sugar: 9 });
+d('coconut_ladoo', 'Coconut ladoo', 'nariyal ladoo', 'sweets', 'v', 'piece', 25, { coconut_dry: 10, sugar: 8, khoa: 4 });
+d('rava_ladoo', 'Rava ladoo', 'sooji ladoo', 'sweets', 'v', 'piece', 35, { sooji: 15, ghee: 6, sugar: 12, coconut_dry: 2 });
+d('dryfruit_ladoo', 'Dry fruit ladoo', 'dates ladoo', 'sweets', 'v', 'piece', 30, { dates: 15, almond: 5, cashew: 5, ghee: 2 });
+d('malpua', 'Malpua', '', 'sweets', 'v', 'piece', 60, { maida: 20, khoa: 5, toned_milk: 15, sugar: 15, ghee: 8 });
+d('phirni', 'Phirni', 'firni', 'sweets', 'v', 'katori', 120, { rice: 10, fullcream_milk: 100, sugar: 12 });
+d('moong_dal_halwa', 'Moong dal halwa', '', 'sweets', 'v', 'katori', 100, { moong_dal: 25, ghee: 20, sugar: 22, khoa: 10 });
+d('kalakand', 'Kalakand', 'milk cake', 'sweets', 'v', 'piece', 30, { paneer: 15, khoa: 5, sugar: 8 });
+d('imarti', 'Imarti', 'jangiri', 'sweets', 'v', 'piece', 40, { urad_dal: 10, sugar: 20, oil: 7 });
+d('ghevar', 'Ghevar', '', 'sweets', 'v', 'piece', 70, { maida: 25, ghee: 15, sugar: 25 });
+d('fruit_custard', 'Fruit custard', 'custard', 'sweets', 'v', 'katori', 180, { toned_milk: 130, sugar: 12, cornflour: 6, apple: 20, banana: 20, grapes: 15 });
+d('ice_cream_scoop', 'Ice cream (1 scoop)', 'vanilla ice cream', 'sweets', 'v', 'scoop', 65, { ice_cream: 65 });
+d('chocolate_cake', 'Chocolate cake (1 slice)', 'pastry', 'sweets', 'e', 'slice', 80, { maida: 22, sugar: 20, butter: 12, egg: 12, cocoa_powder: 5, toned_milk: 10 });
+d('brownie', 'Chocolate brownie', '', 'sweets', 'e', 'piece', 60, { maida: 12, sugar: 20, butter: 12, egg: 10, dark_chocolate: 10, cocoa_powder: 3 });
+d('cheesecake', 'Cheesecake (1 slice)', '', 'sweets', 'e', 'slice', 100, { cream_cheese: 45, sugar: 15, egg: 12, biscuit: 15, butter: 7, cream: 8 });
+d('donut', 'Glazed donut', 'doughnut', 'sweets', 'e', 'piece', 60, { maida: 25, sugar: 10, oil: 10, toned_milk: 5, egg: 3 });
+d('choc_chip_cookie', 'Chocolate chip cookie', 'cookies', 'sweets', 'v', 'cookie', 20, { maida: 7, butter: 4, sugar: 6, dark_chocolate: 3 });
+d('muffin', 'Blueberry / plain muffin', 'cupcake', 'sweets', 'e', 'piece', 100, { maida: 35, sugar: 20, oil: 10, egg: 12, toned_milk: 15, blueberries: 10 });
+d('croissant', 'Croissant (butter)', '', 'sweets', 'v', 'piece', 60, { maida: 28, butter: 13, sugar: 3, toned_milk: 8 });
+
+/* ── Drinks: more ── */
+d('green_tea', 'Green tea / black tea (no sugar)', 'kahwa', 'drinks', 'v', 'cup', 200, { tea_leaves: 200 });
+d('black_coffee', 'Black coffee / Americano (no sugar)', 'espresso', 'drinks', 'v', 'cup', 200, { tea_leaves: 200 });
+d('cappuccino', 'Cappuccino / latte (café, whole milk)', 'cafe latte flat white', 'drinks', 'v', 'cup', 250, { fullcream_milk: 180 }, [['1 large', 350]]);
+d('filter_coffee', 'Filter coffee (with sugar)', 'south indian kaapi', 'drinks', 'v', 'tumbler', 150, { toned_milk: 100, sugar: 10 });
+d('hot_chocolate', 'Hot chocolate', 'cocoa', 'drinks', 'v', 'mug', 250, { fullcream_milk: 220, cocoa_powder: 10, sugar: 15 });
+d('choc_milkshake', 'Chocolate milkshake', 'shake', 'drinks', 'v', 'glass', 300, { fullcream_milk: 250, ice_cream: 30, cocoa_powder: 6, sugar: 15 });
+d('mango_lassi', 'Mango lassi', '', 'drinks', 'v', 'glass', 250, { curd: 150, mango: 70, sugar: 15 });
+d('thandai', 'Thandai', '', 'drinks', 'v', 'glass', 250, { fullcream_milk: 200, almond: 10, sugar: 20 });
+d('coconut_water_glass', 'Coconut water (1 nariyal)', 'nariyal pani tender coconut', 'drinks', 'v', 'glass', 250, { coconut_water: 250 });
+d('sugarcane_juice_glass', 'Sugarcane juice', 'ganne ka ras', 'drinks', 'v', 'glass', 250, { sugarcane_juice: 250 });
+d('watermelon_juice', 'Watermelon juice', 'tarbooz juice', 'drinks', 'v', 'glass', 250, { watermelon: 300 });
+d('packaged_juice', 'Packaged fruit juice', 'real tropicana frooti', 'drinks', 'v', 'glass', 200, { fruit_juice_pack: 200 });
+d('pb_banana_smoothie', 'Peanut butter banana smoothie', 'shake', 'drinks', 'v', 'glass', 370, { banana: 100, peanut_butter: 16, toned_milk: 250 });
+d('cola_can', 'Cola / soft drink (1 can)', 'coke pepsi thums up sprite', 'drinks', 'v', 'can', 300, { cola: 300 });
+d('beer_bottle', 'Beer (1 pint / bottle)', 'beer', 'drinks', 'v', 'bottle', 330, { beer: 330 }, [['1 pitcher pour', 500]]);
+d('wine_glass', 'Wine (1 glass)', 'red white wine', 'drinks', 'v', 'glass', 150, { wine: 150 });
+d('spirits_peg', 'Whisky / rum / vodka (1 large peg, 60 ml)', 'daru drink peg', 'drinks', 'v', 'large peg', 60, { spirits: 60 }, [['1 small peg (30 ml)', 30]]);
+
+/* ── Sides: more ── */
+d('hummus', 'Hummus', '', 'sides', 'v', 'katori', 100, { kabuli_chana: 24, tahini: 12, olive_oil: 6, lemon_juice: 5 }, [['1 tbsp', 15]]);
+d('guacamole', 'Guacamole', '', 'sides', 'v', 'katori', 100, { avocado: 85, onion: 8, tomato: 8, lemon_juice: 4 }, [['1 tbsp', 15]]);
+d('coleslaw', 'Coleslaw', '', 'sides', 'v', 'katori', 100, { cabbage: 60, carrot: 15, mayonnaise: 15 });
+d('mashed_potato', 'Mashed potatoes', 'mash', 'sides', 'v', 'katori', 150, { potato: 130, butter: 10, toned_milk: 25 });
+d('falafel', 'Falafel (4)', '', 'sides', 'v', 'plate', 100, { kabuli_chana: 40, oil: 12, onion: 10, coriander: 3 });
+d('tomato_soup', 'Tomato soup', 'cream of tomato', 'sides', 'v', 'bowl', 250, { tomato: 200, butter: 5, cream: 10, sugar: 5, cornflour: 4 });
+d('sweet_corn_soup', 'Sweet corn soup (veg)', '', 'sides', 'v', 'bowl', 250, { sweet_corn: 50, cornflour: 8, carrot: 10, butter: 3 });
+d('hot_sour_soup', 'Hot & sour / manchow soup (veg)', 'manchow', 'sides', 'v', 'bowl', 250, { cabbage: 20, carrot: 15, cornflour: 8, soy_sauce: 8, oil: 4, mushroom: 10 });
+d('mushroom_soup', 'Cream of mushroom soup', '', 'sides', 'v', 'bowl', 250, { mushroom: 70, butter: 8, maida: 6, toned_milk: 100, cream: 15 });
+
+/* ── International mains ── */
+d('pizza_pepperoni', 'Pepperoni pizza (1 slice, medium)', 'pizza slice', 'world', 'n', 'slice', 110, { maida: 40, mozzarella: 25, tomato: 15, oil: 4, sausage: 15 }, [['1 whole medium (8 slices)', 880]]);
+d('pizza_chicken', 'Chicken tikka pizza (1 slice, medium)', 'pizza slice', 'world', 'n', 'slice', 115, { maida: 40, mozzarella: 25, chicken_breast: 20, capsicum: 8, onion: 8, oil: 4 }, [['1 whole medium (8 slices)', 920]]);
+d('pizza_veg', 'Farmhouse / veggie pizza (1 slice, medium)', 'pizza slice', 'world', 'v', 'slice', 115, { maida: 40, mozzarella: 25, capsicum: 10, onion: 10, mushroom: 10, tomato: 15, oil: 4 }, [['1 whole medium (8 slices)', 920]]);
+d('pizza_cheese_burst', 'Cheese burst pizza (1 slice, medium)', 'pizza slice', 'world', 'v', 'slice', 120, { maida: 40, mozzarella: 40, cheese: 10, oil: 5 }, [['1 whole medium (8 slices)', 960]]);
+d('chicken_burger', 'Chicken burger (crispy)', 'zinger mcchicken', 'world', 'n', 'burger', 200, { burger_bun: 55, chicken_breast: 80, maida: 10, oil: 12, mayonnaise: 10, lettuce: 15, tomato: 15 });
+d('cheeseburger', 'Cheeseburger (beef)', 'hamburger', 'world', 'n', 'burger', 220, { burger_bun: 55, beef_mince: 100, cheese: 20, lettuce: 15, tomato: 15, ketchup: 10 });
+d('paneer_burger', 'Paneer burger', '', 'world', 'v', 'burger', 190, { burger_bun: 55, paneer: 70, maida: 8, oil: 10, mayonnaise: 10, lettuce: 10 });
+d('hot_dog', 'Hot dog', 'sausage bun', 'world', 'n', 'piece', 120, { burger_bun: 50, sausage: 60, ketchup: 10 });
+d('club_sandwich', 'Club sandwich', '', 'world', 'n', 'plate', 250, { bread: 75, chicken_breast: 50, egg: 50, cheese: 20, mayonnaise: 15, lettuce: 15, tomato: 20 });
+d('chicken_mayo_sandwich', 'Chicken mayo sandwich', '', 'world', 'n', 'sandwich', 150, { bread: 50, chicken_breast: 50, mayonnaise: 15, lettuce: 10 });
+d('paneer_sandwich', 'Paneer sandwich (grilled)', '', 'world', 'v', 'sandwich', 140, { bread: 50, paneer: 50, butter: 8, capsicum: 10, onion: 10 });
+d('egg_sandwich', 'Egg sandwich', 'egg mayo', 'world', 'e', 'sandwich', 120, { bread: 50, egg: 50, mayonnaise: 10, butter: 5 });
+d('pb_sandwich', 'Peanut butter sandwich', 'pbj', 'world', 'v', 'sandwich', 82, { bread: 50, peanut_butter: 32 });
+d('sub_chicken', 'Chicken sub (6-inch)', 'subway', 'world', 'n', 'sub', 230, { bread: 75, chicken_breast: 70, lettuce: 20, tomato: 20, cucumber: 15, onion: 10, mayonnaise: 10, cheese: 14 });
+d('sub_veg', 'Veggie sub (6-inch)', 'subway veg delite', 'world', 'v', 'sub', 200, { bread: 75, lettuce: 25, tomato: 25, cucumber: 20, onion: 15, capsicum: 15, mayonnaise: 10, cheese: 14 });
+d('chicken_wrap', 'Chicken wrap', 'tortilla wrap', 'world', 'n', 'wrap', 230, { tortilla: 65, chicken_breast: 80, lettuce: 15, tomato: 15, mayonnaise: 12, oil: 5 });
+d('falafel_wrap', 'Falafel wrap', '', 'world', 'v', 'wrap', 250, { tortilla: 65, kabuli_chana: 40, oil: 12, tahini: 10, lettuce: 15, tomato: 15, onion: 10 });
+d('shawarma', 'Chicken shawarma roll', 'shawarma', 'world', 'n', 'roll', 250, { maida: 50, chicken_thigh: 90, mayonnaise: 20, oil: 5, onion: 15, cabbage: 15 });
+d('pasta_white', 'White sauce pasta', 'alfredo pasta', 'world', 'v', 'plate', 300, { pasta: 80, butter: 10, maida: 8, toned_milk: 120, cheese: 15, capsicum: 15, sweet_corn: 15 });
+d('pasta_pesto', 'Pesto pasta', '', 'world', 'v', 'plate', 250, { pasta: 80, olive_oil: 15, parmesan: 10, pine_nuts: 5 });
+d('spaghetti_bolognese', 'Spaghetti bolognese', 'meat sauce pasta', 'world', 'n', 'plate', 350, { pasta: 85, beef_mince: 90, tomato: 100, onion: 25, olive_oil: 7, parmesan: 5 });
+d('mac_cheese', 'Mac and cheese', 'macaroni cheese', 'world', 'v', 'plate', 250, { pasta: 75, cheese: 40, toned_milk: 100, butter: 10, maida: 5 });
+d('chicken_alfredo', 'Chicken alfredo pasta', '', 'world', 'n', 'plate', 320, { pasta: 80, chicken_breast: 70, cream: 40, butter: 10, parmesan: 15 });
+d('veg_lasagna', 'Veg lasagna', 'lasagne', 'world', 'v', 'piece', 300, { pasta: 60, mozzarella: 40, tomato: 80, toned_milk: 60, butter: 8, maida: 6, spinach: 30 });
+d('sushi_salmon', 'Salmon sushi roll (6 pieces)', 'maki', 'world', 'n', 'plate', 180, { rice: 60, salmon: 50, cucumber: 15, sugar: 5 });
+d('sushi_veg', 'Veg sushi roll (6 pieces)', 'avocado cucumber maki', 'world', 'v', 'plate', 170, { rice: 60, avocado: 30, cucumber: 25, sugar: 5 });
+d('ramen', 'Chicken ramen', 'noodle soup', 'world', 'n', 'bowl', 500, { noodles: 80, chicken_breast: 60, egg: 50, soy_sauce: 15, oil: 5, spinach: 20 });
+d('pad_thai', 'Pad thai (chicken)', 'thai noodles', 'world', 'n', 'plate', 350, { rice_noodles: 80, chicken_breast: 60, egg: 25, peanuts: 15, oil: 15, sugar: 8, soy_sauce: 10 });
+d('thai_green_curry', 'Thai green curry (chicken)', 'thai curry', 'world', 'n', 'katori', 250, { chicken_breast: 90, coconut_milk: 80, french_beans: 20, brinjal: 20, oil: 5, sugar: 3 });
+d('thai_red_curry_veg', 'Thai red curry (veg)', 'thai curry', 'world', 'v', 'katori', 250, { coconut_milk: 80, capsicum: 25, baby_corn: 25, brinjal: 25, mushroom: 20, oil: 5, sugar: 3 });
+d('kung_pao', 'Kung pao chicken', 'chinese chicken', 'world', 'n', 'plate', 200, { chicken_breast: 110, peanuts: 15, capsicum: 25, oil: 12, soy_sauce: 12, sugar: 5, cornflour: 5 });
+d('burrito', 'Chicken burrito', 'mexican wrap', 'world', 'n', 'burrito', 350, { tortilla: 90, rice: 40, chicken_breast: 80, rajma: 25, cheese: 20, sour_cream: 20, tomato: 20, lettuce: 10 });
+d('burrito_bowl', 'Veg burrito bowl', 'mexican bowl', 'world', 'v', 'bowl', 400, { rice: 60, rajma: 35, sweet_corn: 40, tomato: 40, onion: 15, cheese: 20, sour_cream: 20, avocado: 40, lettuce: 15 });
+d('tacos', 'Chicken tacos (2)', 'taco', 'world', 'n', 'plate', 200, { tortilla: 50, chicken_breast: 70, cheese: 15, lettuce: 15, tomato: 20, sour_cream: 15, oil: 4 });
+d('quesadilla', 'Chicken quesadilla', '', 'world', 'n', 'plate', 200, { tortilla: 65, cheese: 50, chicken_breast: 50, oil: 4, capsicum: 10 });
+d('hummus_pita', 'Hummus with pita', '', 'world', 'v', 'plate', 160, { '@hummus': 1, '@pita': 1 });
+d('greek_salad', 'Greek salad', '', 'world', 'v', 'bowl', 250, { cucumber: 80, tomato: 80, onion: 20, olives: 20, feta: 30, olive_oil: 10 });
+d('caesar_salad', 'Chicken caesar salad', '', 'world', 'n', 'bowl', 300, { lettuce: 100, chicken_breast: 90, parmesan: 10, bread: 15, mayonnaise: 20, olive_oil: 5 });
+d('chicken_salad', 'Grilled chicken salad', '', 'world', 'n', 'bowl', 300, { chicken_breast: 120, lettuce: 80, cucumber: 40, tomato: 40, olive_oil: 10 });
+d('tuna_salad', 'Tuna salad', '', 'world', 'n', 'bowl', 270, { tuna_canned: 100, lettuce: 60, cucumber: 40, tomato: 40, onion: 15, mayonnaise: 15 });
+d('quinoa_salad', 'Quinoa salad', 'quinoa bowl', 'world', 'v', 'bowl', 250, { quinoa: 50, cucumber: 40, tomato: 40, kabuli_chana: 15, olive_oil: 8, lemon_juice: 5, feta: 15 });
+d('grilled_salmon', 'Grilled salmon', 'salmon fillet', 'world', 'n', 'piece', 150, { salmon: 180, olive_oil: 5, lemon_juice: 5 });
+d('steak', 'Grilled steak (beef, ~200 g cooked)', 'sirloin ribeye', 'world', 'n', 'steak', 190, { beef: 250, butter: 8 });
+d('roast_chicken_veg', 'Roast chicken with vegetables', '', 'world', 'n', 'plate', 350, { chicken_leg: 180, potato: 100, carrot: 50, broccoli: 50, olive_oil: 10 });
+d('fried_chicken', 'Fried chicken (2 pieces)', 'kfc', 'world', 'n', 'plate', 220, { chicken_leg: 200, maida: 20, oil: 18 });
+d('chicken_wings', 'BBQ chicken wings (6)', 'wings', 'world', 'n', 'plate', 180, { chicken_leg: 200, oil: 10, honey: 10, ketchup: 15 });
+d('fish_and_chips', 'Fish and chips', '', 'world', 'n', 'plate', 330, { basa: 150, maida: 25, oil: 15, '@fries': 1 });
+d('couscous_veg', 'Vegetable couscous', '', 'world', 'v', 'plate', 250, { couscous: 60, zucchini: 40, capsicum: 30, kabuli_chana: 15, olive_oil: 8 });
+
+/* ── More combos ── */
+d('dal_baati', 'Dal baati (3 baati + dal)', 'rajasthani dal bati', 'thali', 'v', 'plate', 375, { '@baati': 3, '@panchmel_dal': 1 });
+d('biryani_raita', 'Chicken biryani + raita', 'biryani combo', 'thali', 'n', 'plate', 450, { '@chicken_biryani': 1, '@raita': 1 });
+d('paneer_thali', 'Paneer thali', 'veg thali', 'thali', 'v', 'thali', 720, { '@paneer_butter_masala': 1, '@dal_makhani': 1, '@butter_naan': 1, '@roti': 1, '@jeera_rice': 1, '@salad': 1 });
+d('maharashtrian_thali', 'Maharashtrian thali', 'marathi jevan', 'thali', 'v', 'thali', 700, { '@jowar_bhakri': 2, '@usal': 1, '@dal_tadka': 1, '@rice': 1, '@salad': 1, '@pickle': 1 });
+d('burger_meal', 'Burger meal (burger + fries + cola)', 'combo', 'thali', 'n', 'meal', 600, { '@chicken_burger': 1, '@fries': 1, '@cola_can': 1 });
 
 export default dishes;

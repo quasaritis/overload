@@ -139,7 +139,7 @@ export default function Food() {
       {entries && entries.length === 0 && day === today && (
         <div className="empty" style={{ paddingTop: 0 }}>
           <p className="muted" style={{ maxWidth: '52ch' }}>
-            Nothing logged yet. Search 240+ Indian dishes, fruits and dry fruits in katori, roti and handful portions, build a plate from ingredients, or snap a photo for an estimate.
+            Nothing logged yet. Search 480+ Indian and world dishes, fruits, dry fruits and branded products (whey, paneer, dahi, chocolate) in katori, roti, scoop and pack portions, build a plate from ingredients, or snap a photo for an estimate.
           </p>
         </div>
       )}
@@ -169,8 +169,13 @@ function Scoreboard({ total, target, proteinT, byMeal, onSetTarget }: { total: N
   const left = target ? target - eaten : null;
   const over = left != null && left < 0;
   const scaleMax = Math.max(target ?? 0, eaten, 1);
-  const split = target && proteinT ? macroSplit(target, proteinT) : null;
+  // Carb and fat goals come from the calorie target; without a protein target, assume 25% of calories from protein.
+  const proteinGoal = proteinT ?? (target ? Math.round((target * 0.25) / 4) : null);
+  const split = target && proteinGoal ? macroSplit(target, proteinGoal) : null;
   const proteinHit = proteinT != null && total.p >= proteinT;
+
+  const macroKcal = total.p * 4 + total.c * 4 + total.f * 9;
+  const share = (k: number) => (macroKcal > 0 ? k / macroKcal : 0);
 
   const segs = MEALS.map((m) => ({ m, k: (byMeal.get(m.id) ?? []).reduce((a, e) => a + Number(e.kcal), 0) })).filter((s) => s.k > 0);
 
@@ -206,21 +211,34 @@ function Scoreboard({ total, target, proteinT, byMeal, onSetTarget }: { total: N
       )}
 
       <div className="macro-bars">
-        <MacroBar label="Protein" v={total.p} t={proteinT} tone="var(--haldi)" />
-        <MacroBar label="Carbs" v={total.c} t={split?.carbs ?? null} tone="var(--slate-chalk-3)" />
-        <MacroBar label="Fat" v={total.f} t={split?.fat ?? null} tone="var(--slate-chalk-3)" />
+        <MacroBar label="Protein" v={total.p} t={proteinGoal} kcalShare={share(total.p * 4)} tone="var(--haldi)" />
+        <MacroBar label="Carbs" v={total.c} t={split?.carbs ?? null} kcalShare={share(total.c * 4)} tone="var(--slate-chalk-3)" />
+        <MacroBar label="Fat" v={total.f} t={split?.fat ?? null} kcalShare={share(total.f * 9)} tone="var(--slate-chalk-3)" />
       </div>
     </div>
   );
 }
 
-function MacroBar({ label, v, t, tone }: { label: string; v: number; t: number | null; tone: string }) {
-  const pct = t ? Math.min(100, (v / t) * 100) : 0;
+/**
+ * With a goal, the bar fills toward it and turns "over" past 100%.
+ * Without one, it shows that macro's share of today's calories, so it still moves as food is logged.
+ */
+function MacroBar({ label, v, t, kcalShare, tone }: { label: string; v: number; t: number | null; kcalShare: number; tone: string }) {
+  const val = Number.isFinite(v) ? v : 0;
+  const ratio = t ? val / t : kcalShare;
+  const pct = Math.max(0, Math.min(100, ratio * 100));
+  const over = t != null && val > t;
   return (
-    <div className="hbar">
+    <div className={`hbar${over ? ' over' : ''}`}>
       <span className="k">{label}</span>
-      <span className="track">{t ? <span className="fill" style={{ width: `${pct}%`, background: tone }} /> : null}</span>
-      <span className="v num">{gFmt(v)}{t ? <span className="faint"> / {t}</span> : null}<small> g</small></span>
+      <span className="track" role="progressbar" aria-label={label} aria-valuemin={0} aria-valuemax={t ?? 100} aria-valuenow={t ? Math.round(val) : Math.round(pct)}>
+        <span className="fill" style={{ width: `${pct}%`, background: over ? undefined : tone }} />
+      </span>
+      <span className="v num">
+        {gFmt(val)}
+        {t ? <span className="faint"> / {t}</span> : null}
+        <small> g{!t && val > 0 ? ` · ${Math.round(pct)}%` : ''}</small>
+      </span>
     </div>
   );
 }

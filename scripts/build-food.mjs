@@ -1,12 +1,14 @@
 // Builds the food library the app ships with.
 //   node scripts/build-food.mjs
-// Inputs:  scripts/food/ifct.json (IFCT 2017 subset), scripts/food/extras.json, scripts/food/dishes.mjs
+// Inputs:  scripts/food/ifct.json (IFCT 2017 subset), scripts/food/extras.json, scripts/food/brands.mjs,
+//          scripts/food/dishes.mjs
 // Outputs: src/data/food.json                              — ingredients (per 100 g) + dishes (per serving)
 //          supabase/functions/analyze-meal/catalog.ts      — dish ids/names the photo model can match to
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import dishes from './food/dishes.mjs';
+import baseDishes from './food/dishes.mjs';
+import brands from './food/brands.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const read = (p) => JSON.parse(readFileSync(join(root, p), 'utf8'));
@@ -14,14 +16,27 @@ const r1 = (x) => Math.round(x * 10) / 10;
 
 // Energy from macros with one set of factors for every food: 4 kcal/g protein & available carbs,
 // 9 kcal/g fat, 2 kcal/g dietary fibre (the factors IFCT 2017 itself uses: 17/17/37/8 kJ).
+// Branded products keep the calories printed on their label instead (x.kcal, per 100 g).
 const kcalOf = (n) => n.p * 4 + n.c * 4 + n.f * 9 + n.fib * 2;
+const kcalPer100 = (x) => x.kcal ?? kcalOf(x);
 
-const raw = [...read('scripts/food/ifct.json'), ...read('scripts/food/extras.json')];
+const raw = [...read('scripts/food/ifct.json'), ...read('scripts/food/extras.json'), ...brands];
 const ing = new Map();
 for (const x of raw) {
   if (ing.has(x.id)) throw new Error(`duplicate ingredient id ${x.id}`);
   ing.set(x.id, x);
 }
+
+// Every branded product is also a ready-to-log item, one label serving each.
+const brandDishes = brands.map((x) => {
+  const [[label, g], ...rest] = x.units;
+  return {
+    id: `b_${x.id}`, name: x.name, aka: x.aka, cat: 'brands', diet: 'v',
+    unit: label.replace(/^1 /, ''), g, recipe: { [x.id]: g },
+    alt: [...rest, ...(rest.some(([, gg]) => gg === 100) || g === 100 ? [] : [['100 g', 100]])],
+  };
+});
+const dishes = [...baseDishes, ...brandDishes];
 
 const dishById = new Map(dishes.map((d) => [d.id, d]));
 if (dishById.size !== dishes.length) throw new Error('duplicate dish id');
@@ -45,20 +60,21 @@ function flatten(d, mult = 1, seen = new Set()) {
 
 const ingredients = raw.map((x) => ({
   id: x.id, n: x.name, aka: x.aka || undefined, grp: x.grp, src: x.src,
-  k: r1(kcalOf(x)), p: r1(x.p), c: r1(x.c), f: r1(x.f), fb: r1(x.fib),
+  k: r1(kcalPer100(x)), p: r1(x.p), c: r1(x.c), f: r1(x.f), fb: r1(x.fib),
   u: x.units?.length ? x.units : undefined,
 }));
 
 const out = dishes.map((d) => {
   const flat = flatten(d);
-  const t = { p: 0, c: 0, f: 0, fib: 0 };
+  const t = { k: 0, p: 0, c: 0, f: 0, fib: 0 };
   for (const [id, g] of flat) {
     const x = ing.get(id);
+    t.k += (kcalPer100(x) * g) / 100;
     t.p += (x.p * g) / 100; t.c += (x.c * g) / 100; t.f += (x.f * g) / 100; t.fib += (x.fib * g) / 100;
   }
   return {
     id: d.id, n: d.name, aka: d.aka || undefined, cat: d.cat, diet: d.diet, unit: d.unit, g: d.g,
-    k: Math.round(kcalOf(t)), p: r1(t.p), c: r1(t.c), f: r1(t.f), fb: r1(t.fib),
+    k: Math.round(t.k), p: r1(t.p), c: r1(t.c), f: r1(t.f), fb: r1(t.fib),
     alt: d.alt.length ? d.alt : undefined,
     r: [...flat].map(([id, g]) => [id, r1(g)]),
   };
