@@ -5,7 +5,7 @@ import { MEALS, ZERO, add, fmtQty, isoDay, macroSplit, mealForNow, shiftDay, typ
 import { dailyTotals, entriesFor, photoUrls } from '../lib/foodData';
 import { humanError } from '../lib/supabase';
 import type { FoodEntry } from '../lib/types';
-import { ErrorLine, Loading } from '../components/ui';
+import { ErrorLine, Loading, PageHead, SectionHead } from '../components/ui';
 import { AddFood } from '../components/food/AddFood';
 import { EntrySheet } from '../components/food/EntrySheet';
 import { TargetsSheet } from '../components/food/TargetsSheet';
@@ -31,6 +31,7 @@ export default function Food() {
   const [adding, setAdding] = useState<{ meal: Meal; tab?: 'dish' | 'photo' } | null>(null);
   const [editing, setEditing] = useState<FoodEntry | null>(null);
   const [targets, setTargets] = useState(false);
+  const [fresh, setFresh] = useState<Set<string>>(new Set());
   const [err, setErr] = useState('');
 
   const weekFrom = shiftDay(today, -6);
@@ -68,6 +69,7 @@ export default function Food() {
 
   function changed(rows: FoodEntry[]) {
     setEntries((xs) => [...(xs ?? []), ...rows.filter((r) => r.eaten_on === day)]);
+    setFresh(new Set(rows.map((r) => r.id)));
     const paths = rows.map((r) => r.photo_path).filter((p): p is string => Boolean(p));
     if (paths.length) photoUrls(paths).then((m) => setPhotos((old) => new Map([...old, ...m])));
     loadWeek();
@@ -75,14 +77,16 @@ export default function Food() {
 
   return (
     <div>
-      <header className="page-head food-head">
-        <div className="day-nav">
-          <button className="btn icon ghost" onClick={() => setDay(shiftDay(day, -1))} aria-label="Previous day"><ChevronLeft /></button>
-          <h1 className="t-title">{dayTitle(day)}</h1>
-          <button className="btn icon ghost" onClick={() => setDay(shiftDay(day, 1))} disabled={day >= today} aria-label="Next day"><ChevronRight /></button>
-        </div>
-        <button className="btn ghost sm" onClick={() => setTargets(true)}><Target /> {target ? 'Targets' : 'Set target'}</button>
-      </header>
+      <PageHead
+        titleSlot={
+          <div className="day-nav">
+            <button className="btn icon ghost" onClick={() => setDay(shiftDay(day, -1))} aria-label="Previous day"><ChevronLeft /></button>
+            <h1 className="t-title">{dayTitle(day)}</h1>
+            <button className="btn icon ghost" onClick={() => setDay(shiftDay(day, 1))} disabled={day >= today} aria-label="Next day"><ChevronRight /></button>
+          </div>
+        }
+        actions={<button className="btn ghost sm" onClick={() => setTargets(true)}><Target /> {target ? 'Targets' : 'Set target'}</button>}
+      />
 
       <ErrorLine>{err}</ErrorLine>
 
@@ -112,7 +116,7 @@ export default function Food() {
                     {rows.map((e) => {
                       const url = e.photo_path ? photos.get(e.photo_path) : undefined;
                       return (
-                        <button key={e.id} className="list-item food-row" onClick={() => setEditing(e)}>
+                        <button key={e.id} className={`list-item food-row${fresh.has(e.id) ? ' fresh' : ''}`} onClick={() => setEditing(e)}>
                           {url ? <img className="thumb" src={url} alt="" width={44} height={44} /> : null}
                           <span className="grow">
                             <span className="title" style={{ display: 'block' }}>{e.name}</span>
@@ -135,7 +139,7 @@ export default function Food() {
       {entries && entries.length === 0 && day === today && (
         <div className="empty" style={{ paddingTop: 0 }}>
           <p className="muted" style={{ maxWidth: '52ch' }}>
-            Nothing logged yet. Search 190+ Indian dishes in standard katori and roti portions, build a plate from ingredients, or snap a photo and let it estimate.
+            Nothing logged yet. Search 240+ Indian dishes, fruits and dry fruits in katori, roti and handful portions, build a plate from ingredients, or snap a photo for an estimate.
           </p>
         </div>
       )}
@@ -157,6 +161,7 @@ export default function Food() {
   );
 }
 
+// Meals are one chalk, pressed harder or lighter: parts of the same day, not four different things.
 const MEAL_TONE: Record<Meal, string> = { breakfast: 'var(--meal-1)', lunch: 'var(--meal-2)', snack: 'var(--meal-3)', dinner: 'var(--meal-4)' };
 
 function Scoreboard({ total, target, proteinT, byMeal, onSetTarget }: { total: Nutr; target: number | null; proteinT: number | null; byMeal: Map<Meal, FoodEntry[]>; onSetTarget: () => void }) {
@@ -175,7 +180,8 @@ function Scoreboard({ total, target, proteinT, byMeal, onSetTarget }: { total: N
         <p className="lbl">{target ? (over ? 'Over target' : 'Calories left') : 'Eaten'}</p>
         {proteinHit && <span className="verdict add">Protein target hit</span>}
       </div>
-      <p className={`attempt${over ? ' over' : ''}`}>
+      {/* keyed on the number, so the slate is wiped and the new figure chalked in whenever it changes */}
+      <p key={`${eaten}-${target}`} className={`attempt${over ? ' over' : ''}`}>
         <span className="num">{kcalFmt(target ? Math.abs(left!) : eaten)}</span>
         <span className="u">kcal</span>
       </p>
@@ -200,9 +206,9 @@ function Scoreboard({ total, target, proteinT, byMeal, onSetTarget }: { total: N
       )}
 
       <div className="macro-bars">
-        <MacroBar label="Protein" v={total.p} t={proteinT} tone="var(--data)" />
-        <MacroBar label="Carbs" v={total.c} t={split?.carbs ?? null} tone="var(--chalk-3)" />
-        <MacroBar label="Fat" v={total.f} t={split?.fat ?? null} tone="var(--chalk-3)" />
+        <MacroBar label="Protein" v={total.p} t={proteinT} tone="var(--haldi)" />
+        <MacroBar label="Carbs" v={total.c} t={split?.carbs ?? null} tone="var(--slate-chalk-3)" />
+        <MacroBar label="Fat" v={total.f} t={split?.fat ?? null} tone="var(--slate-chalk-3)" />
       </div>
     </div>
   );
@@ -228,19 +234,17 @@ function WeekStrip({ week, today, day, target, onPick }: { week: Map<string, { k
   const avgP = logged.length ? days.reduce((a, d) => a + (week.get(d)?.protein ?? 0), 0) / logged.length : 0;
   return (
     <section className="section">
-      <div className="row between" style={{ marginBottom: 'var(--s-4)', alignItems: 'baseline' }}>
-        <h2 className="t-head">Last 7 days</h2>
-        {logged.length > 0 && (
-          <p className="faint t-small">avg <b className="num" style={{ color: 'var(--chalk)' }}>{kcalFmt(avg)}</b> kcal · <b className="num" style={{ color: 'var(--chalk)' }}>{gFmt(avgP)}</b> g protein on {logged.length} logged day{logged.length === 1 ? '' : 's'}</p>
-        )}
-      </div>
+      <SectionHead
+        title="Last 7 days"
+        sub={logged.length > 0 ? <>Average <b className="num">{kcalFmt(avg)}</b> kcal and <b className="num">{gFmt(avgP)}</b> g protein over {logged.length} logged day{logged.length === 1 ? '' : 's'}</> : undefined}
+      />
       <div className="week" role="group" aria-label="Pick a day">
         {days.map((d, i) => {
           const v = vals[i];
           const [y, m, dd] = d.split('-').map(Number);
           const dt = new Date(y, m - 1, dd);
           return (
-            <button key={d} className="week-day" aria-pressed={d === day} onClick={() => onPick(d)} aria-label={`${dt.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' })}: ${Math.round(v)} kcal`}>
+            <button key={d} className="week-day" style={{ '--d': i } as React.CSSProperties} aria-pressed={d === day} onClick={() => onPick(d)} aria-label={`${dt.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'short' })}: ${Math.round(v)} kcal`}>
               <span className="week-col">
                 <span className={`week-bar${target && v > target ? ' over' : ''}`} style={{ height: `${(v / max) * 100}%` }} />
                 {target ? <i className="week-t" style={{ bottom: `${(target / max) * 100}%` }} aria-hidden /> : null}

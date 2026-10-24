@@ -25,7 +25,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [ready, setReady] = useState(false);
   const [recovering, setRecovering] = useState(false);
-  const [toastMsg, setToastMsg] = useState<string | null>(null);
+  const [toastMsg, setToastMsg] = useState<{ text: string; id: number; out: boolean } | null>(null);
+  const showToast = useCallback((text: string) => setToastMsg({ text, id: Date.now(), out: false }), []);
 
   const load = useCallback(async (u: User | null) => {
     setUser(u);
@@ -54,9 +55,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     return () => sub.subscription.unsubscribe();
   }, [load]);
 
+  // A toast stays 2.4 s, then drops away (faster than it came in) before it's removed.
   useEffect(() => {
     if (!toastMsg) return;
-    const t = setTimeout(() => setToastMsg(null), 2600);
+    const { id, out } = toastMsg;
+    const t = setTimeout(() => setToastMsg((x) => (x?.id !== id ? x : out ? null : { ...x, out: true })), out ? 180 : 2400);
     return () => clearTimeout(t);
   }, [toastMsg]);
 
@@ -74,17 +77,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
       },
       setProfile,
       clearRecovering: () => setRecovering(false),
-      toast: setToastMsg,
+      toast: showToast,
     }),
-    [user, profile, ready, recovering, unit],
+    [user, profile, ready, recovering, unit, showToast],
   );
 
   return (
     <Ctx.Provider value={value}>
       {children}
       {toastMsg && (
-        <div className="toast" role="status" aria-live="polite">
-          {toastMsg}
+        <div key={toastMsg.id} className={`toast${toastMsg.out ? ' out' : ''}`} role="status" aria-live="polite">
+          {toastMsg.text}
         </div>
       )}
     </Ctx.Provider>

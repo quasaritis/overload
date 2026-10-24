@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useApp } from '../../lib/app';
 import { updateProfile } from '../../lib/data';
 import { ACTIVITY, macroSplit, suggestTargets } from '../../lib/food';
 import { humanError } from '../../lib/supabase';
 import { fmtNum, fromDisplay, toDisplay } from '../../lib/units';
 import type { Profile } from '../../lib/types';
-import { ErrorLine } from '../ui';
-import { Sheet } from '../Sheet';
+import { ErrorLine, Seg } from '../ui';
+import { Sheet, type SheetHandle } from '../Sheet';
 import { kcalFmt } from './bits';
 
 type Goal = NonNullable<Profile['diet_goal']>;
@@ -26,6 +26,7 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
   const [protein, setProtein] = useState(p.protein_target_g ? String(p.protein_target_g) : '');
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const sheet = useRef<SheetHandle>(null);
 
   const weightKg = bw ? fromDisplay(parseFloat(bw), unit) : null;
   const age = birth ? year - Number(birth) : null;
@@ -53,7 +54,7 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
       });
       setProfile(next);
       toast('Targets saved');
-      onClose();
+      sheet.current?.close();
     } catch (x) {
       setErr(humanError(x));
       setBusy(false);
@@ -61,15 +62,12 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <Sheet title="Daily targets" onClose={onClose}>
+    <Sheet ref={sheet} title="Daily targets" onClose={onClose}>
       <form className="stack-lg" style={{ paddingTop: 'var(--s-4)' }} onSubmit={save}>
         <p className="muted t-small">Fill these in and Labour Chowk suggests a target. You can override it.</p>
         <div className="field">
           <span>Body</span>
-          <div className="seg block" role="group" aria-label="Sex">
-            <button type="button" aria-pressed={sex === 'male'} onClick={() => setSex('male')}>Male</button>
-            <button type="button" aria-pressed={sex === 'female'} onClick={() => setSex('female')}>Female</button>
-          </div>
+          <Seg block label="Sex" value={sex} onChange={setSex} options={[['male', 'Male'], ['female', 'Female']] as const} />
           <span className="hint">Used only for the energy formula (Mifflin–St Jeor).</span>
         </div>
         <div className="grid-3">
@@ -87,7 +85,7 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
           </label>
         </div>
         <fieldset className="field" style={{ border: 0, padding: 0, margin: 0 }}>
-          <legend className="t-label" style={{ marginBottom: 6 }}>How active are you?</legend>
+          <legend className="field-legend">How active are you?</legend>
           <div className="choice-list">
             {ACTIVITY.map((a) => (
               <label key={a.id} className="choice">
@@ -100,11 +98,7 @@ export function TargetsSheet({ onClose }: { onClose: () => void }) {
         </fieldset>
         <div className="field">
           <span>Goal</span>
-          <div className="seg block" role="group" aria-label="Goal">
-            <button type="button" aria-pressed={goal === 'cut'} onClick={() => setGoal('cut')}>Lose fat</button>
-            <button type="button" aria-pressed={goal === 'maintain'} onClick={() => setGoal('maintain')}>Maintain</button>
-            <button type="button" aria-pressed={goal === 'bulk'} onClick={() => setGoal('bulk')}>Build muscle</button>
-          </div>
+          <Seg block label="Goal" value={goal} onChange={setGoal} options={[['cut', 'Lose fat'], ['maintain', 'Maintain'], ['bulk', 'Build muscle']] as const} />
         </div>
 
         {s && (

@@ -11,8 +11,8 @@ import {
   type NewEntry, type ScanItem,
 } from '../../lib/foodData';
 import type { FoodEntry, FoodItem, SavedMeal } from '../../lib/types';
-import { ErrorLine, Loading, useDebounced } from '../ui';
-import { Sheet, Stepper } from '../Sheet';
+import { ErrorLine, Loading, Seg, useDebounced } from '../ui';
+import { Sheet, Stepper, type SheetHandle } from '../Sheet';
 import { DietMark, Macros, Readout, gFmt, kcalFmt } from './bits';
 
 type Tab = 'dish' | 'photo' | 'recipe' | 'quick';
@@ -24,6 +24,8 @@ const nutrFields = (n: Nutr) => {
   return { kcal: r.kcal, protein_g: r.p, carbs_g: r.c, fat_g: r.f, fibre_g: r.fb };
 };
 
+const TABS = [['dish', 'Meals'], ['photo', 'Photo'], ['recipe', 'Ingredients'], ['quick', 'Quick add']] as const satisfies readonly (readonly [Tab, string])[];
+
 export function AddFood({ day, meal: meal0, onClose, onAdded, startTab = 'dish' }: { day: string; meal: Meal; onClose: () => void; onAdded: (rows: FoodEntry[]) => void; startTab?: Tab }) {
   const { toast } = useApp();
   const [lib, setLib] = useState<FoodLib | null>(null);
@@ -31,6 +33,7 @@ export function AddFood({ day, meal: meal0, onClose, onAdded, startTab = 'dish' 
   const [tab, setTab] = useState<Tab>(startTab);
   const [meal, setMeal] = useState<Meal>(meal0);
   const [seed, setSeed] = useState<RecipeSeed | null>(null);
+  const sheet = useRef<SheetHandle>(null);
 
   useEffect(() => {
     loadFoodLib().then(setLib).catch((e) => setErr(humanError(e)));
@@ -42,16 +45,12 @@ export function AddFood({ day, meal: meal0, onClose, onAdded, startTab = 'dish' 
     const out = await addEntries(rows.map((r) => ({ ...r, eaten_on: day, meal })));
     onAdded(out);
     toast(rows.length === 1 ? `${rows[0].name} added to ${mealLabel}` : `Added to ${mealLabel}`);
-    onClose();
+    sheet.current?.close();
   }
 
   const head = (
     <>
-      <div className="seg block food-tabs" role="tablist" aria-label="How to add">
-        {([['dish', 'Meals'], ['photo', 'Photo'], ['recipe', 'Ingredients'], ['quick', 'Quick add']] as [Tab, string][]).map(([id, label]) => (
-          <button key={id} type="button" role="tab" aria-selected={tab === id} aria-pressed={tab === id} onClick={() => setTab(id)}>{label}</button>
-        ))}
-      </div>
+      <Seg tabs block className="food-tabs" label="How to add" value={tab} onChange={setTab} options={TABS} />
       <div className="chips" role="group" aria-label="Meal">
         {MEALS.map((m) => (
           <button key={m.id} type="button" className="chip" aria-pressed={meal === m.id} onClick={() => setMeal(m.id)}>{m.label}</button>
@@ -61,7 +60,7 @@ export function AddFood({ day, meal: meal0, onClose, onAdded, startTab = 'dish' 
   );
 
   return (
-    <Sheet title="Add food" onClose={onClose} head={head}>
+    <Sheet ref={sheet} title="Add food" onClose={onClose} head={head}>
       <ErrorLine>{err}</ErrorLine>
       {!lib && !err && <Loading label="Loading foods" />}
       {lib && tab === 'dish' && (
@@ -150,7 +149,7 @@ function DishTab({ lib, mealLabel, onSave, onCustomize }: { lib: FoodLib; mealLa
       <label className="field search-field">
         <span className="sr-only">Search Indian meals</span>
         <Search aria-hidden />
-        <input className="input" placeholder="Search 190+ dishes — dal, paneer, biryani, chai…" value={q} onChange={(e) => setQ(e.target.value)} autoFocus />
+        <input className="input" placeholder="Search 240+ foods: dal, paneer, fruit, badam…" value={q} onChange={(e) => setQ(e.target.value)} autoFocus />
         {q && <button type="button" className="clear" onClick={() => setQ('')} aria-label="Clear search"><X /></button>}
       </label>
       {!searching && (
@@ -289,12 +288,7 @@ function DishDetail({ dish, lib, qty0 = 1, unit0, mealLabel, onBack, onSave, onC
       <div className="field">
         <span>How much</span>
         <div className="row" style={{ flexWrap: 'wrap', gap: 'var(--s-3)' }}>
-          <div className="seg" role="group" aria-label="Unit">
-            {units.map((u, i) => (
-              <button key={u.label} type="button" aria-pressed={ui === i} onClick={() => setUi(i)}>{u.label}</button>
-            ))}
-            <button type="button" aria-pressed={byGrams} onClick={() => setUi(-1)}>grams</button>
-          </div>
+          <Seg label="Unit" value={ui} onChange={setUi} options={[...units.map((u, i) => [i, u.label] as const), [-1, 'grams'] as const]} />
           {byGrams ? (
             <label className="set-cell" style={{ width: 130 }}>
               <span className="sr-only">Grams</span>
@@ -310,7 +304,7 @@ function DishDetail({ dish, lib, qty0 = 1, unit0, mealLabel, onBack, onSave, onC
       <Readout n={n} />
 
       <details className="recipe-peek">
-        <summary>What’s in 1 {dish.unit} <span className="faint">— edit to match how you make it</span></summary>
+        <summary>What’s in 1 {dish.unit} <span className="faint">· edit to match how you make it</span></summary>
         <ul>
           {dish.r.map(([id, g]) => (
             <li key={id}><span>{lib.ing.get(id)?.n ?? id}</span><span className="num">{gFmt(g)} g</span></li>
@@ -535,7 +529,7 @@ function PhotoTab({ lib, mealLabel, onSave }: { lib: FoodLib; mealLabel: string;
               <p className="muted">{note}</p>
             </div>
           )}
-          {note && items.length > 0 && <p className="faint t-small">{note} Check portions — photos can’t see oil or what’s under the rice.</p>}
+          {note && items.length > 0 && <p className="faint t-small">{note} Check portions: photos can’t see oil or what’s under the rice.</p>}
           <div className="row" style={{ flexWrap: 'wrap' }}>
             {blob && <button className="btn" onClick={() => scan(blob)}><RotateCcw /> Scan again{hint ? ' with note' : ''}</button>}
             <button className="btn ghost" onClick={() => { setPreview(null); setBlob(null); setItems([]); setStatus('idle'); }}>New photo</button>
@@ -614,7 +608,7 @@ function RecipeTab({ lib, seed, mealLabel, onSave }: { lib: FoodLib; seed: Recip
       </label>
 
       <div className="field">
-        <span>Ingredients <span className="faint">— raw weight; count the oil and ghee</span></span>
+        <span>Ingredients <span className="faint">· raw weight, count the oil and ghee</span></span>
         {rows.length > 0 && (
           <ul className="ing-rows">
             {rows.map((r, i) => {
@@ -646,7 +640,7 @@ function RecipeTab({ lib, seed, mealLabel, onSave }: { lib: FoodLib; seed: Recip
         <label className="field search-field" style={{ marginTop: 'var(--s-2)' }}>
           <span className="sr-only">Add an ingredient</span>
           <Plus aria-hidden />
-          <input className="input" placeholder="Add ingredient — atta, paneer, toor dal, ghee…" value={q} onChange={(e) => setQ(e.target.value)} />
+          <input className="input" placeholder="Add ingredient: atta, paneer, toor dal, ghee…" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
         {hits.length > 0 && (
           <div className="list hits">

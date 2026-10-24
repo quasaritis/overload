@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { MailCheck } from 'lucide-react';
 import { supabase, humanError } from '../lib/supabase';
-import { Barbell, Brandmark, ErrorLine, Lights } from '../components/ui';
+import { Barbell, Brandmark, ErrorLine, Lights, Seg } from '../components/ui';
 import { useApp } from '../lib/app';
 
 type Mode = 'signin' | 'signup' | 'forgot';
@@ -50,7 +50,7 @@ export default function AuthPage() {
         <Brandmark className="auth-brand" />
         <h1 className="t-display auth-h">Every session, a heavier attempt.</h1>
         <p className="auth-sub">
-          Log your sets. Labour Chowk reads your last session and calls the next attempt — the weight, the reps, and the plates to load.
+          Log your sets. Labour Chowk reads your last session and calls the next attempt: the weight, the reps and the plates to load.
         </p>
 
         <div className="board auth-board" aria-label="Example of a next attempt">
@@ -87,10 +87,7 @@ export default function AuthPage() {
         ) : (
           <form className="stack-lg auth-form" onSubmit={submit} noValidate>
             {mode !== 'forgot' ? (
-              <div className="seg block" role="group" aria-label="Account">
-                <button type="button" aria-pressed={mode === 'signin'} onClick={() => { setMode('signin'); setErr(''); }}>Sign in</button>
-                <button type="button" aria-pressed={mode === 'signup'} onClick={() => { setMode('signup'); setErr(''); }}>Create account</button>
-              </div>
+              <Seg block label="Account" value={mode} onChange={(m) => { setMode(m); setErr(''); }} options={[['signin', 'Sign in'], ['signup', 'Create account']] as const} />
             ) : (
               <div className="stack">
                 <h2 className="t-title">Reset password</h2>
@@ -189,9 +186,9 @@ const authCss = `
 .auth-form { width: 100%; max-width: 420px; }
 @media (min-width: 960px) {
   .auth { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
-  .auth-stage { padding: 56px 72px; align-content: center; gap: 24px; border-right: 1px solid var(--rule); min-height: 100dvh; background: radial-gradient(90% 70% at 0% 100%, rgb(200 71 45 / 0.12), transparent 65%); }
+  .auth-stage { padding: 56px 72px; align-content: center; gap: 24px; min-height: 100dvh; }
   .auth-brand .dev { font-size: 3.25rem; }
   .auth-h { font-size: clamp(4rem, 6vw, 6.25rem); }
-  .auth-form-wrap { align-content: center; justify-items: center; padding: 48px; background: color-mix(in srgb, var(--stage-0) 55%, transparent); }
+  .auth-form-wrap { align-content: center; justify-items: center; padding: 48px; background: var(--stage-0); }
 }
 `;

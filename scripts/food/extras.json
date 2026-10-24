@@ -501,6 +501,91 @@
   ]
  },
  {
+  "id": "kiwi",
+  "name": "Kiwi",
+  "aka": "kiwifruit",
+  "grp": "fruit",
+  "src": "USDA FDC 168153",
+  "p": 1.14,
+  "c": 11.66,
+  "f": 0.52,
+  "fib": 3.0,
+  "units": [
+   [
+    "1 kiwi",
+    75
+   ]
+  ]
+ },
+ {
+  "id": "blueberries",
+  "name": "Blueberries",
+  "aka": "blueberry",
+  "grp": "fruit",
+  "src": "USDA FDC 171711",
+  "p": 0.74,
+  "c": 12.09,
+  "f": 0.33,
+  "fib": 2.4,
+  "units": [
+   [
+    "1 katori",
+    100
+   ]
+  ]
+ },
+ {
+  "id": "anjeer_dry",
+  "name": "Dried figs (anjeer)",
+  "aka": "anjir sukha anjeer",
+  "grp": "nuts",
+  "src": "USDA SR Legacy, figs, dried, uncooked",
+  "p": 3.3,
+  "c": 54.07,
+  "f": 0.93,
+  "fib": 9.8,
+  "units": [
+   [
+    "1 anjeer",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "prunes",
+  "name": "Prunes (dried plums)",
+  "aka": "prune",
+  "grp": "nuts",
+  "src": "USDA FDC 168162",
+  "p": 2.18,
+  "c": 56.78,
+  "f": 0.38,
+  "fib": 7.1,
+  "units": [
+   [
+    "1 prune",
+    9.5
+   ]
+  ]
+ },
+ {
+  "id": "pumpkin_seeds",
+  "name": "Pumpkin seeds",
+  "aka": "kaddu ke beej pepitas",
+  "grp": "nuts",
+  "src": "USDA FDC 170556",
+  "p": 30.23,
+  "c": 4.71,
+  "f": 49.05,
+  "fib": 6.0,
+  "units": [
+   [
+    "1 tbsp",
+    9
+   ]
+  ]
+ },
+ {
   "id": "sabudana",
   "name": "Sabudana (sago), dry",
   "aka": "sago tapioca pearls",

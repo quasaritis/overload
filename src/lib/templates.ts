@@ -29,10 +29,10 @@ export const TEMPLATES: Template[] = [
     days: 4,
     blurb: 'Four days, each muscle twice a week. A strength day and a volume day for each half.',
     plan: [
-      { name: 'Upper — Strength', exercises: [C('Barbell_Bench_Press_-_Medium_Grip', 4, 4, 6, 180), C('Bent_Over_Barbell_Row', 4, 5, 8, 150), C('x_Overhead_Press', 3, 5, 8), A('Chin-Up', 3, 5, 10, 120, 0), A('EZ-Bar_Skullcrusher', 3, 8, 12)] },
-      { name: 'Lower — Strength', exercises: [C('Barbell_Squat', 4, 4, 6, 210), C('Romanian_Deadlift', 3, 6, 8, 180), A('Leg_Press', 3, 8, 12, 120, 5), A('Standing_Calf_Raises', 4, 8, 12)] },
-      { name: 'Upper — Volume', exercises: [A('Incline_Dumbbell_Press', 3, 8, 12, 120), A('Wide-Grip_Lat_Pulldown', 3, 10, 12, 120), A('Seated_Dumbbell_Press', 3, 8, 12), A('One-Arm_Dumbbell_Row', 3, 10, 12), A('Side_Lateral_Raise', 3, 12, 20, 60, 1), A('Barbell_Curl', 3, 8, 12)] },
-      { name: 'Lower — Volume', exercises: [C('Front_Barbell_Squat', 3, 6, 10, 180), A('Barbell_Hip_Thrust', 3, 8, 12, 120, 5), A('Lying_Leg_Curls', 3, 10, 15), A('Leg_Extensions', 3, 10, 15), A('Seated_Calf_Raise', 3, 12, 20), A('Cable_Crunch', 3, 10, 15)] },
+      { name: 'Upper strength', exercises: [C('Barbell_Bench_Press_-_Medium_Grip', 4, 4, 6, 180), C('Bent_Over_Barbell_Row', 4, 5, 8, 150), C('x_Overhead_Press', 3, 5, 8), A('Chin-Up', 3, 5, 10, 120, 0), A('EZ-Bar_Skullcrusher', 3, 8, 12)] },
+      { name: 'Lower strength', exercises: [C('Barbell_Squat', 4, 4, 6, 210), C('Romanian_Deadlift', 3, 6, 8, 180), A('Leg_Press', 3, 8, 12, 120, 5), A('Standing_Calf_Raises', 4, 8, 12)] },
+      { name: 'Upper volume', exercises: [A('Incline_Dumbbell_Press', 3, 8, 12, 120), A('Wide-Grip_Lat_Pulldown', 3, 10, 12, 120), A('Seated_Dumbbell_Press', 3, 8, 12), A('One-Arm_Dumbbell_Row', 3, 10, 12), A('Side_Lateral_Raise', 3, 12, 20, 60, 1), A('Barbell_Curl', 3, 8, 12)] },
+      { name: 'Lower volume', exercises: [C('Front_Barbell_Squat', 3, 6, 10, 180), A('Barbell_Hip_Thrust', 3, 8, 12, 120, 5), A('Lying_Leg_Curls', 3, 10, 15), A('Leg_Extensions', 3, 10, 15), A('Seated_Calf_Raise', 3, 12, 20), A('Cable_Crunch', 3, 10, 15)] },
     ],
   },
   {

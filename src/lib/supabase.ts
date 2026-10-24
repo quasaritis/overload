@@ -15,7 +15,7 @@ export const IMAGE_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exerci
 export function humanError(e: unknown): string {
   const msg = (e as { message?: string })?.message ?? String(e);
   if (/Invalid login credentials/i.test(msg)) return 'That email and password don’t match. Check both, or reset your password.';
-  if (/Email not confirmed/i.test(msg)) return 'Confirm your email first — the link is in your inbox.';
+  if (/Email not confirmed/i.test(msg)) return 'Confirm your email first. The link is in your inbox.';
   if (/User already registered/i.test(msg)) return 'There’s already an account with this email. Sign in instead.';
   if (/Password should be at least/i.test(msg)) return 'Use at least 6 characters for your password.';
   if (/rate limit/i.test(msg)) return 'Too many attempts in a short time. Wait a minute and try again.';

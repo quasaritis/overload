@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Plus, Search, X } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 import { getExercises, createCustomExercise } from '../lib/data';
 import type { ExerciseLite, Track } from '../lib/types';
 import { ErrorLine, Loading, Thumb, useDebounced } from './ui';
 import { useApp } from '../lib/app';
 import { humanError } from '../lib/supabase';
+import { Sheet, type SheetHandle } from './Sheet';
 
 export const MUSCLES = ['chest', 'shoulders', 'triceps', 'biceps', 'lats', 'middle back', 'lower back', 'traps', 'quadriceps', 'hamstrings', 'glutes', 'calves', 'abdominals', 'forearms', 'adductors', 'abductors', 'neck'];
 export const EQUIPMENT = ['barbell', 'dumbbell', 'cable', 'machine', 'body only', 'kettlebells', 'bands', 'e-z curl bar', 'other'];
@@ -43,59 +44,51 @@ export function ExercisePicker({ onPick, onClose, title = 'Add exercise' }: { on
   const [creating, setCreating] = useState(false);
   const dq = useDebounced(q, 120);
   const inputRef = useRef<HTMLInputElement>(null);
+  const sheet = useRef<SheetHandle>(null);
+  // Close with the slide-out, and hand the pick over straight away.
+  const pick = (e: ExerciseLite) => {
+    sheet.current?.close();
+    onPick(e);
+  };
 
   useEffect(() => {
     getExercises().then(setAll).catch((e) => setErr(humanError(e)));
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
-    window.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
+  }, []);
 
   const results = useMemo(() => (all ? filterExercises(all, dq, muscle, null).slice(0, 120) : []), [all, dq, muscle]);
 
-  return (
+  const head = (
     <>
-      <div className="panel-backdrop" onClick={onClose} />
-      <div className="panel" role="dialog" aria-modal="true" aria-label={title}>
-        <div className="panel-head">
-          <div className="row between">
-            <h2 className="t-head">{title}</h2>
-            <button className="btn icon ghost" onClick={onClose} aria-label="Close">
-              <X />
-            </button>
-          </div>
-          <label className="field" style={{ position: 'relative' }}>
-            <span className="sr-only">Search exercises</span>
-            <Search aria-hidden style={{ position: 'absolute', left: 14, top: 15, width: 18, height: 18, color: 'var(--chalk-3)' }} />
-            <input
-              ref={inputRef}
-              className="input"
-              style={{ paddingLeft: 42 }}
-              placeholder="Search 900+ exercises — e.g. incline press"
-              value={q}
-              onChange={(e) => setQ(e.target.value)}
-              autoFocus
-            />
-          </label>
-          <div className="chips" role="group" aria-label="Filter by muscle">
-            {MUSCLES.slice(0, 13).map((m) => (
-              <button key={m} className="chip" aria-pressed={muscle === m} onClick={() => setMuscle(muscle === m ? null : m)}>
-                {m}
-              </button>
-            ))}
-          </div>
-        </div>
-        <div className="panel-body">
+      <label className="field search-field">
+        <span className="sr-only">Search exercises</span>
+        <Search aria-hidden />
+        <input
+          ref={inputRef}
+          className="input"
+          placeholder="Search 900+ exercises, e.g. incline press"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          autoFocus
+        />
+      </label>
+      <div className="chips" role="group" aria-label="Filter by muscle">
+        {MUSCLES.slice(0, 13).map((m) => (
+          <button key={m} className="chip" aria-pressed={muscle === m} onClick={() => setMuscle(muscle === m ? null : m)}>
+            {m}
+          </button>
+        ))}
+      </div>
+    </>
+  );
+
+  return (
+    <Sheet ref={sheet} title={title} onClose={onClose} head={head}>
           <ErrorLine>{err}</ErrorLine>
           {!all && !err && <Loading label="Loading exercises" />}
           {all && (
             <div className="list" style={{ borderTop: 0 }}>
               {results.map((e) => (
-                <button key={e.id} className="list-item" onClick={() => onPick(e)}>
+                <button key={e.id} className="list-item" onClick={() => pick(e)}>
                   <Thumb ex={e} size={48} />
                   <span className="grow">
                     <span className="title" style={{ display: 'block' }}>{e.name}</span>
@@ -120,7 +113,7 @@ export function ExercisePicker({ onPick, onClose, title = 'Add exercise' }: { on
                     onCancel={() => setCreating(false)}
                     onCreate={async (input) => {
                       const ex = await createCustomExercise(user!.id, input);
-                      onPick(ex);
+                      pick(ex);
                     }}
                   />
                 ) : (
@@ -131,9 +124,7 @@ export function ExercisePicker({ onPick, onClose, title = 'Add exercise' }: { on
               </div>
             </div>
           )}
-        </div>
-      </div>
-    </>
+    </Sheet>
   );
 }
 

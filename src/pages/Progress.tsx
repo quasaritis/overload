@@ -5,7 +5,7 @@ import { useApp } from '../lib/app';
 import { allSetsFor, bodyMetrics, deleteBodyweight, getExercises, logBodyweight, loggedExerciseIds, recentSessions, setsSince } from '../lib/data';
 import { e1rm } from '../lib/progression';
 import type { BodyMetric, ExerciseLite } from '../lib/types';
-import { ErrorLine, Loading, relDate } from '../components/ui';
+import { ErrorLine, Loading, PageHead, SectionHead, relDate } from '../components/ui';
 import { LineChart } from '../components/LineChart';
 import { fmtVolume, fromDisplay, toDisplay, fmtNum } from '../lib/units';
 import { humanError } from '../lib/supabase';
@@ -123,26 +123,27 @@ export default function Progress() {
 
   return (
     <div>
-      <header className="page-head">
-        <div>
-          <h1 className="t-title">Progress</h1>
-          <p className="sub">Is the bar getting heavier? Here’s the answer.</p>
-        </div>
-      </header>
+      <PageHead
+        title="Progress"
+        sub={recent.length
+          ? `${recent.length}${recent.length === 60 ? '+' : ''} workout${recent.length === 1 ? '' : 's'} since ${new Date(recent[recent.length - 1].started_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}`
+          : 'Nothing logged yet. Finish a workout and it shows up here.'}
+      />
       <ErrorLine>{err}</ErrorLine>
 
       <section aria-labelledby="lift-h">
-        <div className="row between" style={{ flexWrap: 'wrap', marginBottom: 'var(--s-4)' }}>
-          <h2 id="lift-h" className="t-head">Lift progress</h2>
-          {logged.length > 0 && (
-            <label className="field" style={{ minWidth: 0, flex: '0 1 340px' }}>
+        <SectionHead
+          id="lift-h"
+          title="Lift progress"
+          action={logged.length > 0 ? (
+            <label className="field section-pick">
               <span className="sr-only">Exercise</span>
               <select className="select" value={pick} onChange={(e) => setPick(e.target.value)}>
                 {logged.map((x) => <option key={x.id} value={x.id}>{exMap.get(x.id)?.name} ({x.count} sets)</option>)}
               </select>
             </label>
-          )}
-        </div>
+          ) : undefined}
+        />
         {logged.length === 0 ? (
           <p className="muted">Finish a workout and your lifts will chart here.</p>
         ) : !series ? <Loading /> : points.length < 2 ? (
@@ -167,30 +168,31 @@ export default function Progress() {
         )}
       </section>
 
-      <div style={{ display: 'grid', gap: 'var(--s-7)', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', marginTop: 'var(--s-7)' }}>
+      <div className="pair section">
         <section aria-labelledby="vol-h">
-          <h2 id="vol-h" className="t-head">Weekly volume</h2>
-          <p className="faint t-small" style={{ marginTop: 4 }}>Weight × reps, working sets, last 8 weeks ({unit})</p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 6, alignItems: 'end', height: 160, marginTop: 'var(--s-4)' }} role="img" aria-label="Weekly volume for the last 8 weeks">
+          <SectionHead id="vol-h" title="Weekly volume" sub={`Weight × reps of working sets, last 8 weeks (${unit})`} />
+          <div className="vol" role="img" aria-label={`Weekly volume for the last 8 weeks. This week ${fmtVolume(weeks[7].volume, unit)} ${unit}.`}>
             {weeks.map((wk, i) => (
-              <div key={i} style={{ display: 'grid', gap: 6, alignItems: 'end', height: '100%', gridTemplateRows: '1fr auto' }} title={`${fmtVolume(wk.volume, unit)} ${unit} · ${wk.sets} sets`}>
-                <div style={{ alignSelf: 'end', height: `${Math.max(2, (wk.volume / maxVol) * 100)}%`, background: i === 7 ? 'var(--haldi)' : 'var(--data)', borderRadius: '3px 3px 0 0', transformOrigin: 'bottom', animation: 'grow-y 700ms var(--ease-out)' }} />
-                <span className="faint" style={{ fontSize: 11, textAlign: 'center' }}>{wk.start.toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric' })}</span>
+              <div key={i} className={`vol-col${i === 7 ? ' now' : ''}`} title={`${fmtVolume(wk.volume, unit)} ${unit} · ${wk.sets} sets`}>
+                {wk.volume > 0 && <span className="vol-bar" style={{ height: `${(wk.volume / maxVol) * 100}%`, animationDelay: `${i * 35}ms` }} />}
               </div>
             ))}
           </div>
-          <style>{'@keyframes grow-y { from { transform: scaleY(0); } }'}</style>
-          <p className="t-small muted" style={{ marginTop: 10 }}>This week: <b className="num" style={{ color: 'var(--chalk)', fontSize: '1.0625rem' }}>{fmtVolume(weeks[7].volume, unit)} {unit}</b> across {weeks[7].sets} sets</p>
+          <div className="vol-x" aria-hidden>
+            {weeks.map((wk, i) => (
+              <span key={i} className={i === 7 ? 'now' : undefined}>{i === 7 ? 'This wk' : wk.start.toLocaleDateString('en-IN', { day: 'numeric', month: 'numeric' })}</span>
+            ))}
+          </div>
+          <p className="t-small muted" style={{ marginTop: 'var(--s-3)' }}>This week <b className="num" style={{ color: 'var(--chalk)' }}>{fmtVolume(weeks[7].volume, unit)} {unit}</b> across {weeks[7].sets} sets</p>
         </section>
 
         <section aria-labelledby="mus-h">
-          <h2 id="mus-h" className="t-head">Sets per muscle</h2>
-          <p className="faint t-small" style={{ marginTop: 4 }}>Working sets in the last 7 days. 10–20 a week is the usual range for growth.</p>
-          <div className="stack" style={{ marginTop: 'var(--s-4)', gap: 6 }}>
+          <SectionHead id="mus-h" title="Sets per muscle" sub="Working sets in the last 7 days. 10–20 a week is the usual range for growth." />
+          <div className="stack" style={{ gap: 6 }}>
             {muscles.length === 0 ? <p className="muted">Nothing logged this week yet.</p> : muscles.map(([m, n]) => (
               <div key={m} className="hbar">
                 <span className="k">{m}</span>
-                <span className="track"><span className="fill" style={{ display: 'block', width: `${(n / maxMuscle) * 100}%`, background: n >= 10 ? 'var(--gain)' : 'var(--data)' }} /></span>
+                <span className="track"><span className={`fill${n >= 10 ? ' in-range' : ''}`} style={{ display: 'block', width: `${(n / maxMuscle) * 100}%` }} /></span>
                 <span className="v num">{n}</span>
               </div>
             ))}
@@ -199,8 +201,8 @@ export default function Progress() {
       </div>
 
       <section className="section" aria-labelledby="bw-h">
-        <h2 id="bw-h" className="t-head">Body weight</h2>
-        <form className="row" onSubmit={addBw} style={{ marginTop: 'var(--s-4)', flexWrap: 'wrap', alignItems: 'flex-end' }}>
+        <SectionHead id="bw-h" title="Body weight" />
+        <form className="row" onSubmit={addBw} style={{ flexWrap: 'wrap', alignItems: 'flex-end' }}>
           <label className="field" style={{ width: 140 }}>
             <span>Weight ({unit})</span>
             <input className="input num" inputMode="decimal" value={bwInput} onChange={(e) => setBwInput(e.target.value.replace(/[^0-9.]/g, ''))} placeholder={bw.length ? fmtNum(toDisplay(bw[bw.length - 1].weight_kg, unit), 1) : '0.0'} />
@@ -213,7 +215,7 @@ export default function Progress() {
         </form>
         {bw.length > 1 && (
           <div style={{ marginTop: 'var(--s-5)' }}>
-            <LineChart points={bw.map((b) => ({ t: new Date(b.measured_on).getTime(), y: Number(b.weight_kg) }))} fmt={(v) => fmtNum(toDisplay(v, unit), 1)} color="var(--chalk-2)" highlightMax={false} height={180} />
+            <LineChart points={bw.map((b) => ({ t: new Date(b.measured_on).getTime(), y: Number(b.weight_kg) }))} fmt={(v) => fmtNum(toDisplay(v, unit), 1)} color="var(--chalk-3)" highlightMax={false} height={180} />
           </div>
         )}
         {bw.length > 0 && (
@@ -233,9 +235,9 @@ export default function Progress() {
       </section>
 
       <section className="section" aria-labelledby="hist-h">
-        <h2 id="hist-h" className="t-head">History</h2>
-        {recent.length === 0 ? <p className="muted" style={{ marginTop: 12 }}>No finished workouts yet.</p> : (
-          <div className="list" style={{ marginTop: 'var(--s-4)' }}>
+        <SectionHead id="hist-h" title="History" />
+        {recent.length === 0 ? <p className="muted">No finished workouts yet.</p> : (
+          <div className="list">
             {recent.map((s) => {
               const done = s.sets.filter((x) => x.done && !x.is_warmup);
               const vol = done.reduce((a, x) => a + Number(x.weight_kg ?? 0) * (x.reps ?? 0), 0);

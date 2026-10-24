@@ -8,7 +8,7 @@ import { prescribe, e1rm, isBarbell, type Prescription, type Target } from '../l
 import { DEFAULT_TARGET } from '../lib/workout';
 import { fromDisplay, toDisplay, fmtNum, fmtVolume, fmtDuration } from '../lib/units';
 import type { ExerciseLite, PlanExercise, Session, SetRow, Track } from '../lib/types';
-import { Barbell, ErrorLine, Lights, Loading, relDate } from '../components/ui';
+import { Barbell, ErrorLine, HoldButton, Lights, Loading, SectionHead, relDate, verdictText } from '../components/ui';
 import { ExercisePicker } from '../components/ExercisePicker';
 
 type Draft = { w: string; r: string; t: string };
@@ -27,7 +27,7 @@ export default function Workout() {
   const [err, setErr] = useState('');
   const [picker, setPicker] = useState(false);
   const [menu, setMenu] = useState<string | null>(null);
-  const [rest, setRest] = useState<{ ends: number; total: number; label: string } | null>(null);
+  const [rest, setRest] = useState<Rest | null>(null);
   const [finishing, setFinishing] = useState<'idle' | 'confirm' | 'busy'>('idle');
   const [summary, setSummary] = useState<{ prs: PR[]; sets: number; volume: number; minutes: number } | null>(null);
 
@@ -112,7 +112,7 @@ export default function Workout() {
     if (!row.is_warmup) {
       const secs = targets.get(row.exercise_id)?.rest_seconds ?? (ex?.mechanic === 'isolation' ? 90 : 150);
       const next = rows.find((r) => r.set_index > row.set_index && !r.done);
-      const label = next ? `Next: set ${next.set_index + 1} of ${ex?.name ?? ''}` : `${ex?.name ?? 'Exercise'} done — move on when ready`;
+      const label = next ? `Next: set ${next.set_index + 1} of ${ex?.name ?? ''}` : `${ex?.name ?? 'Exercise'} done. Move on when ready`;
       if (secs > 0) setRest({ ends: Date.now() + secs * 1000, total: secs, label });
     }
     if (navigator.vibrate) navigator.vibrate(15);
@@ -152,7 +152,6 @@ export default function Workout() {
   }
 
   async function addExercise(ex: ExerciseLite) {
-    setPicker(false);
     try {
       const h = await historyFor([ex.id], id);
       setHist((m) => new Map(m).set(ex.id, h.get(ex.id) ?? []));
@@ -232,9 +231,9 @@ export default function Workout() {
 
       {finishing === 'confirm' && (
         <div className="notice stack" style={{ marginBottom: 'var(--s-5)' }} role="alert">
-          <p><b>Nothing logged yet.</b> Tick at least one set to save this workout, or throw it away.</p>
-          <div className="row">
-            <button className="btn danger" onClick={discard}><Trash2 /> Discard workout</button>
+          <p><b>Nothing logged yet.</b> Tick at least one set to save this workout, or hold the button to throw it away.</p>
+          <div className="row" style={{ flexWrap: 'wrap' }}>
+            <HoldButton onConfirm={discard} hint="Press and hold to discard this workout"><Trash2 /> Hold to discard</HoldButton>
             <button className="btn ghost" onClick={() => setFinishing('idle')}>Keep going</button>
           </div>
         </div>
@@ -377,7 +376,7 @@ export default function Workout() {
 
       <div className="stack" style={{ marginTop: 'var(--s-6)' }}>
         <button className="btn lg" onClick={() => setPicker(true)}><Plus /> Add exercise</button>
-        <button className="btn ghost" onClick={() => setFinishing('confirm')} style={{ justifySelf: 'start' }}>Discard workout</button>
+        <HoldButton className="btn ghost danger-ghost" onConfirm={discard} hint="Press and hold to discard this workout"><Trash2 /> Hold to discard workout</HoldButton>
       </div>
 
       {picker && <ExercisePicker onPick={addExercise} onClose={() => setPicker(false)} />}
@@ -403,9 +402,7 @@ function AttemptBoard({ rx, track, equipment, unit, barKg, w }: { rx: Prescripti
     <div className="board" style={{ marginTop: 'var(--s-4)', padding: 'var(--s-4)' }}>
       <div className="row between" style={{ alignItems: 'flex-start', flexWrap: 'wrap', gap: 8 }}>
         <span className="lbl">Next attempt</span>
-        <span className={`verdict ${rx.verdict}`}>
-          {rx.verdict === 'add' ? `+${w(rx.deltaKg)} ${unit}` : rx.verdict === 'deload' ? `Reset ${w(rx.deltaKg)} ${unit}` : rx.verdict === 'start' ? 'First session' : rx.verdict === 'hold' ? 'Hold weight' : 'Chase reps'}
-        </span>
+        <span className={`verdict ${rx.verdict}`}>{verdictText(rx, w, unit)}</span>
       </div>
       <div className="attempt num" style={{ fontSize: 'clamp(2.5rem, 11vw, 3.5rem)' }}>
         {track === 'time' ? (
@@ -438,31 +435,44 @@ function Clock({ since, sets }: { since: string; sets: number }) {
   );
 }
 
-function RestBar({ rest, onChange }: { rest: { ends: number; total: number; label: string }; onChange: (r: { ends: number; total: number; label: string } | null) => void }) {
+type Rest = { ends: number; total: number; label: string };
+
+function RestBar({ rest, onChange }: { rest: Rest; onChange: (r: Rest | null) => void }) {
   const [now, setNow] = useState(Date.now());
+  const [leaving, setLeaving] = useState(false);
   const buzzed = useRef(false);
+  const bye = useRef<number | undefined>(undefined);
   useEffect(() => {
     buzzed.current = false;
+    setLeaving(false);
+    window.clearTimeout(bye.current);
     const t = setInterval(() => setNow(Date.now()), 250);
     return () => clearInterval(t);
   }, [rest.ends]);
+  useEffect(() => () => window.clearTimeout(bye.current), []);
+  // Slide down out of the way, then unmount.
+  const dismiss = useCallback(() => {
+    setLeaving(true);
+    window.clearTimeout(bye.current);
+    bye.current = window.setTimeout(() => onChange(null), 200);
+  }, [onChange]);
   const left = Math.round((rest.ends - now) / 1000);
   useEffect(() => {
     if (left <= 0 && !buzzed.current) {
       buzzed.current = true;
       if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
     }
-    if (left < -60) onChange(null);
-  }, [left, onChange]);
+    if (left < -60 && !leaving) dismiss();
+  }, [left, leaving, dismiss]);
   const over = left <= 0;
-  const pct = Math.max(0, Math.min(100, (1 - (rest.ends - now) / (rest.total * 1000)) * 100));
+  const done = Math.max(0, Math.min(1, 1 - (rest.ends - now) / (rest.total * 1000)));
   return (
-    <div className={`rest${over ? ' over' : ''}`} role="timer" aria-live="off">
-      <span className="t num">{over ? 'GO' : fmtDuration(left)}</span>
+    <div className={`rest${over ? ' over' : ''}${leaving ? ' leaving' : ''}`} role="timer" aria-live="off">
+      <span className="t num">{over ? 'Lift' : fmtDuration(left)}</span>
       <span className="lbl">{over ? 'Rest is up. ' : ''}{rest.label}</span>
       {!over && <button className="btn sm" onClick={() => onChange({ ...rest, ends: rest.ends + 30000, total: rest.total + 30 })} aria-label="Add 30 seconds">+30</button>}
-      <button className="btn sm icon" onClick={() => onChange(null)} aria-label="Close rest timer"><X /></button>
-      <span className="bar-fill" style={{ width: `${pct}%` }} />
+      <button className="btn sm icon" onClick={dismiss} aria-label="Close rest timer"><X /></button>
+      <span className="bar-fill" style={{ transform: `scaleX(${done})` }} />
     </div>
   );
 }
@@ -499,36 +509,39 @@ async function findPRs(done: SetRow[], sessionId: string, exMap: Map<string, Exe
 }
 
 function Summary({ s, unit, onDone }: { s: { prs: PR[]; sets: number; volume: number; minutes: number }; unit: 'kg' | 'lb'; onDone: () => void }) {
+  // The one celebration in the app: the stamp lands, the tally chalks itself in, then the numbers and records arrive in turn.
+  const after = 260 + s.sets * 110;
+  const d = (i: number) => ({ animationDelay: `${after + i * 70}ms` });
   return (
-    <div className="stack-lg" style={{ paddingTop: 'var(--s-5)' }}>
+    <div className="stack-lg summary" style={{ paddingTop: 'var(--s-5)' }}>
       <div>
         <p className="t-sign shabash" lang="hi" aria-hidden>शाबाश!</p>
         <h1 className="t-display">Good lift.</h1>
       </div>
-      <Lights count={s.sets} on={s.sets} size="lg" />
+      <Lights count={s.sets} on={s.sets} size="lg" seq />
       <div className="facts">
-        <div className="fact"><span className="v num">{s.minutes}</span><span className="k">minutes</span></div>
-        <div className="fact"><span className="v num">{s.sets}</span><span className="k">working sets</span></div>
-        <div className="fact"><span className="v num">{fmtVolume(s.volume, unit)}</span><span className="k">{unit} moved</span></div>
+        <div className="fact rise" style={d(0)}><span className="v num">{s.minutes}</span><span className="k">minutes</span></div>
+        <div className="fact rise" style={d(1)}><span className="v num">{s.sets}</span><span className="k">working sets</span></div>
+        <div className="fact rise" style={d(2)}><span className="v num">{fmtVolume(s.volume, unit)}</span><span className="k">{unit} moved</span></div>
       </div>
       {s.prs.length > 0 ? (
-        <section className="stack">
-          <h2 className="t-head">Records</h2>
+        <section>
+          <SectionHead title={s.prs.length === 1 ? 'New record' : `${s.prs.length} new records`} />
           <div className="list">
             {s.prs.map((p, i) => (
-              <div key={i} className="list-item">
-                <Trophy aria-hidden style={{ color: 'var(--haldi)', width: 22 }} />
+              <div key={i} className="list-item rise" style={d(3 + i)}>
+                <Trophy aria-hidden style={{ color: 'var(--haldi)', width: 22, flex: 'none' }} />
                 <span className="grow">
                   <span className="title" style={{ display: 'block' }}>{p.name}</span>
                   <span className="meta" style={{ textTransform: 'none' }}>{p.kind}</span>
                 </span>
-                <span className="num" style={{ fontSize: '1.5rem', fontWeight: 600 }}>{p.value}</span>
+                <span className="num pr-value">{p.value}</span>
               </div>
             ))}
           </div>
         </section>
       ) : (
-        <p className="muted" style={{ maxWidth: '52ch' }}>No new records this time. Your next attempts are already set from what you just lifted.</p>
+        <p className="muted rise" style={{ maxWidth: '52ch', ...d(3) }}>No new records this time. Your next attempts are already set from what you just lifted.</p>
       )}
       <button className="btn primary lg" onClick={onDone} style={{ justifySelf: 'start' }}>Done</button>
     </div>

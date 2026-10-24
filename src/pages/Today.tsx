@@ -6,7 +6,7 @@ import { getActivePlan, nextDay, historyFor, openSession, recentSessions, getExe
 import { isBarbell, prescribe, type Prescription } from '../lib/progression';
 import { startWorkout } from '../lib/workout';
 import type { ExerciseLite, PlanDay, PlanExercise, Session } from '../lib/types';
-import { Barbell, Brandmark, ErrorLine, Loading, relDate } from '../components/ui';
+import { Barbell, ErrorLine, Loading, PageHead, SectionHead, relDate, verdictText } from '../components/ui';
 import { humanError } from '../lib/supabase';
 import { fmtVolume } from '../lib/units';
 import { dailyTotals } from '../lib/foodData';
@@ -87,13 +87,10 @@ export default function Today() {
 
   return (
     <div>
-      <header className="topbar">
-        <Brandmark />
-        <p className="t-label">{today}</p>
-      </header>
-      <h1 className="t-display" style={{ marginBottom: 'var(--s-5)' }}>
-        {open ? 'Back to the bar' : day ? day.name : hello ? `Ready, ${hello}` : 'Today'}
-      </h1>
+      <PageHead
+        title={open ? 'Back to the bar' : day ? day.name : hello ? `Ready, ${hello}` : 'Today'}
+        sub={plan && !open ? `${today} · ${plan.plan.name}` : today}
+      />
 
       <ErrorLine>{err}</ErrorLine>
 
@@ -169,7 +166,7 @@ export default function Today() {
       {!open && !plan && (
         <div className="empty" style={{ paddingTop: 0 }}>
           <h3>No active plan</h3>
-          <p className="muted" style={{ maxWidth: '52ch' }}>Pick a starter plan or build your own. Labour Chowk needs a plan to call your next attempt — or just log a free workout.</p>
+          <p className="muted" style={{ maxWidth: '52ch' }}>Labour Chowk calls your next attempt from a plan. Pick a starter plan or build your own, or log a free workout.</p>
           <div className="row" style={{ flexWrap: 'wrap' }}>
             <Link to="/plans" className="btn primary lg">Choose a plan <ArrowRight /></Link>
             <button className="btn lg" onClick={() => start(false)} disabled={starting}><Plus /> Empty workout</button>
@@ -179,10 +176,7 @@ export default function Today() {
 
       {food && (
         <section className="section">
-          <div className="row between" style={{ marginBottom: 'var(--s-4)' }}>
-            <h2 className="t-head">Food today</h2>
-            <Link to="/food" className="btn ghost sm">{food.kcal ? 'Open log' : 'Log food'} <ArrowRight /></Link>
-          </div>
+          <SectionHead title="Food today" action={<Link to="/food" className="btn ghost sm">{food.kcal ? 'Open log' : 'Log food'} <ArrowRight /></Link>} />
           <div className="facts">
             <div className="fact">
               <span className="v num">{Math.round(food.kcal).toLocaleString('en-IN')}{profile?.kcal_target ? <span className="faint" style={{ fontSize: '0.6em' }}> / {profile.kcal_target.toLocaleString('en-IN')}</span> : null}</span>
@@ -197,8 +191,8 @@ export default function Today() {
       )}
 
       <section className="section">
-        <h2 className="t-head">This week</h2>
-        <div className="facts" style={{ marginTop: 'var(--s-4)' }}>
+        <SectionHead title="This week" />
+        <div className="facts">
           <div className="fact"><span className="v num">{thisWeek.length}</span><span className="k">sessions</span></div>
           <div className="fact"><span className="v num">{weekSets.length}</span><span className="k">working sets</span></div>
           <div className="fact"><span className="v num">{fmtVolume(weekVolume, unit)}</span><span className="k">{unit} moved</span></div>
@@ -206,10 +200,7 @@ export default function Today() {
       </section>
 
       <section className="section">
-        <div className="row between" style={{ marginBottom: 'var(--s-3)' }}>
-          <h2 className="t-head">Recent sessions</h2>
-          {recent.length > 0 && <Link to="/progress" className="btn ghost sm">All history</Link>}
-        </div>
+        <SectionHead title="Recent sessions" action={recent.length > 0 ? <Link to="/progress" className="btn ghost sm">All history</Link> : undefined} />
         {recent.length === 0 ? (
           <p className="muted">Your finished workouts show up here.</p>
         ) : (
@@ -234,8 +225,6 @@ export default function Today() {
   );
 }
 
-const VERDICT: Record<Prescription['verdict'], string> = { add: 'Add weight', hold: 'Hold weight', reps: 'Chase a rep', deload: 'Reset −10%', start: 'First session' };
-
 /** The day's first lift, chalked up on the slate. */
 function HeroLift({ pe, ex, p, w, unit, barKg }: { pe: PlanExercise; ex?: ExerciseLite; p?: Prescription; w: (kg: number) => string; unit: string; barKg: number }) {
   const track = ex?.track ?? 'weight_reps';
@@ -246,7 +235,7 @@ function HeroLift({ pe, ex, p, w, unit, barKg }: { pe: PlanExercise; ex?: Exerci
         <p className="lift">
           <Link to={`/exercises/${pe.exercise_id}`}>{ex?.name ?? pe.exercise_id}</Link>
         </p>
-        {p && <span className={`verdict ${p.verdict}`}>{p.verdict === 'add' ? `+${w(p.deltaKg)} ${unit}` : VERDICT[p.verdict]}</span>}
+        {p && <span className={`verdict ${p.verdict}`}>{verdictText(p, w, unit)}</span>}
       </div>
       {p ? (
         <div className="attempt num" aria-label={track === 'time' ? `${p.durationS} seconds` : p.weightKg != null ? `${w(p.weightKg)} ${unit} for ${p.reps} reps` : `${p.reps} reps`}>
@@ -261,24 +250,26 @@ function HeroLift({ pe, ex, p, w, unit, barKg }: { pe: PlanExercise; ex?: Exerci
       ) : (
         <div className="attempt num" aria-hidden style={{ opacity: 0.4 }}>…</div>
       )}
-      <p className="muted t-small reason">
-        {pe.target_sets} sets of {pe.rep_min === pe.rep_max ? pe.rep_min : `${pe.rep_min}–${pe.rep_max}`}. {p?.reason ?? ''}
-      </p>
-      {showBar && <div style={{ marginTop: 'var(--s-4)' }}><Barbell totalKg={p!.weightKg!} barKg={barKg} unit={unit as 'kg' | 'lb'} /></div>}
+      <div className="hero-grid">
+        <p className="muted t-small reason">
+          {pe.target_sets} sets of {pe.rep_min === pe.rep_max ? pe.rep_min : `${pe.rep_min}–${pe.rep_max}`}. {p?.reason ?? ''}
+        </p>
+        {showBar && <Barbell totalKg={p!.weightKg!} barKg={barKg} unit={unit as 'kg' | 'lb'} />}
+      </div>
     </div>
   );
 }
 
 function Attempt({ p, track, w, unit }: { p: Prescription; track?: string; w: (kg: number) => string; unit: string }) {
   if (track === 'time') return <span className="attempt-sm">{p.durationS}<span className="u"> s</span></span>;
+  if (p.weightKg == null && track !== 'bodyweight') return <span className="attempt-note">Pick a weight for {p.reps}</span>;
   return (
     <div style={{ display: 'grid', justifyItems: 'end', gap: 4 }}>
       <span className="attempt-sm">
-        {p.weightKg != null ? <>{w(p.weightKg)}<span className="u"> {unit}</span> × </> : track === 'bodyweight' ? 'BW × ' : 'Find weight × '}
+        {p.weightKg != null ? <>{w(p.weightKg)}<span className="u"> {unit}</span> × </> : 'BW × '}
         {p.reps}
       </span>
-      {p.verdict === 'add' && <span className="verdict add">+{w(p.deltaKg)} {unit}</span>}
-      {p.verdict === 'deload' && <span className="verdict deload">Reset −10%</span>}
+      {(p.verdict === 'add' || p.verdict === 'deload') && <span className={`verdict ${p.verdict}`}>{verdictText(p, w, unit)}</span>}
     </div>
   );
 }

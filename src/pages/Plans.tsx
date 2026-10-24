@@ -4,7 +4,7 @@ import { ArrowRight, Plus } from 'lucide-react';
 import { listPlans, createPlan, createPlanFromTemplate, setActivePlan } from '../lib/data';
 import { TEMPLATES } from '../lib/templates';
 import type { Plan } from '../lib/types';
-import { ErrorLine, Loading } from '../components/ui';
+import { ErrorLine, Loading, PageHead, SectionHead } from '../components/ui';
 import { humanError } from '../lib/supabase';
 import { useApp } from '../lib/app';
 
@@ -27,12 +27,7 @@ export default function Plans() {
 
   return (
     <div>
-      <header className="page-head">
-        <div>
-          <h1 className="t-title">Plans</h1>
-          <p className="sub">The active plan decides what Today puts on the bar.</p>
-        </div>
-      </header>
+      <PageHead title="Plans" sub="The active plan decides what Today puts on the bar." />
       <ErrorLine>{err}</ErrorLine>
 
       {!plans ? <Loading /> : plans.length === 0 ? (
@@ -44,7 +39,7 @@ export default function Plans() {
               <Link to={`/plans/${p.id}`} className="grow" style={{ textDecoration: 'none' }}>
                 <span className="row" style={{ gap: 10 }}>
                   <span className="title">{p.name}</span>
-                  {p.is_active && <span className="pr-mark">Active</span>}
+                  {p.is_active && <span className="tag on">Active</span>}
                 </span>
                 <span className="meta" style={{ textTransform: 'none' }}>Created {new Date(p.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>
               </Link>
@@ -60,8 +55,8 @@ export default function Plans() {
       )}
 
       <section className="section">
-        <h2 className="t-head">Start from a template</h2>
-        <div className="list" style={{ marginTop: 'var(--s-4)' }}>
+        <SectionHead title="Start from a template" />
+        <div className="list">
           {TEMPLATES.map((t) => (
             <div key={t.key} className="list-item" style={{ alignItems: 'flex-start', padding: '18px 4px' }}>
               <span className="grow" style={{ display: 'grid', gap: 4 }}>
@@ -81,10 +76,10 @@ export default function Plans() {
       </section>
 
       <section className="section">
-        <h2 className="t-head">Build your own</h2>
+        <SectionHead title="Build your own" />
         <form
           className="row"
-          style={{ marginTop: 'var(--s-4)', flexWrap: 'wrap' }}
+          style={{ flexWrap: 'wrap' }}
           onSubmit={(e) => {
             e.preventDefault();
             if (!name.trim()) return setErr('Name the plan first.');
@@ -93,7 +88,7 @@ export default function Plans() {
         >
           <label className="field" style={{ flex: '1 1 240px' }}>
             <span className="sr-only">Plan name</span>
-            <input className="input" placeholder="Plan name — e.g. Bro split" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
+            <input className="input" placeholder="Plan name, e.g. Bro split" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
           </label>
           <button className="btn primary" disabled={busy === 'new'}><Plus /> Create plan</button>
         </form>

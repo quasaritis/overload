@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import { getExercises } from '../lib/data';
 import type { ExerciseLite } from '../lib/types';
-import { ErrorLine, Loading, Thumb, useDebounced } from '../components/ui';
+import { ErrorLine, Loading, PageHead, Thumb, useDebounced } from '../components/ui';
 import { EQUIPMENT, MUSCLES, filterExercises } from '../components/ExercisePicker';
 import { humanError } from '../lib/supabase';
 
@@ -32,18 +32,13 @@ export default function Library() {
 
   return (
     <div>
-      <header className="page-head">
-        <div>
-          <h1 className="t-title">Exercises</h1>
-          <p className="sub">{all ? `${all.length} movements with form cues, from barbell basics to machines.` : 'The full library.'}</p>
-        </div>
-      </header>
+      <PageHead title="Exercises" sub={all ? `${all.length} movements with form cues, from barbell basics to machines.` : 'Loading the library…'} />
 
-      <div className="stack" style={{ position: 'sticky', top: 0, zIndex: 5, background: 'var(--stage)', paddingTop: 8, paddingBottom: 12, marginTop: -8 }}>
-        <label className="field" style={{ position: 'relative' }}>
+      <div className="stack filter-bar">
+        <label className="field search-field">
           <span className="sr-only">Search exercises</span>
-          <Search aria-hidden style={{ position: 'absolute', left: 14, top: 15, width: 18, height: 18, color: 'var(--chalk-3)' }} />
-          <input className="input" style={{ paddingLeft: 42 }} placeholder="Search by name, muscle or equipment" value={q} onChange={(e) => setQ(e.target.value)} type="search" />
+          <Search aria-hidden />
+          <input className="input" placeholder="Search by name, muscle or equipment" value={q} onChange={(e) => setQ(e.target.value)} type="search" />
         </label>
         <div className="chips" role="group" aria-label="Muscle">
           {MUSCLES.map((m) => (

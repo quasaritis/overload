@@ -4,7 +4,8 @@ import { useApp } from '../lib/app';
 import { updateProfile } from '../lib/data';
 import { supabase, humanError } from '../lib/supabase';
 import { fromDisplay, toDisplay, fmtNum } from '../lib/units';
-import { ErrorLine } from '../components/ui';
+import { ErrorLine, PageHead, Seg } from '../components/ui';
+import { EXPERIENCE, GOALS, UNITS } from '../lib/labels';
 import type { Profile, Unit } from '../lib/types';
 
 export default function ProfilePage() {
@@ -57,12 +58,7 @@ export default function ProfilePage() {
 
   return (
     <div style={{ maxWidth: 560 }}>
-      <header className="page-head">
-        <div>
-          <h1 className="t-title">{p.display_name || 'Your profile'}</h1>
-          <p className="sub">{user?.email}</p>
-        </div>
-      </header>
+      <PageHead title={p.display_name || 'Your profile'} sub={user?.email} />
       <form className="stack-lg" onSubmit={save}>
         <label className="field">
           <span>Name</span>
@@ -70,10 +66,7 @@ export default function ProfilePage() {
         </label>
         <div className="field">
           <span>Units</span>
-          <div className="seg block" role="group" aria-label="Units">
-            <button type="button" aria-pressed={unit === 'kg'} onClick={() => switchUnit('kg')}>Kilograms</button>
-            <button type="button" aria-pressed={unit === 'lb'} onClick={() => switchUnit('lb')}>Pounds</button>
-          </div>
+          <Seg block label="Units" value={unit} onChange={switchUnit} options={UNITS} />
           <span className="hint">Everything is stored in kilograms and shown in your choice, so switching never changes your history.</span>
         </div>
         <div className="grid-2">
@@ -93,26 +86,19 @@ export default function ProfilePage() {
         </label>
         <div className="field">
           <span>Experience</span>
-          <div className="seg block" role="group" aria-label="Experience">
-            {(['new', 'intermediate', 'advanced'] as const).map((x) => (
-              <button key={x} type="button" aria-pressed={experience === x} onClick={() => setExperience(x)}>{x === 'new' ? 'Under 1 yr' : x === 'intermediate' ? '1–3 yrs' : '3+ yrs'}</button>
-            ))}
-          </div>
+          <Seg block label="Experience" value={experience} onChange={setExperience} options={EXPERIENCE} />
         </div>
         <div className="field">
           <span>Goal</span>
-          <div className="seg block" role="group" aria-label="Goal">
-            {(['strength', 'hypertrophy', 'general'] as const).map((x) => (
-              <button key={x} type="button" aria-pressed={goal === x} onClick={() => setGoal(x)}>{x === 'strength' ? 'Strength' : x === 'hypertrophy' ? 'Size' : 'Fitness'}</button>
-            ))}
-          </div>
+          <Seg block label="Goal" value={goal} onChange={setGoal} options={GOALS} />
         </div>
         <ErrorLine>{err}</ErrorLine>
         <button className="btn primary lg" disabled={busy} style={{ justifySelf: 'start' }}>{busy ? 'Saving…' : 'Save profile'}</button>
       </form>
 
-      <div className="divider" style={{ marginTop: 'var(--s-7)' }} />
-      <button className="btn" onClick={() => supabase.auth.signOut()}><LogOut /> Sign out</button>
+      <div className="danger-zone">
+        <button className="btn" onClick={() => supabase.auth.signOut()}><LogOut /> Sign out</button>
+      </div>
     </div>
   );
 }

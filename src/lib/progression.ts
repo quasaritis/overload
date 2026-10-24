@@ -64,7 +64,7 @@ export function prescribe(
     const minReps = Math.min(...last.map((s) => s.reps ?? 0));
     const allTop = last.length >= t.target_sets && last.every((s) => (s.reps ?? 0) >= t.rep_max);
     if (allTop) {
-      return { weightKg: null, reps: t.rep_max + 1, verdict: 'add', reason: `You cleared ${t.rep_max} on every set. Push past the range — or add load with a belt or vest.`, deltaKg: 0 };
+      return { weightKg: null, reps: t.rep_max + 1, verdict: 'add', reason: `You cleared ${t.rep_max} on every set. Go past the range, or hang a plate off a dip belt.`, deltaKg: 0 };
     }
     return { weightKg: null, reps: Math.min(t.rep_max, minReps + 1), verdict: 'reps', reason: `Beat your weakest set from last time (${minReps}). One more rep each set.`, deltaKg: 0 };
   }
@@ -105,7 +105,7 @@ export function prescribe(
       weightKg: top,
       reps: t.rep_min,
       verdict: 'hold',
-      reason: `You fell short of ${t.rep_min} reps last time. Same weight — own every rep.`,
+      reason: `You fell short of ${t.rep_min} reps last time. Same weight. Own every rep.`,
       deltaKg: 0,
     };
   }
@@ -116,7 +116,7 @@ export function prescribe(
     weightKg: top,
     reps: target,
     verdict: 'reps',
-    reason: `Same weight. Your weakest set was ${weakest} — aim for ${target} on every set.`,
+    reason: `Same weight. Your weakest set was ${weakest}. Get ${target} on every set.`,
     deltaKg: 0,
   };
 }

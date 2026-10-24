@@ -194,6 +194,60 @@ d('kulfi', 'Kulfi', '', 'sweets', 'v', 'piece', 70, { fullcream_milk: 140, sugar
 d('modak', 'Modak (steamed)', 'ukadiche modak', 'sweets', 'v', 'piece', 45, { rice_flour: 15, coconut: 12, jaggery: 10, ghee: 2 });
 d('chikki', 'Peanut chikki', 'gajak', 'sweets', 'v', 'piece', 25, { peanuts: 13, jaggery: 12 });
 
+/* ── Fruits ── (edible weight: peeled, seeded, pulp only) */
+d('fruit_apple', 'Apple', 'seb', 'fruits', 'v', 'apple', 150, { apple: 150 }, [['1 katori slices', 110]]);
+d('fruit_banana', 'Banana', 'kela', 'fruits', 'v', 'banana', 100, { banana: 100 }, [['small banana', 70], ['large banana', 130]]);
+d('fruit_orange', 'Orange (santra)', 'santra kinnow', 'fruits', 'v', 'orange', 130, { orange: 130 });
+d('fruit_mosambi', 'Mosambi (sweet lime)', 'mosumbi sweet lime', 'fruits', 'v', 'mosambi', 130, { mosambi: 130 });
+d('fruit_guava', 'Guava (amrood)', 'amrud peru', 'fruits', 'v', 'guava', 150, { guava: 150 });
+d('fruit_mango', 'Mango', 'aam alphonso kesar', 'fruits', 'v', 'mango', 200, { mango: 200 }, [['1 katori slices', 150]]);
+d('fruit_papaya', 'Papaya', 'papita', 'fruits', 'v', 'katori', 140, { papaya: 140 });
+d('fruit_watermelon', 'Watermelon (tarbooz)', 'tarbuj', 'fruits', 'v', 'katori', 150, { watermelon: 150 }, [['1 slice', 280]]);
+d('fruit_muskmelon', 'Muskmelon (kharbooja)', 'kharbuja cantaloupe', 'fruits', 'v', 'katori', 150, { muskmelon: 150 });
+d('fruit_pineapple', 'Pineapple', 'ananas', 'fruits', 'v', 'katori', 140, { pineapple: 140 });
+d('fruit_pomegranate', 'Pomegranate (anar)', 'anaar', 'fruits', 'v', 'katori', 100, { pomegranate: 100 }, [['1 pomegranate', 170]]);
+d('fruit_grapes', 'Grapes, green', 'angoor', 'fruits', 'v', 'katori', 100, { grapes: 100 });
+d('fruit_grapes_black', 'Grapes, black', 'kale angoor', 'fruits', 'v', 'katori', 100, { grapes_black: 100 });
+d('fruit_chikoo', 'Chikoo (sapota)', 'sapota chiku', 'fruits', 'v', 'chikoo', 90, { chikoo: 90 });
+d('fruit_litchi', 'Litchi', 'lychee', 'fruits', 'v', 'litchi', 15, { litchi: 15 }, [['10 litchis', 150]]);
+d('fruit_strawberry', 'Strawberries', 'strawberry', 'fruits', 'v', 'katori', 120, { strawberry: 120 });
+d('fruit_pear', 'Pear (nashpati)', 'nashpati', 'fruits', 'v', 'pear', 160, { pear: 160 });
+d('fruit_sitaphal', 'Custard apple (sitaphal)', 'sitafal sharifa', 'fruits', 'v', 'sitaphal', 100, { custard_apple: 100 });
+d('fruit_jackfruit', 'Jackfruit (ripe bulbs)', 'kathal', 'fruits', 'v', 'katori', 150, { jackfruit: 150 });
+d('fruit_kiwi', 'Kiwi', 'kiwifruit', 'fruits', 'v', 'kiwi', 75, { kiwi: 75 });
+d('fruit_blueberries', 'Blueberries', '', 'fruits', 'v', 'katori', 100, { blueberries: 100 });
+d('fruit_plum', 'Plum (aloo bukhara)', 'aloo bukhara', 'fruits', 'v', 'plum', 65, { plum: 65 });
+d('fruit_peach', 'Peach (aadoo)', 'aadu', 'fruits', 'v', 'peach', 150, { peach: 150 });
+d('fruit_cherries', 'Cherries', 'cherry', 'fruits', 'v', 'katori', 100, { cherries: 100 }, [['10 cherries', 70]]);
+d('fruit_amla', 'Amla', 'awla gooseberry', 'fruits', 'v', 'amla', 30, { amla: 30 });
+d('fruit_ber', 'Ber', 'bor jujube', 'fruits', 'v', 'katori', 100, { ber: 100 });
+d('fruit_fig', 'Fig, fresh (anjeer)', 'anjir', 'fruits', 'v', 'fig', 50, { fig: 50 });
+d('fruit_avocado', 'Avocado', 'butter fruit', 'fruits', 'v', 'half avocado', 70, { avocado: 70 });
+d('fruit_nungu', 'Ice apple (tadgola / nungu)', 'tadgola nungu', 'fruits', 'v', 'piece', 40, { nungu: 40 });
+d('fruit_star', 'Star fruit (kamrakh)', 'kamrakh', 'fruits', 'v', 'fruit', 90, { star_fruit: 90 });
+d('fruit_phalsa', 'Phalsa', 'falsa', 'fruits', 'v', 'katori', 100, { phalsa: 100 });
+d('fruit_chaat', 'Fruit chaat', 'fruit bowl fruit salad', 'fruits', 'v', 'katori', 170, { apple: 40, banana: 40, papaya: 40, guava: 30, pomegranate: 20 });
+
+/* ── Dry fruits & nuts ── (a handful is about 25 g) */
+d('dry_almonds', 'Almonds (badam)', 'badam', 'dryfruits', 'v', 'handful', 25, { almond: 25 }, [['piece', 1.2], ['soaked, 10', 12]]);
+d('dry_cashews', 'Cashews (kaju)', 'kaju', 'dryfruits', 'v', 'handful', 25, { cashew: 25 }, [['piece', 1.5]]);
+d('dry_walnuts', 'Walnuts (akhrot)', 'akhrot', 'dryfruits', 'v', 'handful', 25, { walnut: 25 }, [['walnut (2 halves)', 5]]);
+d('dry_pistachios', 'Pistachios (pista)', 'pista', 'dryfruits', 'v', 'handful', 25, { pistachio: 25 });
+d('dry_peanuts', 'Peanuts, roasted (moongphali)', 'groundnut moongfali shengdana', 'dryfruits', 'v', 'handful', 30, { peanuts: 30 });
+d('dry_raisins', 'Raisins (kishmish)', 'kishmish', 'dryfruits', 'v', 'tbsp', 10, { raisins: 10 }, [['handful', 25]]);
+d('dry_munakka', 'Black raisins (munakka)', 'munakka', 'dryfruits', 'v', 'munakka', 2, { munakka: 2 }, [['handful', 25]]);
+d('dry_dates', 'Dates (khajoor)', 'khajur', 'dryfruits', 'v', 'date', 8, { dates: 8 });
+d('dry_anjeer', 'Dried figs (anjeer)', 'anjir', 'dryfruits', 'v', 'anjeer', 10, { anjeer_dry: 10 });
+d('dry_apricots', 'Dried apricots (khubani)', 'khurmani jardalu', 'dryfruits', 'v', 'apricot', 8, { apricot_dry: 8 });
+d('dry_prunes', 'Prunes', 'dried plums', 'dryfruits', 'v', 'prune', 9.5, { prunes: 9.5 });
+d('dry_makhana', 'Makhana, roasted', 'phool makhana fox nuts', 'dryfruits', 'v', 'katori', 20, { makhana: 15, ghee: 3 });
+d('dry_chilgoza', 'Pine nuts (chilgoza)', 'chilgoza', 'dryfruits', 'v', 'tbsp', 9, { pine_nuts: 9 });
+d('dry_coconut', 'Dry coconut (copra)', 'khopra gola', 'dryfruits', 'v', 'tbsp grated', 6, { coconut_dry: 6 });
+d('dry_mix', 'Mixed dry fruits', 'trail mix dry fruit mix', 'dryfruits', 'v', 'handful', 30, { almond: 8, cashew: 6, walnut: 5, raisins: 6, pistachio: 5 });
+d('dry_seed_mix', 'Seed mix (pumpkin, sunflower, flax, chia)', 'seeds', 'dryfruits', 'v', 'tbsp', 10, { pumpkin_seeds: 3, sunflower_seeds: 3, flaxseed: 2, chia: 2 });
+d('dry_pumpkin_seeds', 'Pumpkin seeds', 'kaddu ke beej', 'dryfruits', 'v', 'tbsp', 9, { pumpkin_seeds: 9 });
+d('dry_dates_stuffed', 'Dates stuffed with almonds', 'khajoor badam', 'dryfruits', 'v', 'date', 10, { dates: 8, almond: 2 });
+
 /* ── Drinks ── */
 d('chai', 'Chai (with milk & sugar)', 'masala tea cutting', 'drinks', 'v', 'cup', 150, { toned_milk: 60, sugar: 7 }, [['Cutting (½ cup)', 75]]);
 d('coffee_milk', 'Coffee with milk & sugar', 'filter coffee nescafe', 'drinks', 'v', 'cup', 150, { toned_milk: 90, sugar: 7 });

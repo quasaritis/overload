@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
 import { getExercise, allSetsFor } from '../lib/data';
 import { e1rm } from '../lib/progression';
 import { IMAGE_BASE, humanError } from '../lib/supabase';
 import type { Exercise, SetRow } from '../lib/types';
-import { ErrorLine, Loading, relDate } from '../components/ui';
+import { ErrorLine, Loading, PageHead, SectionHead, cap, relDate } from '../components/ui';
 import { LineChart } from '../components/LineChart';
 import { useApp } from '../lib/app';
 import { fmtVolume } from '../lib/units';
@@ -73,25 +72,23 @@ export default function ExerciseDetail() {
 
   return (
     <div>
-      <button className="btn ghost sm" style={{ marginLeft: -8, marginBottom: 12 }} onClick={() => (window.history.length > 1 ? nav(-1) : nav('/exercises'))}>
-        <ChevronLeft /> Back
-      </button>
-      <header className="page-head" style={{ marginBottom: 'var(--s-5)' }}>
-        <div>
-          <h1 className="t-title">{ex.name}</h1>
-          <div className="row" style={{ flexWrap: 'wrap', gap: 6, marginTop: 12 }}>
-            {ex.primary_muscles.map((m) => <Link key={m} to={`/exercises?muscle=${encodeURIComponent(m)}`} className="tag" style={{ textDecoration: 'none', background: 'var(--chalk)', color: 'var(--stage)' }}>{m}</Link>)}
-            {ex.secondary_muscles.map((m) => <span key={m} className="tag">{m}</span>)}
-            {ex.equipment && <span className="tag">{ex.equipment}</span>}
-            {ex.level && <span className="tag">{ex.level}</span>}
-            {ex.mechanic && <span className="tag">{ex.mechanic}</span>}
-          </div>
-        </div>
-      </header>
+      <PageHead
+        back={{ label: 'Back', onClick: () => (window.history.length > 1 ? nav(-1) : nav('/exercises')) }}
+        title={ex.name}
+        sub={
+          <span className="tags">
+            {ex.primary_muscles.map((m) => <Link key={m} to={`/exercises?muscle=${encodeURIComponent(m)}`} className="tag on">{cap(m)}</Link>)}
+            {ex.secondary_muscles.map((m) => <span key={m} className="tag">{cap(m)}</span>)}
+            {ex.equipment && <span className="tag">{cap(ex.equipment)}</span>}
+            {ex.level && <span className="tag">{cap(ex.level)}</span>}
+            {ex.mechanic && <span className="tag">{cap(ex.mechanic)}</span>}
+          </span>
+        }
+      />
 
       {stats.sessions.length > 0 ? (
         <section aria-labelledby="your-h">
-          <h2 id="your-h" className="t-head" style={{ marginBottom: 'var(--s-4)' }}>Your record</h2>
+          <SectionHead id="your-h" title="Your record" />
           <div className="facts">
             {track === 'weight_reps' && (
               <>
@@ -106,27 +103,27 @@ export default function ExerciseDetail() {
 
           {track === 'weight_reps' && stats.sessions.length > 1 && (
             <div style={{ marginTop: 'var(--s-5)' }}>
-              <p className="t-label" style={{ marginBottom: 8 }}>Estimated 1RM per session</p>
+              <h3 className="t-sub">Estimated 1RM per session</h3>
               <LineChart points={stats.sessions.map((s) => ({ t: s.t, y: s.e1, note: `${w(Number(s.best.weight_kg))}×${s.best.reps}` }))} fmt={(v) => w(v)} />
             </div>
           )}
 
           {track === 'weight_reps' && stats.repMaxes.size > 0 && (
             <div style={{ marginTop: 'var(--s-5)' }}>
-              <p className="t-label" style={{ marginBottom: 8 }}>Best weight at each rep count</p>
-              <div className="row" style={{ flexWrap: 'wrap', gap: 8 }}>
+              <h3 className="t-sub">Best weight at each rep count ({unit})</h3>
+              <div className="rm-strip">
                 {[...stats.repMaxes.entries()].sort((a, b) => a[0] - b[0]).map(([r, kg]) => (
-                  <span key={r} className="board" style={{ padding: '10px 14px', display: 'grid', gap: 2, minWidth: 84 }}>
-                    <span className="faint t-small">{r} rep{r > 1 ? 's' : ''}</span>
-                    <span className="num" style={{ fontSize: '1.375rem', fontWeight: 600 }}>{w(kg)}</span>
-                  </span>
+                  <div key={r}>
+                    <span className="k">{r} rep{r > 1 ? 's' : ''}</span>
+                    <span className="v num">{w(kg)}</span>
+                  </div>
                 ))}
               </div>
             </div>
           )}
 
           <div style={{ marginTop: 'var(--s-5)' }}>
-            <p className="t-label" style={{ marginBottom: 8 }}>Recent sessions</p>
+            <h3 className="t-sub">Recent sessions</h3>
             <div className="list">
               {[...stats.sessions].reverse().slice(0, 8).map((s) => (
                 <Link key={s.sessionId} to={`/history/${s.sessionId}`} className="list-item" style={{ minHeight: 56 }}>
@@ -142,22 +139,22 @@ export default function ExerciseDetail() {
           </div>
         </section>
       ) : (
-        <p className="notice muted">You haven’t logged this yet. Add it to a plan or a workout and your numbers will build up here.</p>
+        <p className="notice muted">You haven’t logged this yet. Add it to a plan or a workout and your numbers build up here.</p>
       )}
 
       <section className="section" aria-labelledby="how-h">
-        <h2 id="how-h" className="t-head" style={{ marginBottom: 'var(--s-4)' }}>How to do it</h2>
+        <SectionHead id="how-h" title="How to do it" />
         <div style={{ display: 'grid', gap: 'var(--s-5)', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', alignItems: 'start' }}>
           {ex.images.length > 0 && (
             <figure style={{ margin: 0 }}>
-              <div style={{ position: 'relative', aspectRatio: '4 / 3', borderRadius: 12, overflow: 'hidden', background: 'var(--stage-2)' }}>
+              <div className="flipbook">
                 {ex.images.map((src, i) => (
                   <img
                     key={src}
                     src={IMAGE_BASE + src}
                     alt={i === 0 ? `${ex.name}, start position` : `${ex.name}, end position`}
                     loading="lazy"
-                    style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: i === frame ? 1 : 0, transition: 'opacity 250ms' }}
+                    className={i === frame ? 'on' : undefined}
                   />
                 ))}
               </div>

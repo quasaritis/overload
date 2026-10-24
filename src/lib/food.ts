@@ -82,6 +82,8 @@ export const DISH_CATS: { id: string; label: string }[] = [
   { id: 'thali', label: 'Thalis & combos' },
   { id: 'snacks', label: 'Snacks & street food' },
   { id: 'sweets', label: 'Sweets' },
+  { id: 'fruits', label: 'Fruits' },
+  { id: 'dryfruits', label: 'Dry fruits & nuts' },
   { id: 'drinks', label: 'Drinks' },
   { id: 'sides', label: 'Raita, chutney, sides' },
 ];
@@ -93,7 +95,7 @@ export const ING_GROUPS: { id: string; label: string }[] = [
   { id: 'protein', label: 'Eggs, meat, fish' },
   { id: 'dairy', label: 'Milk & dairy' },
   { id: 'fats', label: 'Oil & ghee' },
-  { id: 'nuts', label: 'Nuts & seeds' },
+  { id: 'nuts', label: 'Dry fruits, nuts & seeds' },
   { id: 'fruit', label: 'Fruit' },
   { id: 'sweet', label: 'Sugar & sweets' },
   { id: 'drinks', label: 'Drinks' },

@@ -4,7 +4,8 @@ import { useApp } from '../lib/app';
 import { updateProfile, createPlanFromTemplate } from '../lib/data';
 import { TEMPLATES } from '../lib/templates';
 import { fromDisplay } from '../lib/units';
-import { ErrorLine } from '../components/ui';
+import { ErrorLine, Seg } from '../components/ui';
+import { EXPERIENCE, GOALS, UNITS } from '../lib/labels';
 import { humanError } from '../lib/supabase';
 import type { Profile, Unit } from '../lib/types';
 
@@ -68,10 +69,7 @@ export default function Welcome() {
           </label>
           <div className="field">
             <span>You load the bar in</span>
-            <div className="seg block" role="group" aria-label="Units">
-              <button type="button" aria-pressed={unit === 'kg'} onClick={() => setUnit('kg')}>Kilograms</button>
-              <button type="button" aria-pressed={unit === 'lb'} onClick={() => setUnit('lb')}>Pounds</button>
-            </div>
+            <Seg block label="Units" value={unit} onChange={setUnit} options={UNITS} />
           </div>
           <div className="grid-2">
             <label className="field">
@@ -92,23 +90,11 @@ export default function Welcome() {
           <h1 className="t-title">How do you train?</h1>
           <div className="field">
             <span>Time under the bar</span>
-            <div className="seg block" role="group" aria-label="Experience">
-              {(['new', 'intermediate', 'advanced'] as const).map((x) => (
-                <button key={x} type="button" aria-pressed={experience === x} onClick={() => setExperience(x)}>
-                  {x === 'new' ? 'Under 1 yr' : x === 'intermediate' ? '1–3 yrs' : '3+ yrs'}
-                </button>
-              ))}
-            </div>
+            <Seg block label="Experience" value={experience} onChange={setExperience} options={EXPERIENCE} />
           </div>
           <div className="field">
             <span>Main goal</span>
-            <div className="seg block" role="group" aria-label="Goal">
-              {(['strength', 'hypertrophy', 'general'] as const).map((x) => (
-                <button key={x} type="button" aria-pressed={goal === x} onClick={() => setGoal(x)}>
-                  {x === 'strength' ? 'Strength' : x === 'hypertrophy' ? 'Size' : 'Fitness'}
-                </button>
-              ))}
-            </div>
+            <Seg block label="Goal" value={goal} onChange={setGoal} options={GOALS} />
           </div>
           <div className="row">
             <button className="btn primary lg" onClick={() => { setTemplate(experience === 'new' ? 'fb3' : goal === 'hypertrophy' ? 'ppl6' : 'ul4'); setStep(2); }}>

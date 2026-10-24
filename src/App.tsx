@@ -19,7 +19,7 @@ const Progress = lazy(() => import('./pages/Progress'));
 const SessionDetail = lazy(() => import('./pages/SessionDetail'));
 const ProfilePage = lazy(() => import('./pages/Profile'));
 
-function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }) {
+function Shell({ children, wide, focus }: { children: React.ReactNode; wide?: boolean; focus?: boolean }) {
   return (
     <div className="shell">
       <nav className="nav" aria-label="Main">
@@ -43,7 +43,10 @@ function Shell({ children, wide }: { children: React.ReactNode; wide?: boolean }
           <UserRound aria-hidden /> Profile
         </NavLink>
       </nav>
-      <main className={`main${wide ? ' wide' : ''}`}>{children}</main>
+      <main className={`main${wide ? ' wide' : ''}`}>
+        {!focus && <header className="appbar"><Brandmark /></header>}
+        {children}
+      </main>
     </div>
   );
 }
@@ -71,7 +74,7 @@ export default function App() {
   if (!profile.onboarded) return <Welcome />;
 
   return (
-    <Shell wide={loc.pathname.startsWith('/progress')}>
+    <Shell wide={loc.pathname.startsWith('/progress')} focus={loc.pathname.startsWith('/workout')}>
       <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Today />} />

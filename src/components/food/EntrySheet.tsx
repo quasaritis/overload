@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Trash2 } from 'lucide-react';
 import { MEALS, fmtQty, scale, type Meal } from '../../lib/food';
 import { deleteEntry, updateEntry } from '../../lib/foodData';
 import { humanError } from '../../lib/supabase';
 import type { FoodEntry } from '../../lib/types';
-import { ErrorLine } from '../ui';
-import { Sheet, Stepper } from '../Sheet';
+import { ErrorLine, HoldButton } from '../ui';
+import { Sheet, Stepper, type SheetHandle } from '../Sheet';
 import { Readout, kcalFmt } from './bits';
 
 /** Change how much / which meal, or remove an entry. */
@@ -15,6 +15,7 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
   const [meal, setMeal] = useState<Meal>(entry.meal);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+  const sheet = useRef<SheetHandle>(null);
 
   const base = Number(entry.qty) || 1;
   const k = qty / base;
@@ -31,7 +32,7 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
         kcal: Math.round(n.kcal), protein_g: r1(n.p), carbs_g: r1(n.c), fat_g: r1(n.f), fibre_g: r1(n.fb),
       });
       onChanged(next);
-      onClose();
+      sheet.current?.close();
     } catch (e) {
       setErr(humanError(e));
       setBusy(false);
@@ -43,7 +44,7 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
     try {
       await deleteEntry(entry);
       onDeleted(entry.id);
-      onClose();
+      sheet.current?.close();
     } catch (e) {
       setErr(humanError(e));
       setBusy(false);
@@ -51,7 +52,7 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
   }
 
   return (
-    <Sheet title="Edit entry" onClose={onClose}>
+    <Sheet ref={sheet} title="Edit entry" onClose={onClose}>
       <div className="stack-lg" style={{ paddingTop: 'var(--s-4)' }}>
         {photoUrl && <img className="entry-photo" src={photoUrl} alt={entry.name} />}
         <div>
@@ -98,7 +99,7 @@ export function EntrySheet({ entry, photoUrl, onClose, onChanged, onDeleted }: {
         <ErrorLine>{err}</ErrorLine>
         <div className="row" style={{ flexWrap: 'wrap' }}>
           <button className="btn primary lg" onClick={save} disabled={busy}>{busy ? 'Saving…' : 'Save changes'}</button>
-          <button className="btn danger lg" onClick={remove} disabled={busy}><Trash2 /> Remove</button>
+          <HoldButton className="btn danger lg" ms={700} onConfirm={remove} disabled={busy} hint="Press and hold to remove this entry"><Trash2 /> Hold to remove</HoldButton>
         </div>
       </div>
     </Sheet>

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { ArrowDown, ArrowUp, ChevronLeft, Plus, Trash2 } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react';
 import { supabase, humanError } from '../lib/supabase';
 import { check, getPlan, getExercises, setActivePlan } from '../lib/data';
 import type { ExerciseLite, Plan, PlanDay, PlanExercise } from '../lib/types';
-import { ErrorLine, Loading, Thumb } from '../components/ui';
+import { ErrorLine, HoldButton, Loading, PageHead, Thumb } from '../components/ui';
 import { ExercisePicker } from '../components/ExercisePicker';
 import { useApp } from '../lib/app';
 import { defaultIncrementKg, fromDisplay, toDisplay, fmtNum } from '../lib/units';
@@ -20,7 +20,6 @@ export default function PlanEdit() {
   const [err, setErr] = useState('');
   const [pickFor, setPickFor] = useState<string | null>(null);
   const [open, setOpen] = useState<string | null>(null);
-  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const load = useCallback(async () => {
     if (!id) return;
@@ -74,7 +73,6 @@ export default function PlanEdit() {
   }
 
   async function addExercise(dayId: string, ex: ExerciseLite) {
-    setPickFor(null);
     const pos = exs.filter((e) => e.plan_day_id === dayId).length;
     const compound = ex.mechanic === 'compound' && (ex.equipment === 'barbell' || ex.equipment === 'machine');
     const row = (await q(
@@ -134,24 +132,19 @@ export default function PlanEdit() {
 
   return (
     <div>
-      <Link to="/plans" className="btn ghost sm" style={{ marginLeft: -8, marginBottom: 12 }}><ChevronLeft /> Plans</Link>
-      <header className="page-head" style={{ alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        <label className="field" style={{ flex: '1 1 260px' }}>
-          <span className="sr-only">Plan name</span>
-          <input
-            className="t-title"
-            defaultValue={plan.name}
-            onBlur={(e) => renamePlan(e.target.value)}
-            maxLength={80}
-            style={{ background: 'transparent', border: 0, borderBottom: '1px dashed var(--rule-strong)', padding: '4px 0', width: '100%', color: 'var(--chalk)' }}
-          />
-        </label>
-        {plan.is_active ? (
-          <span className="pr-mark" style={{ height: 30, padding: '0 12px' }}>Active plan</span>
-        ) : (
+      <PageHead
+        back={{ label: 'Plans', to: '/plans' }}
+        titleSlot={
+          <label className="field">
+            <span className="sr-only">Plan name</span>
+            <input className="t-title title-input" defaultValue={plan.name} onBlur={(e) => renamePlan(e.target.value)} maxLength={80} />
+          </label>
+        }
+        sub={plan.is_active ? 'Active plan. Today calls your next attempt from it.' : 'Not active. Today uses your active plan.'}
+        actions={plan.is_active ? undefined : (
           <button className="btn" onClick={async () => { await setActivePlan(plan.id); setPlan({ ...plan, is_active: true }); toast(`${plan.name} is now active`); }}>Make active</button>
         )}
-      </header>
+      />
 
       <ErrorLine>{err}</ErrorLine>
 
@@ -164,13 +157,7 @@ export default function PlanEdit() {
             <div className="row between" style={{ gap: 8 }}>
               <label className="field" style={{ flex: 1 }}>
                 <span className="sr-only">Day name</span>
-                <input
-                  className="ex-name"
-                  defaultValue={day.name}
-                  onBlur={(e) => renameDay(day, e.target.value)}
-                  maxLength={60}
-                  style={{ background: 'transparent', border: 0, padding: '2px 0', width: '100%', color: 'var(--chalk)' }}
-                />
+                <input className="ex-name title-input" defaultValue={day.name} onBlur={(e) => renameDay(day, e.target.value)} maxLength={60} />
               </label>
               <button className="btn sm icon ghost" aria-label="Move day up" disabled={di === 0} onClick={() => moveDay(day, -1)}><ArrowUp /></button>
               <button className="btn sm icon ghost" aria-label="Move day down" disabled={di === days.length - 1} onClick={() => moveDay(day, 1)}><ArrowDown /></button>
@@ -226,16 +213,10 @@ export default function PlanEdit() {
         <button className="btn lg" onClick={addDay} style={{ justifySelf: 'start' }}><Plus /> Add training day</button>
       </div>
 
-      <div className="divider" style={{ marginTop: 'var(--s-7)' }} />
-      {confirmDelete ? (
-        <div className="row" style={{ flexWrap: 'wrap' }}>
-          <span className="muted">Delete {plan.name}? Workouts you’ve logged stay in your history.</span>
-          <button className="btn danger" onClick={deletePlan}><Trash2 /> Delete plan</button>
-          <button className="btn ghost" onClick={() => setConfirmDelete(false)}>Keep it</button>
-        </div>
-      ) : (
-        <button className="btn danger" onClick={() => setConfirmDelete(true)}><Trash2 /> Delete plan</button>
-      )}
+      <div className="danger-zone">
+        <HoldButton onConfirm={deletePlan} hint={`Press and hold to delete ${plan.name}`}><Trash2 /> Hold to delete plan</HoldButton>
+        <p className="faint t-small">Workouts you’ve logged with it stay in your history.</p>
+      </div>
 
       {pickFor && <ExercisePicker title={`Add to ${days.find((d) => d.id === pickFor)?.name ?? 'day'}`} onPick={(e) => addExercise(pickFor, e)} onClose={() => setPickFor(null)} />}
     </div>

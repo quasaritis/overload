@@ -7,7 +7,7 @@ export function LineChart({
   points,
   fmt,
   height = 220,
-  color = 'var(--data-soft)',
+  color = 'var(--chalk)',
   highlightMax = true,
 }: {
   points: Pt[];
@@ -28,14 +28,16 @@ export function LineChart({
     const ys = points.map((p) => p.y);
     const t0 = Math.min(...ts);
     const t1 = Math.max(...ts);
-    let y0 = Math.min(...ys);
-    let y1 = Math.max(...ys);
-    const span = y1 - y0 || Math.max(1, y1 * 0.1);
-    y0 = Math.max(0, y0 - span * 0.15);
-    y1 = y1 + span * 0.15;
+    // Round ticks (…, 60, 65, 70) that sit just outside the data, so the line never touches the frame.
+    const lo = Math.min(...ys);
+    const hi = Math.max(...ys);
+    const step = niceStep(((hi - lo) || Math.max(1, hi * 0.1)) / 3);
+    const y0 = Math.max(0, Math.floor(lo / step) * step - (lo % step === 0 ? step : 0));
+    const y1 = Math.ceil(hi / step) * step + (hi % step === 0 ? step : 0);
     const x = (t: number) => pad.l + (t1 === t0 ? (W - pad.l - pad.r) / 2 : ((t - t0) / (t1 - t0)) * (W - pad.l - pad.r));
     const y = (v: number) => pad.t + (1 - (v - y0) / (y1 - y0)) * (H - pad.t - pad.b);
-    const ticks = [0, 0.5, 1].map((f) => y0 + f * (y1 - y0));
+    const ticks: number[] = [];
+    for (let v = y0; v <= y1 + step / 2; v += step) ticks.push(v);
     const maxI = ys.indexOf(Math.max(...ys));
     const d = points.map((p, i) => `${i ? 'L' : 'M'}${x(p.t).toFixed(1)},${y(p.y).toFixed(1)}`).join(' ');
     const dates = [t0, t1].filter((v, i, a) => a.indexOf(v) === i);
@@ -84,7 +86,7 @@ export function LineChart({
         ))}
         <path d={geo.d} fill="none" stroke={color} strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
         {points.map((p, i) => (
-          <circle key={i} cx={geo.x(p.t)} cy={geo.y(p.y)} r={hover === i ? 6 : points.length > 40 ? 0 : 3.5} fill={color} />
+          <circle key={i} cx={geo.x(p.t)} cy={geo.y(p.y)} r={hover === i ? 6 : points.length > 12 ? 0 : 3} fill={color} />
         ))}
         {highlightMax && (
           <circle cx={geo.x(points[geo.maxI].t)} cy={geo.y(points[geo.maxI].y)} r={7} fill="none" stroke="var(--haldi)" strokeWidth={2} />
@@ -99,4 +101,10 @@ export function LineChart({
       )}
     </div>
   );
+}
+
+function niceStep(raw: number) {
+  const p = 10 ** Math.floor(Math.log10(raw));
+  const f = raw / p;
+  return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p;
 }
